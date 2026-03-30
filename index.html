@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3ULT // COMING SOON...</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -18,71 +18,72 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            gap: 35px; /* Magiczna wartość: równe odstępy w pionie między elementami */
+            gap: 35px; /* Równe odstępy w pionie między elementami */
         }
 
-        /* Wspólna klasa dla gotyckiego stylu */
+        /* Wspólna klasa dla grubego, gotyckiego stylu */
         .gothic-text {
-            font-family: 'UnifrakturMaguntia', cursive;
+            font-family: 'UnifrakturCook', cursive;
+            font-weight: 700;
         }
 
         img {
             max-width: 350px;
             width: 80%;
             height: auto;
-            opacity: 0; /* Zaczyna jako niewidoczne */
-            animation: fadeIn 2.0s ease-out forwards; /* Spowolniona animacja loga */
+            opacity: 0; 
+            animation: fadeIn 2.0s ease-out forwards; 
         }
 
-        /* Styl dla całego bloku COMING SOON */
         .coming-soon-container {
             color: #990000; 
-            font-size: 28px;
+            font-size: 32px; /* Lekko powiększone, żeby Fette Fraktur robiło wrażenie */
             letter-spacing: 4px;
-            text-transform: uppercase; /* Wielkie litery */
+            text-transform: uppercase; 
             display: flex;
-            gap: 15px; /* Odstęp między słowami */
+            gap: 15px; 
         }
 
-        /* Styl dla słowa COMING */
         .coming-text {
             opacity: 0;
-            animation: fadeIn 2.0s ease-out 1.0s forwards; /* Startuje 1.0s po logo, wolniej */
+            animation: fadeIn 2.0s ease-out 1.0s forwards; 
         }
 
-        /* Styl dla słowa SOON... */
         .soon-text {
             opacity: 0;
-            animation: fadeIn 2.0s ease-out 2.5s forwards; /* Startuje 2.5s po logo, wolniej */
+            animation: fadeIn 2.0s ease-out 2.5s forwards; 
         }
 
         .part-of-it {
             color: #000000;
-            font-size: 24px;
+            font-size: 26px; /* Trochę większe proporcje do nowej czcionki */
             letter-spacing: 2px;
             text-transform: lowercase;
             opacity: 0;
-            animation: fadeIn 2.0s ease-out 4.0s forwards; /* Startuje 4.0s po logo, wolniej */
+            animation: fadeIn 2.0s ease-out 4.0s forwards; 
         }
 
-        /* Styl samego licznika */
+        /* "Seamless" licznik */
         .countdown {
             display: flex;
             gap: 20px;
-            font-size: 32px;
+            font-size: 36px;
             color: #000000;
             opacity: 0;
-            animation: fadeIn 2.0s ease-out 5.5s forwards; /* Startuje na końcu, wolniej */
+            animation: fadeIn 2.0s ease-out 5.5s forwards; 
         }
 
-        /* Blok dla pojedynczej liczby w liczniku */
         .countdown div {
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 65px; /* Stała szerokość kontenera na cyfry - blokuje "skakanie" */
         }
 
-        /* Etykiety pod liczbami (dni, godz, min, sek) */
+        .countdown-number {
+            font-variant-numeric: tabular-nums; /* Monospacowanie cyfr dla płynności */
+        }
+
         .countdown span {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 10px;
@@ -92,7 +93,6 @@
             margin-top: 5px;
         }
 
-        /* Stopka, teraz ładnie przyklejona do dołu */
         .footer {
             position: absolute;
             bottom: 20px;
@@ -100,10 +100,9 @@
             color: #999;
             letter-spacing: 3px;
             opacity: 0;
-            animation: fadeIn 2.0s ease-out 7.0s forwards; /* Stopka wyłania się ostatnia */
+            animation: fadeIn 2.0s ease-out 7.0s forwards; 
         }
 
-        /* Definicja animacji: łagodne pojawienie się z lekkim ruchem w górę */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -132,28 +131,26 @@
     <div class="footer">3ULT // 2026 // COMING SOON...</div>
 
     <script>
-        // Ustaw datę końcową: 23 kwietnia 2026, godzina 00:00:00
         const countDownDate = new Date("Apr 23, 2026 00:00:00").getTime();
 
-        // Aktualizuj licznik co 1 sekundę
         const x = setInterval(function() {
             const now = new Date().getTime();
             const distance = countDownDate - now;
 
-            // Obliczenia dla dni, godzin, minut i sekund
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Wyświetlenie wyniku w kontenerze
-            document.getElementById("countdown").innerHTML = 
-                "<div>" + days + "<span>dni</span></div>" + 
-                "<div>" + hours + "<span>godz</span></div>" + 
-                "<div>" + minutes + "<span>min</span></div>" + 
-                "<div>" + seconds + "<span>sek</span></div>";
+            // Funkcja do zera wiodącego (09 zamiast 9)
+            const formatTime = (time) => time < 10 ? "0" + time : time;
 
-            // Co zrobić, gdy czas minie
+            document.getElementById("countdown").innerHTML = 
+                "<div><span class='countdown-number'>" + formatTime(days) + "</span><span>dni</span></div>" + 
+                "<div><span class='countdown-number'>" + formatTime(hours) + "</span><span>godz</span></div>" + 
+                "<div><span class='countdown-number'>" + formatTime(minutes) + "</span><span>min</span></div>" + 
+                "<div><span class='countdown-number'>" + formatTime(seconds) + "</span><span>sek</span></div>";
+
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("countdown").innerHTML = "DROP JEST DOSTĘPNY";
