@@ -31,16 +31,29 @@
             width: 80%;
             height: auto;
             opacity: 0; /* Zaczyna jako niewidoczne */
-            animation: fadeIn 1.5s ease-out forwards; /* Animacja loga */
+            animation: fadeIn 2.0s ease-out forwards; /* Spowolniona animacja loga */
         }
 
-        .coming-soon {
+        /* Styl dla całego bloku COMING SOON */
+        .coming-soon-container {
             color: #990000; 
-            font-size: 28px; /* Powiększone, bo gotyckie litery są drobniejsze */
+            font-size: 28px;
             letter-spacing: 4px;
-            text-transform: lowercase;
+            text-transform: uppercase; /* Wielkie litery */
+            display: flex;
+            gap: 15px; /* Odstęp między słowami */
+        }
+
+        /* Styl dla słowa COMING */
+        .coming-text {
             opacity: 0;
-            animation: fadeIn 1.5s ease-out 0.5s forwards; /* Startuje 0.5s po logo */
+            animation: fadeIn 2.0s ease-out 1.0s forwards; /* Startuje 1.0s po logo, wolniej */
+        }
+
+        /* Styl dla słowa SOON... */
+        .soon-text {
+            opacity: 0;
+            animation: fadeIn 2.0s ease-out 2.5s forwards; /* Startuje 2.5s po logo, wolniej */
         }
 
         .part-of-it {
@@ -49,7 +62,7 @@
             letter-spacing: 2px;
             text-transform: lowercase;
             opacity: 0;
-            animation: fadeIn 1.5s ease-out 1s forwards; /* Startuje 1s po logo */
+            animation: fadeIn 2.0s ease-out 4.0s forwards; /* Startuje 4.0s po logo, wolniej */
         }
 
         /* Styl samego licznika */
@@ -59,7 +72,7 @@
             font-size: 32px;
             color: #000000;
             opacity: 0;
-            animation: fadeIn 1.5s ease-out 1.5s forwards; /* Startuje na końcu */
+            animation: fadeIn 2.0s ease-out 5.5s forwards; /* Startuje na końcu, wolniej */
         }
 
         /* Blok dla pojedynczej liczby w liczniku */
@@ -87,7 +100,7 @@
             color: #999;
             letter-spacing: 3px;
             opacity: 0;
-            animation: fadeIn 1.5s ease-out 2s forwards;
+            animation: fadeIn 2.0s ease-out 7.0s forwards; /* Stopka wyłania się ostatnia */
         }
 
         /* Definicja animacji: łagodne pojawienie się z lekkim ruchem w górę */
@@ -107,12 +120,16 @@
 
     <img src="3ULT.png" alt="3ULT LOGO">
     
-    <div class="coming-soon gothic-text">coming soon...</div>
+    <div class="coming-soon-container gothic-text">
+        <span class="coming-text">COMING</span>
+        <span class="soon-text">SOON...</span>
+    </div>
+
     <div class="part-of-it gothic-text">be the part of it.</div>
     
     <div id="countdown" class="countdown gothic-text"></div>
 
-    <div class="footer">3ULT  2026 </div>
+    <div class="footer">3ULT // 2026 // COMING SOON...</div>
 
     <script>
         // Ustaw datę końcową: 23 kwietnia 2026, godzina 00:00:00
