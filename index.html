@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3ULT // Coming Soon</title>
+    <title>3ULT // coming soon...</title>
     <style>
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #ffffff; /* Białe tło */
+            color: #000000; /* Podstawowy kolor tekstu czarny */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
@@ -15,33 +15,42 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
         }
         img {
-            max-width: 350px; /* Logo będzie nieco większe, bo nie ma przycisków */
-            width: 80%; /* Responsywność na telefonach */
+            max-width: 350px;
+            width: 80%;
             height: auto;
             margin-bottom: 20px;
         }
-        .status {
-            font-size: 14px;
-            color: #888;
-            margin-top: 10px;
+        /* Styl dla "coming soon..." */
+        .coming-soon {
+            color: #990000; /* Ciemno czerwony w kolorze kropek z logo (przybliżony odcień) */
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 15px;
+            letter-spacing: 3px;
+            text-transform: lowercase; /* Małe litery dokładnie jak w prośbie */
         }
-        .footer {
-            position: absolute;
-            bottom: 40px;
-            font-size: 10px;
-            color: #444;
+        /* Styl dla "be the part of it." */
+        .part-of-it {
+            color: #000000; /* Kolor czarny */
+            font-size: 14px;
+            margin-top: 5px;
+            letter-spacing: 1px;
+            text-transform: lowercase; /* Małe litery dokładnie jak w prośbie */
         }
     </style>
 </head>
 <body>
 
-    <img src="logo.png" alt="3ULT LOGO">
+    <img src="3ULT.png" alt="3ULT LOGO">
     
-    <div class="status">Join the cult</div>
+    <div class="coming-soon">coming soon...</div>
+    <div class="part-of-it">be the part of it.</div>
+
+</body>
+</html>
 
     <div class="footer">3ULT // 2026 // COMING SOON</div>
 
