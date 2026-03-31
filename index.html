@@ -39,10 +39,10 @@
                 --step2-y: -2vh;  /* Coming Soon */
                 --step3-y: 18vh;  /* Timer */
 
-                /* Rozszczepienie końcowe dla TELEFONU (w pionie) */
+                /* Rozszczepienie końcowe dla TELEFONU (w pionie) - ZWIĘKSZONE ODSTĘPY (co 30vh) */
                 --beam-C-Y: -2vh;  /* Środek wraca na 'Coming Soon' */
-                --beam-L-X: 0vw;   --beam-L-Y: -22vh; /* Lewe na Logo */
-                --beam-R-X: 0vw;   --beam-R-Y: 18vh;  /* Prawe na Timerze */
+                --beam-L-X: 0vw;   --beam-L-Y: -32vh; /* Lewe na Logo (znacznie wyżej) */
+                --beam-R-X: 0vw;   --beam-R-Y: 28vh;  /* Prawe na Timerze (znacznie niżej) */
                 
                 --main-gap: 25px;
                 --logo-margin: 15px;
@@ -174,7 +174,6 @@
         .left-beam { animation: beamLeft 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
         .right-beam { animation: beamRight 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
 
-        /* UPROSZCZONA ŚCIEŻKA - Światło wraca bezpośrednio ze stopki na środek */
         @keyframes beamCenter {
             0%   { transform: translate(0, var(--step1-y)); opacity: 0; } 
             2%   { transform: translate(0, var(--step1-y)); opacity: 1; }
