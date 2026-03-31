@@ -14,18 +14,15 @@
             --light-offset: -200px;
             --blur-max: 30px;
             
-            /* Ścieżka światła (oś Y) dla KOMPUTERA */
-            --step1-y: -15vh; /* Logo */
-            --step2-y: 0vh;   /* Coming Soon */
-            --step3-y: 15vh;  /* Timer */
+            /* PRECYZYJNA ŚCIEŻKA ŚWIATŁA (dopasowana do nowego, podniesionego układu) */
+            --step1-y: -24vh; /* Idealny środek podniesionego Logo */
+            --step2-y: -7vh;  /* Idealny środek zgrupowanego tekstu */
+            --step3-y: 9vh;   /* Idealny środek Timera */
 
             /* Rozszczepienie końcowe dla KOMPUTERA (w poziomie) */
-            --beam-C-Y: 0vh;  /* Środek zostaje na środku */
-            --beam-L-X: -30vw; --beam-L-Y: 0vh; /* Boczne na tej samej wysokości */
-            --beam-R-X: 30vw;  --beam-R-Y: 0vh;
-            
-            --main-gap: 30px; 
-            --logo-margin: 20px;
+            --beam-C-Y: -7vh;  /* Środek zostaje na tekstach */
+            --beam-L-X: -32vw; --beam-L-Y: -7vh; /* Boczne na tej samej wysokości co tekst */
+            --beam-R-X: 32vw;  --beam-R-Y: -7vh;
         }
 
         @media (max-width: 768px) {
@@ -34,23 +31,20 @@
                 --light-offset: -130px;
                 --blur-max: 20px;
                 
-                /* Ścieżka światła (oś Y) wymierzona precyzyjnie dla TELEFONU */
-                --step1-y: -22vh; /* Logo */
-                --step2-y: -2vh;  /* Coming Soon */
-                --step3-y: 18vh;  /* Timer */
+                /* KROKI ŚWIATŁA NA TELEFONIE (Dzięki jednostkom 'vh' układ skaluje się idealnie) */
+                --step1-y: -24vh;
+                --step2-y: -7vh; 
+                --step3-y: 9vh;  
 
-                /* Rozszczepienie końcowe dla TELEFONU (w pionie) - ZWIĘKSZONE ODSTĘPY (co 30vh) */
-                --beam-C-Y: -2vh;  /* Środek wraca na 'Coming Soon' */
-                --beam-L-X: 0vw;   --beam-L-Y: -32vh; /* Lewe na Logo (znacznie wyżej) */
-                --beam-R-X: 0vw;   --beam-R-Y: 28vh;  /* Prawe na Timerze (znacznie niżej) */
-                
-                --main-gap: 25px;
-                --logo-margin: 15px;
+                /* Rozszczepienie końcowe dla TELEFONU (w pionie) - ZACHOWANE DUŻE ODSTĘPY (co 30vh) */
+                --beam-C-Y: -7vh;  /* Środek zostaje na tekstach */
+                --beam-L-X: 0vw;   --beam-L-Y: -37vh; /* Górne ucieka nad Logo */
+                --beam-R-X: 0vw;   --beam-R-Y: 23vh;  /* Dolne ucieka pod Timer */
             }
         }
 
         body {
-            background-color: #ffffff;
+            background-color: #faf0e6;
             color: #000000;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -59,8 +53,16 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            gap: var(--main-gap);
             overflow: hidden; 
+        }
+
+        /* NOWY KONTENER - zarządza całym układem i podnosi go wyżej */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            transform: translateY(-8vh); /* Podnosi całą zawartość wyżej względem środka ekranu */
         }
 
         .gothic-text {
@@ -72,7 +74,7 @@
             max-width: 300px; 
             width: 70%;
             height: auto;
-            margin-bottom: var(--logo-margin); 
+            margin-bottom: 7vh; /* Duży, estetyczny odstęp pod logo */
             min-height: 80px; 
         }
 
@@ -83,6 +85,7 @@
             text-transform: uppercase; 
             display: flex;
             gap: 15px; 
+            margin-bottom: 1vh; /* Niewielki odstęp, by zgrupować nagłówek z podtytułem */
         }
 
         .part-of-it {
@@ -91,6 +94,7 @@
             letter-spacing: 2px;
             text-transform: lowercase;
             text-align: center;
+            margin-bottom: 8vh; /* Duży, wyraźny odstęp przed timerem */
         }
 
         .countdown {
@@ -185,27 +189,27 @@
             45%  { transform: translate(0, var(--step3-y)); }              
             60%  { transform: translate(0, var(--step3-y)); }              
             
-            /* Szybki, czysty powrót na sam środek ekranu (0vh) */
-            75%  { transform: translate(0, 0vh); }
-            81%  { transform: translate(0, 0vh); }
+            /* Szybki, czysty powrót Z TIMERA NA NAPIS COMING SOON */
+            75%  { transform: translate(0, var(--step2-y)); }
+            81%  { transform: translate(0, var(--step2-y)); }
             
-            /* Finałowe pozycje zależą od Media Queries */
-            84%  { transform: translate(0, 0vh); opacity: 1;}
+            /* Finałowe pozycje (rozszczepienie prosto z napisu) */
+            84%  { transform: translate(0, var(--step2-y)); opacity: 1;}
             90%, 100% { transform: translate(0, var(--beam-C-Y)); opacity: 1;} 
         }
 
-        /* Boczne światła wyłaniają się z idealnego środka (0vh) */
+        /* Boczne światła wyłaniają się idealnie spod napisu COMING SOON */
         @keyframes beamLeft {
-            0%, 81% { transform: translate(0, 0vh); opacity: 0; } 
-            82%  { transform: translate(0, 0vh); opacity: 1; } 
-            84%  { transform: translate(0, 0vh); }                
+            0%, 81% { transform: translate(0, var(--step2-y)); opacity: 0; } 
+            82%  { transform: translate(0, var(--step2-y)); opacity: 1; } 
+            84%  { transform: translate(0, var(--step2-y)); }                
             90%, 100% { transform: translate(var(--beam-L-X), var(--beam-L-Y)); opacity: 1;} 
         }
 
         @keyframes beamRight {
-            0%, 81% { transform: translate(0, 0vh); opacity: 0; } 
-            82%  { transform: translate(0, 0vh); opacity: 1; } 
-            84%  { transform: translate(0, 0vh); }                
+            0%, 81% { transform: translate(0, var(--step2-y)); opacity: 0; } 
+            82%  { transform: translate(0, var(--step2-y)); opacity: 1; } 
+            84%  { transform: translate(0, var(--step2-y)); }                
             90%, 100% { transform: translate(var(--beam-R-X), var(--beam-R-Y)); opacity: 1;}  
         }
 
@@ -241,16 +245,18 @@
         </div>
     </div>
 
-    <img src="logowektor.svg" alt="3ULT LOGO">
-    
-    <div class="coming-soon-container gothic-text">
-        <span>COMING</span>
-        <span>SOON...</span>
-    </div>
+    <div class="content-wrapper">
+        <img src="logowektor.svg" alt="3ULT LOGO">
+        
+        <div class="coming-soon-container gothic-text">
+            <span>COMING</span>
+            <span>SOON...</span>
+        </div>
 
-    <div class="part-of-it gothic-text">be the part of it.</div>
-    
-    <div id="countdown" class="countdown"></div>
+        <div class="part-of-it gothic-text">be the part of it.</div>
+        
+        <div id="countdown" class="countdown"></div>
+    </div>
 
     <div class="footer">3ULT /// 2026 /// APRIL</div>
 
