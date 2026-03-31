@@ -8,23 +8,28 @@
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- ZMIENNE RESPONSYWNE (MAGIA DLA TELEFONÓW) --- */
+        /* --- ZMIENNE RESPONSYWNE (MAGIA CSS) --- */
         :root {
-            --light-size: 450px;
-            --light-offset: -225px;
-            --blur-max: 35px;
-            --spread-left: -30vw;
-            --spread-right: 30vw;
+            /* Desktop (Domyślnie) */
+            --light-size: 400px; 
+            --light-offset: -200px;
+            --blur-max: 30px;
+            /* Rozszczepienie Poziome (Desktop) */
+            --beam-L-X: -30vw; --beam-L-Y: 0vh;
+            --beam-R-X: 30vw;  --beam-R-Y: 0vh;
+            --main-gap: 30px; 
         }
 
-        /* Jeśli ekran jest mniejszy niż 768px (telefony) - podmieniamy wartości */
+        /* Telefon (Zmieniamy układ) */
         @media (max-width: 768px) {
             :root {
-                --light-size: 250px;       /* Mniejsza latarka, żeby było widać mrok wokół niej */
-                --light-offset: -125px;
-                --blur-max: 20px;          /* Mniejsze rozmycie, żeby nie robiła się zupa na ekranie */
-                --spread-left: -35vw;      /* Proporcjonalne rozsunięcie na boki */
-                --spread-right: 35vw;
+                --light-size: 200px; 
+                --light-offset: -100px;
+                --blur-max: 20px;
+                /* ROZSZCZEPIENIE PIONOWE (Telefon) */
+                --beam-L-X: 0vw;   --beam-L-Y: -35vh; 
+                --beam-R-X: 0vw;   --beam-R-Y: 35vh;  
+                --main-gap: 25px;
             }
         }
 
@@ -38,7 +43,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            gap: 35px;
+            gap: var(--main-gap);
             overflow: hidden; 
         }
 
@@ -48,9 +53,10 @@
         }
 
         img {
-            max-width: 350px;
-            width: 80%;
+            max-width: 300px; 
+            width: 70%;
             height: auto;
+            margin-bottom: 20px; 
         }
 
         .coming-soon-container {
@@ -101,9 +107,10 @@
         .footer {
             position: absolute;
             bottom: 20px;
-            font-size: 12px;
-            color: #999;
+            font-size: 11px;
+            color: #aaa; 
             letter-spacing: 3px;
+            z-index: 10; 
         }
 
         /* --- MASKA ŚWIATŁA --- */
@@ -114,21 +121,20 @@
             z-index: 100;
             pointer-events: none; 
             mix-blend-mode: multiply; 
-            animation: removeDarkness 15s forwards;
+            animation: removeDarkness 20s forwards; 
         }
 
         .lights-container {
             width: 100%;
             height: 100%;
             background-color: #000000; 
-            animation: lightsFlicker 15s forwards;
+            animation: lightsFlicker 20s forwards;
         }
 
         .light {
             position: absolute;
             top: 50%;
             left: 50%;
-            /* Wymiary zaciągane ze zmiennych (dopasowują się do ekranu) */
             width: var(--light-size); 
             height: var(--light-size);
             margin-top: var(--light-offset);
@@ -137,53 +143,55 @@
             background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 48%, rgba(255,255,255,0) 50%);
         }
 
-        .center-beam { animation: beamCenter 15s ease-in-out forwards, diffuseLight 15s ease-in-out forwards; }
-        .left-beam { animation: beamLeft 15s ease-in-out forwards, diffuseLight 15s ease-in-out forwards; }
-        .right-beam { animation: beamRight 15s ease-in-out forwards, diffuseLight 15s ease-in-out forwards; }
+        .center-beam { animation: beamCenter 19s ease-in-out forwards, diffuseLight 20s ease-in-out forwards; }
+        .left-beam { animation: beamLeft 19s ease-in-out forwards, diffuseLight 20s ease-in-out forwards; }
+        .right-beam { animation: beamRight 19s ease-in-out forwards, diffuseLight 20s ease-in-out forwards; }
 
         @keyframes beamCenter {
-            0%   { transform: translate(0, -35vh); opacity: 0; } 
-            6%   { transform: translate(0, -35vh); opacity: 1; } 
-            20%  { transform: translate(0, -35vh); }             
-            30%  { transform: translate(0, -5vh); }              
-            40%  { transform: translate(0, -5vh); }              
-            50%  { transform: translate(0, 30vh); }              
-            60%  { transform: translate(0, 30vh); }              
-            66%, 100% { transform: translate(0, 0vh); opacity: 1;} 
+            0%   { transform: translate(0, -40vh); opacity: 0; } 
+            5%   { transform: translate(0, -40vh); opacity: 1; } 
+            18%  { transform: translate(0, -40vh); }             
+            25%  { transform: translate(0, -22vh); }             
+            35%  { transform: translate(0, -22vh); }              
+            42%  { transform: translate(0, -8vh); }              
+            50%  { transform: translate(0, -8vh); }              
+            60%  { transform: translate(0, 40vh); }              
+            70%  { transform: translate(0, 40vh); }              
+            80%, 100% { transform: translate(0, 0vh); opacity: 1;} 
         }
 
         @keyframes beamLeft {
-            0%, 65% { transform: translate(0, 0vh); opacity: 0; } 
-            66%  { transform: translate(0, 0vh); opacity: 1; } 
-            70%  { transform: translate(0, 0vh); }               
-            75%, 100% { transform: translate(var(--spread-left), 0vh); opacity: 1;} 
+            0%, 79% { transform: translate(0, 0vh); opacity: 0; } 
+            80%  { transform: translate(0, 0vh); opacity: 1; } 
+            83%  { transform: translate(0, 0vh); }               
+            88%, 100% { transform: translate(var(--beam-L-X), var(--beam-L-Y)); opacity: 1;} 
         }
 
         @keyframes beamRight {
-            0%, 65% { transform: translate(0, 0vh); opacity: 0; } 
-            66%  { transform: translate(0, 0vh); opacity: 1; } 
-            70%  { transform: translate(0, 0vh); }               
-            75%, 100% { transform: translate(var(--spread-right), 0vh); opacity: 1;}  
+            0%, 79% { transform: translate(0, 0vh); opacity: 0; } 
+            80%  { transform: translate(0, 0vh); opacity: 1; } 
+            83%  { transform: translate(0, 0vh); }               
+            88%, 100% { transform: translate(var(--beam-R-X), var(--beam-R-Y)); opacity: 1;}  
         }
 
         @keyframes diffuseLight {
-            0%, 68% { filter: blur(2px); }   
-            75%, 100% { filter: blur(var(--blur-max)); }  
+            0%, 82% { filter: blur(2px); }   
+            88%, 100% { filter: blur(var(--blur-max)); }  
         }
 
         @keyframes lightsFlicker {
-            0%, 82% { opacity: 1; }
-            83%  { opacity: 0.1; } 
-            84%  { opacity: 1; }
-            85%  { opacity: 0.1; } 
-            86%  { opacity: 1; }
-            87%  { opacity: 0.1; } 
-            88%, 100% { opacity: 1; }
+            0%, 90% { opacity: 1; }
+            91%  { opacity: 0.1; } 
+            92%  { opacity: 1; }
+            93%  { opacity: 0.1; } 
+            94%  { opacity: 1; }
+            95%  { opacity: 0.1; } 
+            96%, 100% { opacity: 1; }
         }
 
         @keyframes removeDarkness {
-            0%, 90% { opacity: 1; }
-            96%, 100% { opacity: 0; visibility: hidden; }
+            0%, 96% { opacity: 1; }
+            99%, 100% { opacity: 0; visibility: hidden; }
         }
 
     </style>
