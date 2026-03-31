@@ -8,28 +8,34 @@
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- ZMIENNE RESPONSYWNE (MAGIA CSS) --- */
+        /* --- ZMIENNE RESPONSYWNE --- */
         :root {
-            /* Desktop (Domyślnie) */
-            --light-size: 400px; 
+            --light-size: 400px;
             --light-offset: -200px;
             --blur-max: 30px;
-            /* Rozszczepienie Poziome (Desktop) */
-            --beam-L-X: -30vw; --beam-L-Y: 0vh;
-            --beam-R-X: 30vw;  --beam-R-Y: 0vh;
+            
+            /* DESKTOP: Idealnie poziome rozszczepienie. 
+               Oś Y jest zablokowana na 10vh (tam gdzie staje środek). */
+            --beam-L-X: -30vw; --beam-L-Y: 10vh;
+            --beam-R-X: 30vw;  --beam-R-Y: 10vh;
+            
             --main-gap: 30px; 
+            --logo-margin: 20px;
         }
 
-        /* Telefon (Zmieniamy układ) */
         @media (max-width: 768px) {
             :root {
-                --light-size: 200px; 
-                --light-offset: -100px;
+                --light-size: 220px;
+                --light-offset: -110px;
                 --blur-max: 20px;
-                /* ROZSZCZEPIENIE PIONOWE (Telefon) */
-                --beam-L-X: 0vw;   --beam-L-Y: -35vh; 
+                
+                /* MOBILE: Idealnie pionowe rozszczepienie z regularnymi odstępami.
+                   Środek to 10vh. Odstęp to dokładnie 25vh w górę i w dół. */
+                --beam-L-X: 0vw;   --beam-L-Y: -15vh; 
                 --beam-R-X: 0vw;   --beam-R-Y: 35vh;  
+                
                 --main-gap: 25px;
+                --logo-margin: 15px;
             }
         }
 
@@ -51,12 +57,13 @@
             font-family: 'UnifrakturCook', cursive;
             font-weight: 700;
         }
-
+        
         img {
             max-width: 300px; 
             width: 70%;
             height: auto;
-            margin-bottom: 20px; 
+            margin-bottom: var(--logo-margin); 
+            min-height: 80px; 
         }
 
         .coming-soon-container {
@@ -73,12 +80,14 @@
             font-size: 26px;
             letter-spacing: 2px;
             text-transform: lowercase;
+            text-align: center;
         }
 
         .countdown {
             display: flex;
             gap: 20px;
             color: #000000;
+            min-height: 60px; 
         }
 
         .countdown div {
@@ -121,14 +130,14 @@
             z-index: 100;
             pointer-events: none; 
             mix-blend-mode: multiply; 
-            animation: removeDarkness 20s forwards; 
+            animation: removeDarkness 12s forwards; /* Czas zwolniony do 12s */
         }
 
         .lights-container {
             width: 100%;
             height: 100%;
             background-color: #000000; 
-            animation: lightsFlicker 20s forwards;
+            animation: lightsFlicker 12s forwards; 
         }
 
         .light {
@@ -139,59 +148,73 @@
             height: var(--light-size);
             margin-top: var(--light-offset);
             margin-left: var(--light-offset);
-            border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 48%, rgba(255,255,255,0) 50%);
+            
+            border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; 
+            background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 45%, rgba(0,0,0,1) 65%);
+            mix-blend-mode: screen; 
+            
+            animation: shapeWobble 1s infinite linear alternate-reverse;
+        }
+        
+        @keyframes shapeWobble {
+            to { border-radius: 60% 40% 30% 70% / 60% 50% 70% 30%; }
         }
 
-        .center-beam { animation: beamCenter 19s ease-in-out forwards, diffuseLight 20s ease-in-out forwards; }
-        .left-beam { animation: beamLeft 19s ease-in-out forwards, diffuseLight 20s ease-in-out forwards; }
-        .right-beam { animation: beamRight 19s ease-in-out forwards, diffuseLight 20s ease-in-out forwards; }
+        /* Czasy dopasowane do 12 sekundowego cyklu */
+        .center-beam { animation: beamCenter 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
+        .left-beam { animation: beamLeft 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
+        .right-beam { animation: beamRight 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
 
         @keyframes beamCenter {
-            0%   { transform: translate(0, -40vh); opacity: 0; } 
-            5%   { transform: translate(0, -40vh); opacity: 1; } 
-            18%  { transform: translate(0, -40vh); }             
-            25%  { transform: translate(0, -22vh); }             
-            35%  { transform: translate(0, -22vh); }              
-            42%  { transform: translate(0, -8vh); }              
-            50%  { transform: translate(0, -8vh); }              
-            60%  { transform: translate(0, 40vh); }              
-            70%  { transform: translate(0, 40vh); }              
-            80%, 100% { transform: translate(0, 0vh); opacity: 1;} 
+            0%   { transform: translate(0, -38vh); opacity: 0; } 
+            2%   { transform: translate(0, -38vh); opacity: 1; }
+            15%  { transform: translate(0, -38vh); }             
+            
+            25%  { transform: translate(0, -15vh); }             
+            35%  { transform: translate(0, -15vh); }             
+            
+            45%  { transform: translate(0, -5vh); }              
+            55%  { transform: translate(0, -5vh); }              
+            
+            65%  { transform: translate(0, 45vh); }              
+            75%  { transform: translate(0, 45vh); }              
+            
+            82%, 100% { transform: translate(0, 10vh); opacity: 1;} 
         }
 
+        /* Boczne światła ukryte pod głównym punktem 10vh, płynnie wyjeżdżają */
         @keyframes beamLeft {
-            0%, 79% { transform: translate(0, 0vh); opacity: 0; } 
-            80%  { transform: translate(0, 0vh); opacity: 1; } 
-            83%  { transform: translate(0, 0vh); }               
-            88%, 100% { transform: translate(var(--beam-L-X), var(--beam-L-Y)); opacity: 1;} 
+            0%, 81% { transform: translate(0, 10vh); opacity: 0; } 
+            82%  { transform: translate(0, 10vh); opacity: 1; } 
+            84%  { transform: translate(0, 10vh); }                
+            90%, 100% { transform: translate(var(--beam-L-X), var(--beam-L-Y)); opacity: 1;} 
         }
 
         @keyframes beamRight {
-            0%, 79% { transform: translate(0, 0vh); opacity: 0; } 
-            80%  { transform: translate(0, 0vh); opacity: 1; } 
-            83%  { transform: translate(0, 0vh); }               
-            88%, 100% { transform: translate(var(--beam-R-X), var(--beam-R-Y)); opacity: 1;}  
+            0%, 81% { transform: translate(0, 10vh); opacity: 0; } 
+            82%  { transform: translate(0, 10vh); opacity: 1; } 
+            84%  { transform: translate(0, 10vh); }                
+            90%, 100% { transform: translate(var(--beam-R-X), var(--beam-R-Y)); opacity: 1;}  
         }
 
         @keyframes diffuseLight {
-            0%, 82% { filter: blur(2px); }   
-            88%, 100% { filter: blur(var(--blur-max)); }  
+            0%, 86% { filter: blur(2px); }   
+            90%, 100% { filter: blur(var(--blur-max)); }  
         }
 
         @keyframes lightsFlicker {
-            0%, 90% { opacity: 1; }
-            91%  { opacity: 0.1; } 
-            92%  { opacity: 1; }
-            93%  { opacity: 0.1; } 
-            94%  { opacity: 1; }
-            95%  { opacity: 0.1; } 
-            96%, 100% { opacity: 1; }
+            0%, 93% { opacity: 1; }
+            94%  { opacity: 0.1; } 
+            95%  { opacity: 1; }
+            96%  { opacity: 0.1; } 
+            97%  { opacity: 1; }
+            98%  { opacity: 0.1; } 
+            99%, 100% { opacity: 1; }
         }
 
         @keyframes removeDarkness {
-            0%, 96% { opacity: 1; }
-            99%, 100% { opacity: 0; visibility: hidden; }
+            0%, 99% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
         }
 
     </style>
@@ -221,8 +244,9 @@
 
     <script>
         const countDownDate = new Date("Apr 23, 2026 00:00:00").getTime();
+        let intervalId;
 
-        const x = setInterval(function() {
+        function updateCountdown() {
             const now = new Date().getTime();
             const distance = countDownDate - now;
 
@@ -240,10 +264,13 @@
                 "<div><span class='countdown-number'>" + formatTime(seconds) + "</span><span class='countdown-label'>sek</span></div>";
 
             if (distance < 0) {
-                clearInterval(x);
+                clearInterval(intervalId);
                 document.getElementById("countdown").innerHTML = "<span class='gothic-text' style='font-size: 32px;'>DROP JEST DOSTĘPNY</span>";
             }
-        }, 1000);
+        }
+
+        updateCountdown();
+        intervalId = setInterval(updateCountdown, 1000);
     </script>
 
 </body>
