@@ -14,10 +14,14 @@
             --light-offset: -200px;
             --blur-max: 30px;
             
-            /* DESKTOP: Idealnie poziome rozszczepienie. 
-               Oś Y jest zablokowana na 10vh (tam gdzie staje środek). */
-            --beam-L-X: -30vw; --beam-L-Y: 10vh;
-            --beam-R-X: 30vw;  --beam-R-Y: 10vh;
+            /* Ścieżka światła (oś Y) dla KOMPUTERA */
+            --step1-y: -15vh; /* Logo */
+            --step2-y: 0vh;   /* Coming Soon */
+            --step3-y: 15vh;  /* Timer */
+
+            /* Rozszczepienie końcowe dla KOMPUTERA (w poziomie) */
+            --beam-L-X: -30vw; --beam-L-Y: 15vh;
+            --beam-R-X: 30vw;  --beam-R-Y: 15vh;
             
             --main-gap: 30px; 
             --logo-margin: 20px;
@@ -25,14 +29,18 @@
 
         @media (max-width: 768px) {
             :root {
-                --light-size: 220px;
-                --light-offset: -110px;
+                --light-size: 260px; /* Minimalnie większe, żeby otulić cały napis na mobile */
+                --light-offset: -130px;
                 --blur-max: 20px;
                 
-                /* MOBILE: Idealnie pionowe rozszczepienie z regularnymi odstępami.
-                   Środek to 10vh. Odstęp to dokładnie 25vh w górę i w dół. */
-                --beam-L-X: 0vw;   --beam-L-Y: -15vh; 
-                --beam-R-X: 0vw;   --beam-R-Y: 35vh;  
+                /* Ścieżka światła (oś Y) wymierzona precyzyjnie dla TELEFONU */
+                --step1-y: -18vh; /* Logo */
+                --step2-y: 0vh;   /* Coming Soon */
+                --step3-y: 18vh;  /* Timer */
+
+                /* Rozszczepienie końcowe dla TELEFONU (w pionie) */
+                --beam-L-X: 0vw;   --beam-L-Y: -18vh; /* Lewe światło ucieka z powrotem na Logo */
+                --beam-R-X: 0vw;   --beam-R-Y: 45vh;  /* Prawe światło ucieka na sam dół do stopki */
                 
                 --main-gap: 25px;
                 --logo-margin: 15px;
@@ -130,7 +138,7 @@
             z-index: 100;
             pointer-events: none; 
             mix-blend-mode: multiply; 
-            animation: removeDarkness 12s forwards; /* Czas zwolniony do 12s */
+            animation: removeDarkness 12s forwards; 
         }
 
         .lights-container {
@@ -160,40 +168,37 @@
             to { border-radius: 60% 40% 30% 70% / 60% 50% 70% 30%; }
         }
 
-        /* Czasy dopasowane do 12 sekundowego cyklu */
         .center-beam { animation: beamCenter 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
         .left-beam { animation: beamLeft 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
         .right-beam { animation: beamRight 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
 
+        /* Uproszczona animacja - odczytuje pozycje z Media Queries! */
         @keyframes beamCenter {
-            0%   { transform: translate(0, -38vh); opacity: 0; } 
-            2%   { transform: translate(0, -38vh); opacity: 1; }
-            15%  { transform: translate(0, -38vh); }             
+            0%   { transform: translate(0, var(--step1-y)); opacity: 0; } 
+            2%   { transform: translate(0, var(--step1-y)); opacity: 1; }
+            20%  { transform: translate(0, var(--step1-y)); }             
             
-            25%  { transform: translate(0, -15vh); }             
-            35%  { transform: translate(0, -15vh); }             
+            35%  { transform: translate(0, var(--step2-y)); }             
+            55%  { transform: translate(0, var(--step2-y)); }             
             
-            45%  { transform: translate(0, -5vh); }              
-            55%  { transform: translate(0, -5vh); }              
+            70%  { transform: translate(0, var(--step3-y)); }              
+            81%  { transform: translate(0, var(--step3-y)); }              
             
-            65%  { transform: translate(0, 45vh); }              
-            75%  { transform: translate(0, 45vh); }              
-            
-            82%, 100% { transform: translate(0, 10vh); opacity: 1;} 
+            82%, 100% { transform: translate(0, var(--step3-y)); opacity: 1;} 
         }
 
-        /* Boczne światła ukryte pod głównym punktem 10vh, płynnie wyjeżdżają */
+        /* Boczne światła wyjeżdżają idealnie z Timera (krok 3) */
         @keyframes beamLeft {
-            0%, 81% { transform: translate(0, 10vh); opacity: 0; } 
-            82%  { transform: translate(0, 10vh); opacity: 1; } 
-            84%  { transform: translate(0, 10vh); }                
+            0%, 81% { transform: translate(0, var(--step3-y)); opacity: 0; } 
+            82%  { transform: translate(0, var(--step3-y)); opacity: 1; } 
+            84%  { transform: translate(0, var(--step3-y)); }                
             90%, 100% { transform: translate(var(--beam-L-X), var(--beam-L-Y)); opacity: 1;} 
         }
 
         @keyframes beamRight {
-            0%, 81% { transform: translate(0, 10vh); opacity: 0; } 
-            82%  { transform: translate(0, 10vh); opacity: 1; } 
-            84%  { transform: translate(0, 10vh); }                
+            0%, 81% { transform: translate(0, var(--step3-y)); opacity: 0; } 
+            82%  { transform: translate(0, var(--step3-y)); opacity: 1; } 
+            84%  { transform: translate(0, var(--step3-y)); }                
             90%, 100% { transform: translate(var(--beam-R-X), var(--beam-R-Y)); opacity: 1;}  
         }
 
