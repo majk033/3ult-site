@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3ULT // NEXT VESSEL</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- BAZA STRONY --- */
+        body {
+            background-color: #faf0e6; /* Powrót do kremowego tła */
+            color: #000000; /* Powrót do czarnego tekstu */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; 
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* --- LOGO NA GÓRZE --- */
+        .top-logo {
+            position: absolute;
+            top: 5vh; 
+            width: 120px; 
+            height: auto;
+            z-index: 40;
+            pointer-events: none;
+        }
+
+        /* --- MOCKUP KOSZULKI (Triger) --- */
+        .product-container {
+            position: relative;
+            z-index: 30; /* Koszulka na samym wierzchu, nad rękami */
+            cursor: pointer;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translateY(-5vh); /* Domyślne uniesienie */
+        }
+
+        /* Lekkie uniesienie koszulki przy najechaniu */
+        .product-container:hover {
+            transform: translateY(-5vh) scale(1.03);
+        }
+
+        .product-mockup {
+            width: 38vw; 
+            max-width: 430px;
+            min-width: 250px;
+            height: auto;
+            /* W spoczynku: tylko delikatny, naturalny cień dla głębi */
+            filter: drop-shadow(0px 20px 30px rgba(0, 0, 0, 0.15)); 
+            transition: filter 0.8s ease;
+        }
+
+        /* Zmiana cienia na krwistoczerwony DOPIERO po najechaniu na koszulkę */
+        .product-container:hover .product-mockup {
+            filter: drop-shadow(0px 0px 70px rgba(153, 0, 0, 0.8));
+        }
+
+        /* --- KONTENER NA RĘCE (GRUPA CENTRALNA) --- */
+        .hands-container {
+            position: absolute;
+            inset: 0; 
+            pointer-events: none; 
+            z-index: 10; /* Ręce są za koszulką */
+            overflow: hidden;
+        }
+
+        /* Podstawowy styl dla każdej ręki */
+        .hand {
+            position: absolute;
+            width: 42vw; 
+            max-width: 480px;
+            min-width: 260px;
+            height: auto;
+            
+            filter: grayscale(100%) contrast(1.5) brightness(0.7); 
+            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
+            transform-origin: bottom center;
+            bottom: -5vh; 
+            opacity: 0.9; 
+        }
+
+        /* POZYCJE STARTOWE: Ciasno obok siebie centralnie prosto */
+        .hand-left {
+            left: 50%;
+            transform: translateX(-85%) translateY(12vh);
+            z-index: 11; 
+        }
+
+        .hand-center {
+            left: 50%;
+            transform: translateX(-50%) translateY(14vh) scale(1.05); 
+            z-index: 12; 
+        }
+
+        .hand-right {
+            left: 50%;
+            transform: translateX(-15%) translateY(12vh);
+            z-index: 11; 
+        }
+
+        /* --- EFEKT PO NAJECHANIU NA KOSZULKĘ (REACHING) --- */
+        body.reaching .hand {
+            opacity: 1; 
+        }
+
+        /* Wysuwanie się dłoni w górę */
+        body.reaching .hand-left {
+            transform: translateX(-85%) translateY(7vh);
+        }
+
+        body.reaching .hand-center {
+            transform: translateX(-50%) translateY(9vh) scale(1.1);
+        }
+
+        body.reaching .hand-right {
+            transform: translateX(-15%) translateY(7vh);
+        }
+
+        /* --- STOPKA --- */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 11px;
+            color: #aaa; 
+            letter-spacing: 3px;
+            z-index: 10; 
+        }
+
+    </style>
+</head>
+<body>
+
+    <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo">
+
+    <div class="product-container" id="product-trigger">
+        <img src="mockup.png" alt="Koszulka 3ULT" class="product-mockup">
+    </div>
+
+    <div class="hands-container">
+        <img src="hand-left.png" alt="hand" class="hand hand-left">
+        <img src="hand-center.png" alt="hand" class="hand hand-center">
+        <img src="hand-right.png" alt="hand" class="hand hand-right">
+    </div>
+
+    <div class="footer">3ULT /// 2026 /// APRIL</div>
+
+    <script>
+        const product = document.getElementById('product-trigger');
+
+        product.addEventListener('mouseenter', () => {
+            document.body.classList.add('reaching');
+        });
+
+        product.addEventListener('mouseleave', () => {
+            document.body.classList.remove('reaching');
+        });
+    </script>
+
+</body>
+</html>
