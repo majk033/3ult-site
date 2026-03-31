@@ -56,7 +56,7 @@
         .paint-drips-container {
             position: fixed;
             inset: 0;
-            z-index: 1; /* Tło */
+            z-index: 1; 
             pointer-events: none; 
         }
 
@@ -70,19 +70,17 @@
             position: absolute;
             background-color: #990000;
             border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%;
-            /* Domyślnie krople są ukryte, aż ich animacja (i opóźnienie) się nie zaczną */
             opacity: 0;
             transform-origin: center;
-            /* Czas animacji dla każdej kropli z osobna */
             animation: liquidSplat 5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         @keyframes liquidSplat {
             0%   { transform: scale(1.5) translateY(-15px); opacity: 0; }
-            5%   { transform: scale(1.1) translateY(0); opacity: 1; } /* Uderzenie! */
-            10%  { transform: scale(1) translateY(0); opacity: 1; }   /* Osiadanie */
-            70%  { transform: scale(1) translateY(0); opacity: 1; }   /* Zatrzymanie na stronie */
-            100% { transform: scale(0.9) translateY(0); opacity: 0; } /* Zniknięcie */
+            5%   { transform: scale(1.1) translateY(0); opacity: 1; } 
+            10%  { transform: scale(1) translateY(0); opacity: 1; }   
+            70%  { transform: scale(1) translateY(0); opacity: 1; }   
+            100% { transform: scale(0.9) translateY(0); opacity: 0; } 
         }
 
         /* --- KONTENER GŁÓWNY TREŚCI --- */
@@ -124,7 +122,36 @@
             letter-spacing: 2px;
             text-transform: lowercase;
             text-align: center;
-            margin-bottom: 8vh;
+            margin-bottom: 2vh; 
+        }
+
+        /* --- NOWE STYLE PRZYCISKU: "NEXT VESSEL" --- */
+        .next-vessel-link {
+            display: inline-block;
+            background-color: transparent; 
+            
+            /* Kolor niewiele ciemniejszy od tła (#faf0e6) - daje efekt stopienia się ze stroną */
+            color: #e0d4c6; 
+            
+            /* Zastosowanie gotyckiej czcionki i zwiększenie rozmiaru */
+            font-family: 'UnifrakturCook', cursive;
+            font-weight: 700;
+            font-size: 24px;
+            
+            letter-spacing: 3px;
+            text-transform: lowercase;
+            text-decoration: none;
+            margin-bottom: 5vh; 
+            
+            /* Animujemy wyłącznie cień pod tekstem */
+            transition: text-shadow 1s ease-in-out; 
+            position: relative;
+            z-index: 105; 
+        }
+
+        .next-vessel-link:hover {
+            /* Text-shadow idealnie otula kształt każdej z liter, sprawiając, że emitują światło */
+            text-shadow: 0 0 10px rgba(153, 0, 0, 0.9), 0 0 25px rgba(153, 0, 0, 0.7); 
         }
 
         .countdown {
@@ -283,6 +310,8 @@
 
         <div class="part-of-it gothic-text">be the part of it.</div>
         
+        <a href="#" class="next-vessel-link">next vessel</a>
+        
         <div id="countdown" class="countdown"></div>
     </div>
 
@@ -299,24 +328,19 @@
             const group = document.createElement("div");
             group.className = "drip-group";
 
-            // Miejsce uderzenia
-            const x = 10 + Math.random() * 80; // 10vw - 90vw
-            const y = 10 + Math.random() * 80; // 10vh - 90vh
+            const x = 10 + Math.random() * 80; 
+            const y = 10 + Math.random() * 80; 
             group.style.left = `${x}vw`;
             group.style.top = `${y}vh`;
 
-            // Obracamy całą grupę losowo
             group.style.transform = `rotate(${Math.random() * 360}deg)`;
 
-            // Losujemy JEDNĄ wielkość dla całego zgrupowania
-            const uniformSize = 10 + Math.random() * 8; // 10-18px
+            const uniformSize = 10 + Math.random() * 8; 
 
-            // Układamy 3 kropki, ale dodajemy im losowe opóźnienia (delay)
-            // Główna uderza natychmiast (0s), reszta chwilę później.
             const drops = [
                 { dx: 0, dy: 0, delay: 0 }, 
-                { dx: -10 - Math.random() * 5, dy: 8 + Math.random() * 5, delay: 0.15 + Math.random() * 0.3 }, // opóźnienie 0.15s - 0.45s
-                { dx: 12 + Math.random() * 5, dy: -5 - Math.random() * 5, delay: 0.3 + Math.random() * 0.4 }   // opóźnienie 0.3s - 0.7s
+                { dx: -10 - Math.random() * 5, dy: 8 + Math.random() * 5, delay: 0.15 + Math.random() * 0.3 }, 
+                { dx: 12 + Math.random() * 5, dy: -5 - Math.random() * 5, delay: 0.3 + Math.random() * 0.4 }   
             ];
 
             drops.forEach(drop => {
@@ -326,7 +350,6 @@
                 drip.style.top = `${drop.dy}px`;
                 drip.style.width = `${uniformSize}px`;
                 drip.style.height = `${uniformSize}px`;
-                // NOWE: Przekazujemy opóźnienie do CSS
                 drip.style.animationDelay = `${drop.delay}s`; 
                 
                 group.appendChild(drip);
@@ -334,8 +357,6 @@
 
             dripsContainer.appendChild(group);
 
-            // Cała animacja trwa 5 sekund, plus około 1s na najdłuższe opóźnienie.
-            // Usuwamy po 6 sekundach, żeby wyczyścić DOM.
             setTimeout(() => {
                 if (group.parentNode) {
                     group.parentNode.removeChild(group);
@@ -343,15 +364,13 @@
             }, 6000);
         }
 
-        // Flaga kontrolująca pętlę
         let continueSpawning = true;
 
         function spawnLoop() {
-            if (!continueSpawning) return; // Zatrzymaj pętlę, jeśli odliczanie się skończyło
+            if (!continueSpawning) return; 
 
             createDripGroup();
             
-            // Pojawianie się: co 3 - 5 sekund
             const nextSpawnDelay = (3 + Math.random() * 2) * 1000;
             setTimeout(spawnLoop, nextSpawnDelay);
         }
@@ -377,8 +396,7 @@
 
             if (distance < 0) {
                 clearInterval(intervalId);
-                continueSpawning = false; // Zatrzymaj generowanie nowych grup
-                // Czyszczenie tła z farby (istniejących grup)
+                continueSpawning = false; 
                 if (dripsContainer.parentNode) {
                     dripsContainer.parentNode.removeChild(dripsContainer);
                 }
