@@ -122,36 +122,7 @@
             letter-spacing: 2px;
             text-transform: lowercase;
             text-align: center;
-            margin-bottom: 2vh; 
-        }
-
-        /* --- NOWE STYLE PRZYCISKU: "NEXT VESSEL" --- */
-        .next-vessel-link {
-            display: inline-block;
-            background-color: transparent; 
-            
-            /* Kolor niewiele ciemniejszy od tła (#faf0e6) - daje efekt stopienia się ze stroną */
-            color: #e0d4c6; 
-            
-            /* Zastosowanie gotyckiej czcionki i zwiększenie rozmiaru */
-            font-family: 'UnifrakturCook', cursive;
-            font-weight: 700;
-            font-size: 24px;
-            
-            letter-spacing: 3px;
-            text-transform: lowercase;
-            text-decoration: none;
-            margin-bottom: 5vh; 
-            
-            /* Animujemy wyłącznie cień pod tekstem */
-            transition: text-shadow 1s ease-in-out; 
-            position: relative;
-            z-index: 105; 
-        }
-
-        .next-vessel-link:hover {
-            /* Text-shadow idealnie otula kształt każdej z liter, sprawiając, że emitują światło */
-            text-shadow: 0 0 10px rgba(153, 0, 0, 0.9), 0 0 25px rgba(153, 0, 0, 0.7); 
+            margin-bottom: 8vh; /* Przywrócony duży margines, by licznik został na swoim miejscu dla światła */
         }
 
         .countdown {
@@ -182,6 +153,33 @@
             text-transform: uppercase;
             color: #666;
             margin-top: 5px;
+        }
+
+        /* --- NOWE STYLE PRZYCISKU: "NEXT VESSEL" --- */
+        .next-vessel-link {
+            display: inline-block;
+            background-color: transparent; 
+            
+            /* Ekstremalnie bliski tłu (#faf0e6) kolor napisu, prawie "ghost" */
+            color: #f0e5da; 
+            
+            font-family: 'UnifrakturCook', cursive;
+            font-weight: 700;
+            font-size: 24px;
+            
+            letter-spacing: 3px;
+            text-transform: lowercase;
+            text-decoration: none;
+            
+            margin-top: 4vh; /* Odstęp od góry (od licznika) */
+            
+            transition: text-shadow 1s ease-in-out, color 1s ease-in-out; 
+            position: relative;
+            z-index: 105; 
+        }
+
+        .next-vessel-link:hover {
+            text-shadow: 0 0 10px rgba(153, 0, 0, 0.9), 0 0 25px rgba(153, 0, 0, 0.7); 
         }
 
         .footer {
@@ -310,9 +308,9 @@
 
         <div class="part-of-it gothic-text">be the part of it.</div>
         
-        <a href="#" class="next-vessel-link">next vessel</a>
-        
         <div id="countdown" class="countdown"></div>
+        
+        <a href="vessel.html" class="next-vessel-link">next vessel</a>
     </div>
 
     <div class="footer">3ULT /// 2026 /// APRIL</div>
