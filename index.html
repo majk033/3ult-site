@@ -14,14 +14,12 @@
             --light-offset: -200px;
             --blur-max: 30px;
             
-            /* PRECYZYJNA ŚCIEŻKA ŚWIATŁA (dopasowana do nowego, podniesionego układu) */
-            --step1-y: -24vh; /* Idealny środek podniesionego Logo */
-            --step2-y: -7vh;  /* Idealny środek zgrupowanego tekstu */
-            --step3-y: 9vh;   /* Idealny środek Timera */
+            --step1-y: -24vh; 
+            --step2-y: -7vh;  
+            --step3-y: 9vh;   
 
-            /* Rozszczepienie końcowe dla KOMPUTERA (w poziomie) */
-            --beam-C-Y: -7vh;  /* Środek zostaje na tekstach */
-            --beam-L-X: -32vw; --beam-L-Y: -7vh; /* Boczne na tej samej wysokości co tekst */
+            --beam-C-Y: -7vh;  
+            --beam-L-X: -32vw; --beam-L-Y: -7vh;
             --beam-R-X: 32vw;  --beam-R-Y: -7vh;
         }
 
@@ -31,15 +29,13 @@
                 --light-offset: -130px;
                 --blur-max: 20px;
                 
-                /* KROKI ŚWIATŁA NA TELEFONIE (Dzięki jednostkom 'vh' układ skaluje się idealnie) */
                 --step1-y: -24vh;
                 --step2-y: -7vh; 
                 --step3-y: 9vh;  
 
-                /* Rozszczepienie końcowe dla TELEFONU (w pionie) - ZACHOWANE DUŻE ODSTĘPY (co 30vh) */
-                --beam-C-Y: -7vh;  /* Środek zostaje na tekstach */
-                --beam-L-X: 0vw;   --beam-L-Y: -37vh; /* Górne ucieka nad Logo */
-                --beam-R-X: 0vw;   --beam-R-Y: 23vh;  /* Dolne ucieka pod Timer */
+                --beam-C-Y: -7vh;  
+                --beam-L-X: 0vw;   --beam-L-Y: -37vh;
+                --beam-R-X: 0vw;   --beam-R-Y: 23vh;  
             }
         }
 
@@ -56,13 +52,47 @@
             overflow: hidden; 
         }
 
-        /* NOWY KONTENER - zarządza całym układem i podnosi go wyżej */
+        /* --- SEKCJA KROPLE FARBY NA TAFLI EKRANU --- */
+        .paint-drips-container {
+            position: fixed;
+            inset: 0;
+            z-index: 1; /* Tło */
+            pointer-events: none; 
+        }
+
+        .drip-group {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .drip {
+            position: absolute;
+            background-color: #990000;
+            border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%;
+            /* Domyślnie krople są ukryte, aż ich animacja (i opóźnienie) się nie zaczną */
+            opacity: 0;
+            transform-origin: center;
+            /* Czas animacji dla każdej kropli z osobna */
+            animation: liquidSplat 5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes liquidSplat {
+            0%   { transform: scale(1.5) translateY(-15px); opacity: 0; }
+            5%   { transform: scale(1.1) translateY(0); opacity: 1; } /* Uderzenie! */
+            10%  { transform: scale(1) translateY(0); opacity: 1; }   /* Osiadanie */
+            70%  { transform: scale(1) translateY(0); opacity: 1; }   /* Zatrzymanie na stronie */
+            100% { transform: scale(0.9) translateY(0); opacity: 0; } /* Zniknięcie */
+        }
+
+        /* --- KONTENER GŁÓWNY TREŚCI --- */
         .content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            transform: translateY(-8vh); /* Podnosi całą zawartość wyżej względem środka ekranu */
+            transform: translateY(-8vh);
+            z-index: 50; 
         }
 
         .gothic-text {
@@ -74,7 +104,7 @@
             max-width: 300px; 
             width: 70%;
             height: auto;
-            margin-bottom: 7vh; /* Duży, estetyczny odstęp pod logo */
+            margin-bottom: 7vh;
             min-height: 80px; 
         }
 
@@ -85,7 +115,7 @@
             text-transform: uppercase; 
             display: flex;
             gap: 15px; 
-            margin-bottom: 1vh; /* Niewielki odstęp, by zgrupować nagłówek z podtytułem */
+            margin-bottom: 1vh;
         }
 
         .part-of-it {
@@ -94,7 +124,7 @@
             letter-spacing: 2px;
             text-transform: lowercase;
             text-align: center;
-            margin-bottom: 8vh; /* Duży, wyraźny odstęp przed timerem */
+            margin-bottom: 8vh;
         }
 
         .countdown {
@@ -137,7 +167,6 @@
         }
 
         /* --- MASKA ŚWIATŁA --- */
-        
         .spotlight-wrapper {
             position: fixed;
             inset: 0;
@@ -189,16 +218,13 @@
             45%  { transform: translate(0, var(--step3-y)); }              
             60%  { transform: translate(0, var(--step3-y)); }              
             
-            /* Szybki, czysty powrót Z TIMERA NA NAPIS COMING SOON */
             75%  { transform: translate(0, var(--step2-y)); }
             81%  { transform: translate(0, var(--step2-y)); }
             
-            /* Finałowe pozycje (rozszczepienie prosto z napisu) */
             84%  { transform: translate(0, var(--step2-y)); opacity: 1;}
             90%, 100% { transform: translate(0, var(--beam-C-Y)); opacity: 1;} 
         }
 
-        /* Boczne światła wyłaniają się idealnie spod napisu COMING SOON */
         @keyframes beamLeft {
             0%, 81% { transform: translate(0, var(--step2-y)); opacity: 0; } 
             82%  { transform: translate(0, var(--step2-y)); opacity: 1; } 
@@ -237,6 +263,8 @@
 </head>
 <body>
 
+    <div class="paint-drips-container" id="paint-drips-container"></div>
+
     <div class="spotlight-wrapper">
         <div class="lights-container">
             <div class="light center-beam"></div>
@@ -262,7 +290,73 @@
 
     <script>
         const countDownDate = new Date("Apr 23, 2026 00:00:00").getTime();
+        const dripsContainer = document.getElementById("paint-drips-container");
         let intervalId;
+
+        // --- SILNIK FARBY UDERZAJĄCEJ W TAFLĘ ---
+
+        function createDripGroup() {
+            const group = document.createElement("div");
+            group.className = "drip-group";
+
+            // Miejsce uderzenia
+            const x = 10 + Math.random() * 80; // 10vw - 90vw
+            const y = 10 + Math.random() * 80; // 10vh - 90vh
+            group.style.left = `${x}vw`;
+            group.style.top = `${y}vh`;
+
+            // Obracamy całą grupę losowo
+            group.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+            // Losujemy JEDNĄ wielkość dla całego zgrupowania
+            const uniformSize = 10 + Math.random() * 8; // 10-18px
+
+            // Układamy 3 kropki, ale dodajemy im losowe opóźnienia (delay)
+            // Główna uderza natychmiast (0s), reszta chwilę później.
+            const drops = [
+                { dx: 0, dy: 0, delay: 0 }, 
+                { dx: -10 - Math.random() * 5, dy: 8 + Math.random() * 5, delay: 0.15 + Math.random() * 0.3 }, // opóźnienie 0.15s - 0.45s
+                { dx: 12 + Math.random() * 5, dy: -5 - Math.random() * 5, delay: 0.3 + Math.random() * 0.4 }   // opóźnienie 0.3s - 0.7s
+            ];
+
+            drops.forEach(drop => {
+                const drip = document.createElement("div");
+                drip.className = "drip";
+                drip.style.left = `${drop.dx}px`;
+                drip.style.top = `${drop.dy}px`;
+                drip.style.width = `${uniformSize}px`;
+                drip.style.height = `${uniformSize}px`;
+                // NOWE: Przekazujemy opóźnienie do CSS
+                drip.style.animationDelay = `${drop.delay}s`; 
+                
+                group.appendChild(drip);
+            });
+
+            dripsContainer.appendChild(group);
+
+            // Cała animacja trwa 5 sekund, plus około 1s na najdłuższe opóźnienie.
+            // Usuwamy po 6 sekundach, żeby wyczyścić DOM.
+            setTimeout(() => {
+                if (group.parentNode) {
+                    group.parentNode.removeChild(group);
+                }
+            }, 6000);
+        }
+
+        // Flaga kontrolująca pętlę
+        let continueSpawning = true;
+
+        function spawnLoop() {
+            if (!continueSpawning) return; // Zatrzymaj pętlę, jeśli odliczanie się skończyło
+
+            createDripGroup();
+            
+            // Pojawianie się: co 3 - 5 sekund
+            const nextSpawnDelay = (3 + Math.random() * 2) * 1000;
+            setTimeout(spawnLoop, nextSpawnDelay);
+        }
+
+        // --- LICZNIK ---
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -283,12 +377,20 @@
 
             if (distance < 0) {
                 clearInterval(intervalId);
+                continueSpawning = false; // Zatrzymaj generowanie nowych grup
+                // Czyszczenie tła z farby (istniejących grup)
+                if (dripsContainer.parentNode) {
+                    dripsContainer.parentNode.removeChild(dripsContainer);
+                }
                 document.getElementById("countdown").innerHTML = "<span class='gothic-text' style='font-size: 32px;'>DROP JEST DOSTĘPNY</span>";
             }
         }
 
-        updateCountdown();
-        intervalId = setInterval(updateCountdown, 1000);
+        window.addEventListener('DOMContentLoaded', () => {
+            spawnLoop();
+            updateCountdown();
+            intervalId = setInterval(updateCountdown, 1000);
+        });
     </script>
 
 </body>
