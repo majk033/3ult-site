@@ -13,11 +13,9 @@
             --light-size: 400px;
             --light-offset: -200px;
             --blur-max: 30px;
-            
             --step1-y: -24vh; 
             --step2-y: -7vh;  
             --step3-y: 9vh;   
-
             --beam-C-Y: -7vh;  
             --beam-L-X: -32vw; --beam-L-Y: -7vh;
             --beam-R-X: 32vw;  --beam-R-Y: -7vh;
@@ -28,11 +26,9 @@
                 --light-size: 260px; 
                 --light-offset: -130px;
                 --blur-max: 20px;
-                
                 --step1-y: -24vh;
                 --step2-y: -7vh; 
                 --step3-y: 9vh;  
-
                 --beam-C-Y: -7vh;  
                 --beam-L-X: 0vw;   --beam-L-Y: -37vh;
                 --beam-R-X: 0vw;   --beam-R-Y: 23vh;  
@@ -52,7 +48,6 @@
             overflow: hidden; 
         }
 
-        /* --- SEKCJA KROPLE FARBY NA TAFLI EKRANU --- */
         .paint-drips-container {
             position: fixed;
             inset: 0;
@@ -60,11 +55,7 @@
             pointer-events: none; 
         }
 
-        .drip-group {
-            position: absolute;
-            width: 0;
-            height: 0;
-        }
+        .drip-group { position: absolute; width: 0; height: 0; }
 
         .drip {
             position: absolute;
@@ -83,7 +74,6 @@
             100% { transform: scale(0.9) translateY(0); opacity: 0; } 
         }
 
-        /* --- KONTENER GŁÓWNY TREŚCI --- */
         .content-wrapper {
             display: flex;
             flex-direction: column;
@@ -93,141 +83,83 @@
             z-index: 50; 
         }
 
-        .gothic-text {
-            font-family: 'UnifrakturCook', cursive;
-            font-weight: 700;
-        }
+        .gothic-text { font-family: 'UnifrakturCook', cursive; font-weight: 700; }
         
         img {
-            max-width: 300px; 
-            width: 70%;
-            height: auto;
-            margin-bottom: 7vh;
-            min-height: 80px; 
+            max-width: 300px; width: 70%; height: auto; margin-bottom: 7vh; min-height: 80px; 
         }
 
         .coming-soon-container {
-            color: #990000; 
-            font-size: 32px;
-            letter-spacing: 4px;
-            text-transform: uppercase; 
-            display: flex;
-            gap: 15px; 
-            margin-bottom: 1vh;
+            color: #990000; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; 
+            display: flex; gap: 15px; margin-bottom: 1vh;
         }
 
         .part-of-it {
-            color: #000000;
-            font-size: 26px;
-            letter-spacing: 2px;
-            text-transform: lowercase;
-            text-align: center;
-            margin-bottom: 8vh; /* Przywrócony duży margines, by licznik został na swoim miejscu dla światła */
+            color: #000000; font-size: 26px; letter-spacing: 2px; text-transform: lowercase;
+            text-align: center; margin-bottom: 8vh; 
         }
 
         .countdown {
-            display: flex;
-            gap: 20px;
-            color: #000000;
-            min-height: 60px; 
+            display: flex; gap: 20px; color: #000000; min-height: 60px; 
         }
 
         .countdown div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 65px; 
+            display: flex; flex-direction: column; align-items: center; width: 65px; 
         }
 
         .countdown-number {
-            font-family: 'UnifrakturCook', cursive;
-            font-weight: 700;
-            font-size: 36px;
+            font-family: 'UnifrakturCook', cursive; font-weight: 700; font-size: 36px;
             font-variant-numeric: tabular-nums; 
         }
 
         .countdown-label {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #666;
-            margin-top: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 10px;
+            letter-spacing: 2px; text-transform: uppercase; color: #666; margin-top: 5px;
         }
 
-        /* --- NOWE STYLE PRZYCISKU: "NEXT VESSEL" --- */
+        /* --- STYL PRZYCISKU --- */
         .next-vessel-link {
             display: inline-block;
             background-color: transparent; 
-            
-            /* Ekstremalnie bliski tłu (#faf0e6) kolor napisu, prawie "ghost" */
             color: #f0e5da; 
-            
             font-family: 'UnifrakturCook', cursive;
             font-weight: 700;
             font-size: 24px;
-            
             letter-spacing: 3px;
             text-transform: lowercase;
             text-decoration: none;
-            
-            margin-top: 4vh; /* Odstęp od góry (od licznika) */
-            
-            transition: text-shadow 1s ease-in-out, color 1s ease-in-out; 
+            margin-top: 4vh; 
+            transition: text-shadow 0.8s ease-in-out, color 0.8s ease-in-out; 
             position: relative;
             z-index: 105; 
         }
 
-        .next-vessel-link:hover {
+        /* Klasa dodawana przez JS na telefonach, by wymusić cień */
+        .next-vessel-link:hover, .next-vessel-link.active-shadow {
             text-shadow: 0 0 10px rgba(153, 0, 0, 0.9), 0 0 25px rgba(153, 0, 0, 0.7); 
         }
 
         .footer {
-            position: absolute;
-            bottom: 20px;
-            font-size: 11px;
-            color: #aaa; 
-            letter-spacing: 3px;
-            z-index: 10; 
+            position: absolute; bottom: 20px; font-size: 11px; color: #aaa; letter-spacing: 3px; z-index: 10; 
         }
 
         /* --- MASKA ŚWIATŁA --- */
         .spotlight-wrapper {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            pointer-events: none; 
-            mix-blend-mode: multiply; 
-            animation: removeDarkness 12s forwards; 
+            position: fixed; inset: 0; z-index: 100; pointer-events: none; 
+            mix-blend-mode: multiply; animation: removeDarkness 12s forwards; 
         }
-
         .lights-container {
-            width: 100%;
-            height: 100%;
-            background-color: #000000; 
-            animation: lightsFlicker 12s forwards; 
+            width: 100%; height: 100%; background-color: #000000; animation: lightsFlicker 12s forwards; 
         }
-
         .light {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: var(--light-size); 
-            height: var(--light-size);
-            margin-top: var(--light-offset);
-            margin-left: var(--light-offset);
-            
+            position: absolute; top: 50%; left: 50%; width: var(--light-size); height: var(--light-size);
+            margin-top: var(--light-offset); margin-left: var(--light-offset);
             border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; 
             background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 45%, rgba(0,0,0,1) 65%);
-            mix-blend-mode: screen; 
-            
-            animation: shapeWobble 1s infinite linear alternate-reverse;
+            mix-blend-mode: screen; animation: shapeWobble 1s infinite linear alternate-reverse;
         }
         
-        @keyframes shapeWobble {
-            to { border-radius: 60% 40% 30% 70% / 60% 50% 70% 30%; }
-        }
-
+        @keyframes shapeWobble { to { border-radius: 60% 40% 30% 70% / 60% 50% 70% 30%; } }
         .center-beam { animation: beamCenter 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
         .left-beam { animation: beamLeft 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
         .right-beam { animation: beamRight 11.5s ease-in-out forwards, diffuseLight 12s ease-in-out forwards; }
@@ -236,60 +168,38 @@
             0%   { transform: translate(0, var(--step1-y)); opacity: 0; } 
             2%   { transform: translate(0, var(--step1-y)); opacity: 1; }
             15%  { transform: translate(0, var(--step1-y)); }             
-            
             25%  { transform: translate(0, var(--step2-y)); }             
             35%  { transform: translate(0, var(--step2-y)); }             
-            
             45%  { transform: translate(0, var(--step3-y)); }              
             60%  { transform: translate(0, var(--step3-y)); }              
-            
             75%  { transform: translate(0, var(--step2-y)); }
             81%  { transform: translate(0, var(--step2-y)); }
-            
             84%  { transform: translate(0, var(--step2-y)); opacity: 1;}
             90%, 100% { transform: translate(0, var(--beam-C-Y)); opacity: 1;} 
         }
-
         @keyframes beamLeft {
             0%, 81% { transform: translate(0, var(--step2-y)); opacity: 0; } 
             82%  { transform: translate(0, var(--step2-y)); opacity: 1; } 
             84%  { transform: translate(0, var(--step2-y)); }                
             90%, 100% { transform: translate(var(--beam-L-X), var(--beam-L-Y)); opacity: 1;} 
         }
-
         @keyframes beamRight {
             0%, 81% { transform: translate(0, var(--step2-y)); opacity: 0; } 
             82%  { transform: translate(0, var(--step2-y)); opacity: 1; } 
             84%  { transform: translate(0, var(--step2-y)); }                
             90%, 100% { transform: translate(var(--beam-R-X), var(--beam-R-Y)); opacity: 1;}  
         }
-
-        @keyframes diffuseLight {
-            0%, 86% { filter: blur(2px); }   
-            90%, 100% { filter: blur(var(--blur-max)); }  
-        }
-
+        @keyframes diffuseLight { 0%, 86% { filter: blur(2px); } 90%, 100% { filter: blur(var(--blur-max)); } }
         @keyframes lightsFlicker {
-            0%, 93% { opacity: 1; }
-            94%  { opacity: 0.1; } 
-            95%  { opacity: 1; }
-            96%  { opacity: 0.1; } 
-            97%  { opacity: 1; }
-            98%  { opacity: 0.1; } 
-            99%, 100% { opacity: 1; }
+            0%, 93% { opacity: 1; } 94% { opacity: 0.1; } 95% { opacity: 1; } 96% { opacity: 0.1; } 
+            97% { opacity: 1; } 98% { opacity: 0.1; } 99%, 100% { opacity: 1; }
         }
-
-        @keyframes removeDarkness {
-            0%, 99% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-
+        @keyframes removeDarkness { 0%, 99% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
     </style>
 </head>
 <body>
 
     <div class="paint-drips-container" id="paint-drips-container"></div>
-
     <div class="spotlight-wrapper">
         <div class="lights-container">
             <div class="light center-beam"></div>
@@ -320,21 +230,14 @@
         const dripsContainer = document.getElementById("paint-drips-container");
         let intervalId;
 
-        // --- SILNIK FARBY UDERZAJĄCEJ W TAFLĘ ---
-
         function createDripGroup() {
             const group = document.createElement("div");
             group.className = "drip-group";
-
-            const x = 10 + Math.random() * 80; 
-            const y = 10 + Math.random() * 80; 
-            group.style.left = `${x}vw`;
-            group.style.top = `${y}vh`;
-
+            group.style.left = `${10 + Math.random() * 80}vw`;
+            group.style.top = `${10 + Math.random() * 80}vh`;
             group.style.transform = `rotate(${Math.random() * 360}deg)`;
 
             const uniformSize = 10 + Math.random() * 8; 
-
             const drops = [
                 { dx: 0, dy: 0, delay: 0 }, 
                 { dx: -10 - Math.random() * 5, dy: 8 + Math.random() * 5, delay: 0.15 + Math.random() * 0.3 }, 
@@ -349,65 +252,56 @@
                 drip.style.width = `${uniformSize}px`;
                 drip.style.height = `${uniformSize}px`;
                 drip.style.animationDelay = `${drop.delay}s`; 
-                
                 group.appendChild(drip);
             });
 
             dripsContainer.appendChild(group);
-
-            setTimeout(() => {
-                if (group.parentNode) {
-                    group.parentNode.removeChild(group);
-                }
-            }, 6000);
+            setTimeout(() => { if (group.parentNode) group.parentNode.removeChild(group); }, 6000);
         }
 
         let continueSpawning = true;
-
         function spawnLoop() {
             if (!continueSpawning) return; 
-
             createDripGroup();
-            
-            const nextSpawnDelay = (3 + Math.random() * 2) * 1000;
-            setTimeout(spawnLoop, nextSpawnDelay);
+            setTimeout(spawnLoop, (3 + Math.random() * 2) * 1000);
         }
-
-        // --- LICZNIK ---
 
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = countDownDate - now;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
             const formatTime = (time) => time < 10 ? "0" + time : time;
-
             document.getElementById("countdown").innerHTML = 
-                "<div><span class='countdown-number'>" + formatTime(days) + "</span><span class='countdown-label'>dni</span></div>" + 
-                "<div><span class='countdown-number'>" + formatTime(hours) + "</span><span class='countdown-label'>godz</span></div>" + 
-                "<div><span class='countdown-number'>" + formatTime(minutes) + "</span><span class='countdown-label'>min</span></div>" + 
-                "<div><span class='countdown-number'>" + formatTime(seconds) + "</span><span class='countdown-label'>sek</span></div>";
+                "<div><span class='countdown-number'>" + formatTime(Math.floor(distance / (1000 * 60 * 60 * 24))) + "</span><span class='countdown-label'>dni</span></div>" + 
+                "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))) + "</span><span class='countdown-label'>godz</span></div>" + 
+                "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))) + "</span><span class='countdown-label'>min</span></div>" + 
+                "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60)) / 1000)) + "</span><span class='countdown-label'>sek</span></div>";
 
             if (distance < 0) {
                 clearInterval(intervalId);
                 continueSpawning = false; 
-                if (dripsContainer.parentNode) {
-                    dripsContainer.parentNode.removeChild(dripsContainer);
-                }
+                if (dripsContainer.parentNode) dripsContainer.parentNode.removeChild(dripsContainer);
                 document.getElementById("countdown").innerHTML = "<span class='gothic-text' style='font-size: 32px;'>DROP JEST DOSTĘPNY</span>";
             }
         }
 
+        // --- SKRYPT DLA PRZYCISKU NA TELEFON (Opóźnienie przejścia) ---
+        const nextVesselLink = document.querySelector('.next-vessel-link');
+        nextVesselLink.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 || 'ontouchstart' in window) {
+                e.preventDefault(); // Blokujemy natychmiastowe przejście
+                this.classList.add('active-shadow'); // Pokazujemy cień
+                
+                // Czekamy 800ms aż animacja cienia się załaduje i dopiero idziemy na stronę produktu
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 800);
+            }
+        });
+
         window.addEventListener('DOMContentLoaded', () => {
-            spawnLoop();
-            updateCountdown();
-            intervalId = setInterval(updateCountdown, 1000);
+            spawnLoop(); updateCountdown(); intervalId = setInterval(updateCountdown, 1000);
         });
     </script>
-
 </body>
 </html>
