@@ -23,6 +23,7 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
+        /* --- LOGO NA GÓRZE --- */
         .top-logo {
             position: absolute;
             top: 5vh; 
@@ -32,6 +33,7 @@
             pointer-events: none;
         }
 
+        /* --- KONTENER WIDEO (Triger) --- */
         .product-container {
             position: relative;
             z-index: 30; 
@@ -41,7 +43,7 @@
         }
 
         .product-container:hover {
-            transform: translateY(-5vh) scale(1.03);
+            transform: translateY(-5vh) scale(1.02);
         }
 
         .product-mockup {
@@ -49,14 +51,11 @@
             max-width: 430px;
             min-width: 250px;
             height: auto;
-            filter: drop-shadow(0px 20px 30px rgba(0, 0, 0, 0.15)); 
-            transition: filter 0.8s ease;
+            filter: none; 
+            display: block; 
         }
 
-        .product-container:hover .product-mockup {
-            filter: drop-shadow(0px 0px 70px rgba(153, 0, 0, 0.8));
-        }
-
+        /* --- KONTENER NA RĘCE (GRUPA CENTRALNA) --- */
         .hands-container {
             position: absolute;
             inset: 0; 
@@ -83,25 +82,32 @@
         .hand-center { left: 50%; transform: translateX(-50%) translateY(14vh) scale(1.05); z-index: 12; }
         .hand-right { left: 50%; transform: translateX(-15%) translateY(12vh); z-index: 11; }
 
+        /* --- EFEKT PO NAJECHANIU NA KOSZULKĘ (REACHING) --- */
         body.reaching .hand { opacity: 1; }
         body.reaching .hand-left { transform: translateX(-85%) translateY(7vh); }
         body.reaching .hand-center { transform: translateX(-50%) translateY(9vh) scale(1.1); }
         body.reaching .hand-right { transform: translateX(-15%) translateY(7vh); }
 
-        /* --- POPRAWKI WYŁĄCZNIE NA TELEFON (Powiększone i przesunięte do góry) --- */
+        /* --- POPRAWKI NA TELEFON --- */
         @media (max-width: 768px) {
-            .hand {
-                width: 55vw; /* Znacznie powiększone na telefonie */
-                bottom: 2vh; /* Wyżej wysunięte w stronę koszulki */
-            }
+            .hand { width: 55vw; bottom: 2vh; }
             .hand-left { transform: translateX(-80%) translateY(8vh); }
             .hand-center { transform: translateX(-50%) translateY(10vh) scale(1.05); }
             .hand-right { transform: translateX(-20%) translateY(8vh); }
-
-            /* Sięganie po koszulkę na telefonie */
+            
             body.reaching .hand-left { transform: translateX(-80%) translateY(4vh); }
             body.reaching .hand-center { transform: translateX(-50%) translateY(6vh) scale(1.1); }
             body.reaching .hand-right { transform: translateX(-20%) translateY(4vh); }
+        }
+
+        /* --- STOPKA --- */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 11px;
+            color: #aaa; 
+            letter-spacing: 3px;
+            z-index: 10; 
         }
 
     </style>
@@ -111,7 +117,7 @@
     <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo">
 
     <div class="product-container" id="product-trigger">
-        <img src="mockup.png" alt="Koszulka 3ULT" class="product-mockup">
+        <video src="3vid.mp4" class="product-mockup" autoplay loop muted playsinline></video>
     </div>
 
     <div class="hands-container">
@@ -120,11 +126,11 @@
         <img src="hand-right.png" alt="hand" class="hand hand-right">
     </div>
 
+    <div class="footer">3ULT /// 2026 /// APRIL</div>
+
     <script>
         const product = document.getElementById('product-trigger');
 
-        // Ponieważ na telefonach hover zachowuje się czasem różnie,
-        // dodajemy też nasłuchiwanie dotyku, by efekt dłoni działał perfekcyjnie.
         product.addEventListener('mouseenter', () => document.body.classList.add('reaching'));
         product.addEventListener('touchstart', () => document.body.classList.add('reaching'));
 
