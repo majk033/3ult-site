@@ -14,7 +14,7 @@
             color: #000000; 
             margin: 0;
             padding: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -23,41 +23,254 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        /* --- LOGO NA GÓRZE --- */
         .top-logo {
             position: absolute;
             top: 5vh; 
             width: 120px; 
             height: auto;
-            z-index: 40;
+            z-index: 100;
             pointer-events: none;
-        }
-
-        /* --- KONTENER WIDEO (Triger) --- */
-        .product-container {
-            position: relative;
-            z-index: 30; 
-            cursor: pointer;
             transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform: translateY(-5vh); 
         }
 
-        .product-container:hover {
-            transform: translateY(-5vh) scale(1.02);
+        /* --- UKŁAD GŁÓWNY --- */
+        .main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 95vw; 
+            height: 85vh;
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* --- LEWA STRONA (PRODUKT) --- */
+        .product-side {
+            flex: 1; /* Elastyczna szerokość */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .product-container {
+            cursor: pointer;
+            transition: transform 0.6s ease;
         }
 
         .product-mockup {
-            width: 38vw; 
-            max-width: 430px;
-            min-width: 250px;
+            width: 35vw; 
+            max-width: 450px;
+            min-width: 280px;
             height: auto;
-            filter: none; 
             display: block; 
         }
 
-        /* --- KONTENER NA RĘCE (GRUPA CENTRALNA) --- */
-        .hands-container {
+        /* --- PRAWA STRONA (DETALE) --- */
+        .details-side {
+            flex: 0; /* Na start zajmuje 0% przestrzeni */
+            opacity: 0;
+            visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-left: 0; /* Zmiana: padding animuje się płynnie razem z szerokością */
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            max-width: 0;
+            max-height: 80vh;
+            overflow-y: auto;
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+        }
+        .details-side::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* --- TYTUŁ PRODUKTU --- */
+        .product-title {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 32px;
+            color: #000000;
+            margin-bottom: 1.5vh;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            /* Blokada zawijania tekstu w trakcie animacji rozszerzania */
+            white-space: nowrap; 
+        }
+
+        /* --- ESTETYCZNY OPIS KOSZULKI --- */
+        .product-description {
+            color: #000000;
+            font-size: 14px;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            max-width: 700px; 
+            min-width: 300px; /* Zapobiega łamaniu się tekstu podczas animacji */
+            text-align: left;
+            margin-bottom: 3vh;
+        }
+
+        .desc-item {
+            display: flex;
+            margin-bottom: 8px; 
+        }
+
+        .desc-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            display: inline-block;
+            width: 75px; 
+            flex-shrink: 0; 
+        }
+
+        .desc-content {
+            flex: 1;
+        }
+
+        /* --- PRZYCISKI AKCJI --- */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5vh;
+            margin-bottom: 3vh;
+            width: 100%;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #000000;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 22px;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .action-btn:hover {
+            color: #990000;
+            text-shadow: 0 0 10px rgba(153, 0, 0, 0.4);
+        }
+
+        /* --- UKRYTE ZAKŁADKI (SIZECHART I AVAILABILITY) --- */
+        .collapsible-wrapper {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+            width: 100%;
+            max-width: 400px; 
+        }
+
+        .collapsible-wrapper.active {
+            max-height: 1000px; 
+            opacity: 1;
+            margin-bottom: 3vh;
+        }
+
+        .size-chart-image {
+            width: 100%;
+            height: auto; 
+            border: none; 
+            display: block;
+        }
+
+        /* --- LISTA DOSTĘPNOŚCI (STOCK) --- */
+        .stock-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            padding-top: 10px;
+        }
+
+        .stock-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .stock-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .stock-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stock-size {
+            text-transform: uppercase;
+        }
+
+        .request-btn {
+            font-size: 10px;
+            color: #666;
+            text-decoration: none;
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .request-btn:hover {
+            color: #990000;
+        }
+
+        .stock-bar-bg {
+            width: 100%;
+            height: 2px;
+            background-color: #dcd3c9; 
+            position: relative;
+        }
+
+        .stock-bar-fill {
+            height: 100%;
+            background-color: #000000;
             position: absolute;
+            left: 0;
+            top: 0;
+            transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .stock-low .stock-percent { color: #990000; }
+        .stock-low .stock-bar-fill {
+            background-color: #990000;
+            box-shadow: 0 0 8px rgba(153, 0, 0, 0.6);
+        }
+
+        /* --- STAN PO KLIKNIĘCIU (SHOW DETAILS) --- */
+        body.show-details {
+            overflow-y: auto; 
+        }
+
+        /* Rozszerzenie sekcji detali - to naturalnie i płynnie wypycha koszulkę na lewo */
+        body.show-details .details-side {
+            flex: 1.5; 
+            opacity: 1;
+            visibility: visible;
+            max-width: 800px; 
+            padding-left: 5vw; /* Płynnie dodajemy odstęp */
+        }
+
+        /* Lekkie przesunięcie logo dla proporcji */
+        body.show-details .top-logo {
+            transform: translateX(-25vw); 
+        }
+
+        /* --- RĘCE --- */
+        .hands-container {
+            position: fixed; 
             inset: 0; 
             pointer-events: none; 
             z-index: 10; 
@@ -71,44 +284,196 @@
             min-width: 260px;
             height: auto;
             filter: grayscale(100%) contrast(1.5) brightness(0.7); 
-            /* Animacja wysuwania się trwa 1.2 sekundy */
             transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
             transform-origin: bottom center;
             bottom: -5vh; 
             opacity: 0.9; 
         }
 
-        /* POZYCJE STARTOWE DESKTOP */
         .hand-left { left: 50%; transform: translateX(-85%) translateY(12vh); z-index: 11; }
         .hand-center { left: 50%; transform: translateX(-50%) translateY(14vh) scale(1.05); z-index: 12; }
         .hand-right { left: 50%; transform: translateX(-15%) translateY(12vh); z-index: 11; }
 
-        /* --- EFEKT PO NAJECHANIU NA KOSZULKĘ (REACHING) --- */
         body.reaching .hand { opacity: 1; }
         body.reaching .hand-left { transform: translateX(-85%) translateY(7vh); }
         body.reaching .hand-center { transform: translateX(-50%) translateY(9vh) scale(1.1); }
         body.reaching .hand-right { transform: translateX(-15%) translateY(7vh); }
 
-        /* --- POPRAWKI NA TELEFON --- */
+        /* --- MEDIA QUERIES (MOBILE) --- */
         @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+                margin-top: 10vh;
+            }
+            
+            /* Logo absolutnie zamrożone w miejscu */
+            body.show-details .top-logo {
+                transform: none; 
+            }
+            
+            .product-side {
+                flex: none;
+                width: 100%;
+                justify-content: center;
+                padding-left: 0;
+            }
+
+            .product-mockup { width: 70vw; }
+            
+            .details-side {
+                padding-left: 0;
+                align-items: center;
+                max-width: 90vw;
+                padding-bottom: 10vh;
+                max-height: none; 
+            }
+
+            body.show-details .details-side {
+                padding-left: 0; /* Resetuje padding dodawany na komputerach */
+            }
+            
+            .product-title {
+                text-align: center;
+                font-size: 28px; 
+                white-space: normal; /* Pozwala zawijać na telefonach */
+            }
+            
+            .collapsible-wrapper { max-width: 90vw; }
+            .size-chart-image { width: 90vw; max-width: none; } 
+
+            .product-description {
+                max-width: 90vw;
+                min-width: unset;
+                font-size: 13px;
+                text-align: left;
+            }
+
+            .desc-label { width: 65px; }
+
             .hand { width: 55vw; bottom: 2vh; }
             .hand-left { transform: translateX(-80%) translateY(8vh); }
             .hand-center { transform: translateX(-50%) translateY(10vh) scale(1.05); }
             .hand-right { transform: translateX(-20%) translateY(8vh); }
             
-            body.reaching .hand-left { transform: translateX(-80%) translateY(4vh); }
-            body.reaching .hand-center { transform: translateX(-50%) translateY(6vh) scale(1.1); }
-            body.reaching .hand-right { transform: translateX(-20%) translateY(4vh); }
+            .action-buttons { align-items: center; }
         }
-
     </style>
 </head>
 <body>
 
     <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo">
 
-    <div class="product-container" id="product-trigger">
-        <video src="3vid.mp4" class="product-mockup" autoplay loop muted playsinline></video>
+    <div class="main-container">
+        <div class="product-side">
+            <div class="product-container" id="product-trigger">
+                <video src="3vid.mp4" class="product-mockup" autoplay loop muted playsinline></video>
+            </div>
+        </div>
+
+        <div class="details-side">
+            
+            <div class="product-title">BE YRSLF BOXY TEE</div>
+            
+            <div class="product-description">
+                <div class="desc-item">
+                    <span class="desc-label">Fabric:</span>
+                    <span class="desc-content">100% premium heavyweight cotton.</span>
+                </div>
+                <div class="desc-item">
+                    <span class="desc-label">Weight:</span>
+                    <span class="desc-content">240 GSM for a structured, substantial drape.</span>
+                </div>
+                <div class="desc-item">
+                    <span class="desc-label">Finish:</span>
+                    <span class="desc-content">High-definition graphics realized via industry-leading DTG technology.</span>
+                </div>
+                <div class="desc-item">
+                    <span class="desc-label">Fit:</span>
+                    <span class="desc-content">Signature boxy cut with dropped shoulders.</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn" id="toggle-sizechart">show sizechart</button>
+                <button class="action-btn" id="toggle-availability">check size availability</button>
+            </div>
+
+            <div class="collapsible-wrapper" id="sizechart-wrapper">
+                <img src="sizechart.png" alt="Size Chart" class="size-chart-image">
+            </div>
+
+            <div class="collapsible-wrapper" id="availability-wrapper">
+                <div class="stock-list">
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-left">
+                                <span class="stock-size">Size XS</span>
+                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size XS" class="request-btn">[ request ]</a>
+                            </div>
+                            <span class="stock-percent">100%</span>
+                        </div>
+                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
+                    </div>
+                    
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-left">
+                                <span class="stock-size">Size S</span>
+                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size S" class="request-btn">[ request ]</a>
+                            </div>
+                            <span class="stock-percent">100%</span>
+                        </div>
+                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
+                    </div>
+
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-left">
+                                <span class="stock-size">Size M</span>
+                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size M" class="request-btn">[ request ]</a>
+                            </div>
+                            <span class="stock-percent">100%</span>
+                        </div>
+                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
+                    </div>
+
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-left">
+                                <span class="stock-size">Size L</span>
+                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size L" class="request-btn">[ request ]</a>
+                            </div>
+                            <span class="stock-percent">100%</span>
+                        </div>
+                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
+                    </div>
+
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-left">
+                                <span class="stock-size">Size XL</span>
+                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size XL" class="request-btn">[ request ]</a>
+                            </div>
+                            <span class="stock-percent">100%</span>
+                        </div>
+                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
+                    </div>
+
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-left">
+                                <span class="stock-size">Size XXL</span>
+                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size XXL" class="request-btn">[ request ]</a>
+                            </div>
+                            <span class="stock-percent">100%</span>
+                        </div>
+                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <div class="hands-container">
@@ -119,36 +484,62 @@
 
     <script>
         const product = document.getElementById('product-trigger');
+        const sizechartBtn = document.getElementById('toggle-sizechart');
+        const availabilityBtn = document.getElementById('toggle-availability');
+        const sizechartWrapper = document.getElementById('sizechart-wrapper');
+        const availabilityWrapper = document.getElementById('availability-wrapper');
         let mobileTimer;
 
-        // --- ZACHOWANIE NA KOMPUTERZE (Najechanie myszką) ---
-        product.addEventListener('mouseenter', () => {
-            if (window.innerWidth > 768) {
-                document.body.classList.add('reaching');
+        function closeAllTabs() {
+            sizechartWrapper.classList.remove('active');
+            availabilityWrapper.classList.remove('active');
+            sizechartBtn.textContent = 'show sizechart';
+            availabilityBtn.textContent = 'check size availability';
+        }
+
+        product.addEventListener('click', () => {
+            document.body.classList.toggle('show-details');
+            if (!document.body.classList.contains('show-details')) {
+                closeAllTabs();
             }
+        });
+
+        sizechartBtn.addEventListener('click', () => {
+            const isActive = sizechartWrapper.classList.contains('active');
+            closeAllTabs(); 
+            
+            if (!isActive) {
+                sizechartWrapper.classList.add('active');
+                sizechartBtn.textContent = 'hide sizechart';
+            }
+        });
+
+        availabilityBtn.addEventListener('click', () => {
+            const isActive = availabilityWrapper.classList.contains('active');
+            closeAllTabs(); 
+            
+            if (!isActive) {
+                availabilityWrapper.classList.add('active');
+                availabilityBtn.textContent = 'hide size availability';
+            }
+        });
+
+        product.addEventListener('mouseenter', () => {
+            if (window.innerWidth > 768) document.body.classList.add('reaching');
         });
 
         product.addEventListener('mouseleave', () => {
-            if (window.innerWidth > 768) {
-                document.body.classList.remove('reaching');
-            }
+            if (window.innerWidth > 768) document.body.classList.remove('reaching');
         });
 
-        // --- ZACHOWANIE NA TELEFONIE (Dotyk / Kliknięcie) ---
-        product.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768 || 'ontouchstart' in window) {
-                // Wymuszamy dodanie klasy
-                document.body.classList.add('reaching');
-                
-                // Resetujemy stoper, jeśli ktoś znowu kliknie w trakcie
-                clearTimeout(mobileTimer);
-                
-                // Trzymamy ręce u góry przez 2.5 sekundy, dając im czas na pełne wysunięcie, 
-                // a potem płynnie je chowamy
-                mobileTimer = setTimeout(() => {
+        product.addEventListener('touchstart', () => {
+            document.body.classList.add('reaching');
+            clearTimeout(mobileTimer);
+            mobileTimer = setTimeout(() => {
+                if(!document.body.classList.contains('show-details')) {
                     document.body.classList.remove('reaching');
-                }, 2500);
-            }
+                }
+            }, 2500);
         });
     </script>
 
