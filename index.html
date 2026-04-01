@@ -117,25 +117,35 @@
             letter-spacing: 2px; text-transform: uppercase; color: #666; margin-top: 5px;
         }
 
-        /* --- STYL PRZYCISKU --- */
+        /* --- STYL PRZYCISKU (ZMIENIONY NA CZARNY I PODKREŚLONY) --- */
         .next-vessel-link {
             display: inline-block;
             background-color: transparent; 
-            color: #f0e5da; 
+            
+            color: #000000; /* Czarny, dobrze widoczny kolor */
+            
             font-family: 'UnifrakturCook', cursive;
             font-weight: 700;
             font-size: 24px;
             letter-spacing: 3px;
             text-transform: lowercase;
-            text-decoration: none;
-            margin-top: 4vh; 
-            transition: text-shadow 0.8s ease-in-out, color 0.8s ease-in-out; 
+            
+            /* Dodane estetyczne podkreślenie odseparowane od liter */
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 8px;
+            
+            margin-top: 7vh; /* Przesunięte w dół, z 4vh na 7vh */
+            
+            transition: color 0.4s ease-in-out, text-shadow 0.4s ease-in-out, text-decoration-color 0.4s ease-in-out; 
             position: relative;
             z-index: 105; 
         }
 
         .next-vessel-link:hover, .next-vessel-link.active-shadow {
-            text-shadow: 0 0 10px rgba(153, 0, 0, 0.9), 0 0 25px rgba(153, 0, 0, 0.7); 
+            color: #990000; /* Zmiana na czerwony */
+            text-decoration-color: #990000; /* Czerwone podkreślenie */
+            text-shadow: 0 0 15px rgba(153, 0, 0, 0.5); /* Lekki rozbłysk */
         }
 
         .footer {
@@ -146,11 +156,11 @@
         .spotlight-wrapper {
             position: fixed; inset: 0; z-index: 100; pointer-events: none; 
             mix-blend-mode: multiply; 
-            animation: removeDarkness 6s forwards; /* Zmiana z 12s na 6s */
+            animation: removeDarkness 6s forwards; 
         }
         .lights-container {
             width: 100%; height: 100%; background-color: #000000; 
-            animation: lightsFlicker 6s forwards; /* Zmiana z 12s na 6s */
+            animation: lightsFlicker 6s forwards; 
         }
         .light {
             position: absolute; top: 50%; left: 50%; width: var(--light-size); height: var(--light-size);
@@ -162,7 +172,6 @@
         
         @keyframes shapeWobble { to { border-radius: 60% 40% 30% 70% / 60% 50% 70% 30%; } }
         
-        /* Zmiana z 11.5s i 12s na 5.5s i 6s */
         .center-beam { animation: beamCenter 5.5s ease-in-out forwards, diffuseLight 6s ease-in-out forwards; }
         .left-beam { animation: beamLeft 5.5s ease-in-out forwards, diffuseLight 6s ease-in-out forwards; }
         .right-beam { animation: beamRight 5.5s ease-in-out forwards, diffuseLight 6s ease-in-out forwards; }
@@ -275,7 +284,6 @@
 
             const formatTime = (time) => time < 10 ? "0" + time : time;
             
-            // Zmiana polskich etykiet na angielskie (days, hours, mins, secs)
             document.getElementById("countdown").innerHTML = 
                 "<div><span class='countdown-number'>" + formatTime(Math.floor(distance / (1000 * 60 * 60 * 24))) + "</span><span class='countdown-label'>days</span></div>" + 
                 "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))) + "</span><span class='countdown-label'>hours</span></div>" + 
