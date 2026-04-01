@@ -45,7 +45,7 @@
 
         /* --- LEWA STRONA (PRODUKT) --- */
         .product-side {
-            flex: 1; /* Elastyczna szerokość */
+            flex: 1; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -56,6 +56,11 @@
         .product-container {
             cursor: pointer;
             transition: transform 0.6s ease;
+            transform: translateY(-5vh); /* Domyślna pozycja na PC */
+        }
+
+        .product-container:hover {
+            transform: translateY(-5vh) scale(1.02);
         }
 
         .product-mockup {
@@ -68,13 +73,13 @@
 
         /* --- PRAWA STRONA (DETALE) --- */
         .details-side {
-            flex: 0; /* Na start zajmuje 0% przestrzeni */
+            flex: 0; 
             opacity: 0;
             visibility: hidden;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            padding-left: 0; /* Zmiana: padding animuje się płynnie razem z szerokością */
+            padding-left: 0; 
             transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
             max-width: 0;
             max-height: 80vh;
@@ -94,7 +99,6 @@
             margin-bottom: 1.5vh;
             letter-spacing: 3px;
             text-transform: uppercase;
-            /* Blokada zawijania tekstu w trakcie animacji rozszerzania */
             white-space: nowrap; 
         }
 
@@ -105,7 +109,7 @@
             line-height: 1.8;
             letter-spacing: 1px;
             max-width: 700px; 
-            min-width: 300px; /* Zapobiega łamaniu się tekstu podczas animacji */
+            min-width: 300px; 
             text-align: left;
             margin-bottom: 3vh;
         }
@@ -157,7 +161,7 @@
             text-shadow: 0 0 10px rgba(153, 0, 0, 0.4);
         }
 
-        /* --- UKRYTE ZAKŁADKI (SIZECHART I AVAILABILITY) --- */
+        /* --- UKRYTE ZAKŁADKI --- */
         .collapsible-wrapper {
             max-height: 0;
             opacity: 0;
@@ -180,7 +184,7 @@
             display: block;
         }
 
-        /* --- LISTA DOSTĘPNOŚCI (STOCK) --- */
+        /* --- LISTA DOSTĘPNOŚCI --- */
         .stock-list {
             display: flex;
             flex-direction: column;
@@ -243,27 +247,19 @@
             transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .stock-low .stock-percent { color: #990000; }
-        .stock-low .stock-bar-fill {
-            background-color: #990000;
-            box-shadow: 0 0 8px rgba(153, 0, 0, 0.6);
-        }
-
         /* --- STAN PO KLIKNIĘCIU (SHOW DETAILS) --- */
         body.show-details {
             overflow-y: auto; 
         }
 
-        /* Rozszerzenie sekcji detali - to naturalnie i płynnie wypycha koszulkę na lewo */
         body.show-details .details-side {
             flex: 1.5; 
             opacity: 1;
             visibility: visible;
             max-width: 800px; 
-            padding-left: 5vw; /* Płynnie dodajemy odstęp */
+            padding-left: 5vw; 
         }
 
-        /* Lekkie przesunięcie logo dla proporcji */
         body.show-details .top-logo {
             transform: translateX(-25vw); 
         }
@@ -304,10 +300,9 @@
             .main-container {
                 flex-direction: column;
                 height: auto;
-                margin-top: 10vh;
+                margin-top: 15vh; /* Zwiększony odstęp od góry */
             }
             
-            /* Logo absolutnie zamrożone w miejscu */
             body.show-details .top-logo {
                 transform: none; 
             }
@@ -321,22 +316,31 @@
 
             .product-mockup { width: 70vw; }
             
+            /* ZNACZĄCE OBNIŻENIE KOSZULKI NA TELEFONIE */
+            .product-container {
+                transform: translateY(8vh); 
+            }
+            .product-container:hover {
+                transform: translateY(8vh) scale(1.02);
+            }
+            
             .details-side {
                 padding-left: 0;
                 align-items: center;
                 max-width: 90vw;
-                padding-bottom: 10vh;
+                padding-bottom: 15vh; /* Więcej miejsca na dole, by swobodnie scrollować */
                 max-height: none; 
+                margin-top: 8vh; /* Odstęp opisu od obniżonej koszulki */
             }
 
             body.show-details .details-side {
-                padding-left: 0; /* Resetuje padding dodawany na komputerach */
+                padding-left: 0; 
             }
             
             .product-title {
                 text-align: center;
                 font-size: 28px; 
-                white-space: normal; /* Pozwala zawijać na telefonach */
+                white-space: normal; 
             }
             
             .collapsible-wrapper { max-width: 90vw; }
@@ -357,6 +361,19 @@
             .hand-right { transform: translateX(-20%) translateY(8vh); }
             
             .action-buttons { align-items: center; }
+
+            /* --- ZNIKANIE RĄK NA TELEFONIE --- */
+            .hands-container {
+                /* Przy zamykaniu (brak .show-details) wracają natychmiastowo */
+                transition: opacity 0.3s ease; 
+            }
+            
+            body.show-details .hands-container {
+                opacity: 0;
+                pointer-events: none; /* Żeby nie blokowały klikania w tekst */
+                /* Czekają 1.2 sekundy (aż się wysuną), a potem znikają w 0.5 sekundy */
+                transition: opacity 0.5s ease 1.2s; 
+            }
         }
     </style>
 </head>
@@ -488,7 +505,6 @@
         const availabilityBtn = document.getElementById('toggle-availability');
         const sizechartWrapper = document.getElementById('sizechart-wrapper');
         const availabilityWrapper = document.getElementById('availability-wrapper');
-        let mobileTimer;
 
         function closeAllTabs() {
             sizechartWrapper.classList.remove('active');
@@ -497,17 +513,27 @@
             availabilityBtn.textContent = 'check size availability';
         }
 
+        // Ujednolicony kod obsługujący kliknięcie na PC i Telefonie
         product.addEventListener('click', () => {
-            document.body.classList.toggle('show-details');
-            if (!document.body.classList.contains('show-details')) {
+            const isShowing = document.body.classList.toggle('show-details');
+            
+            if (!isShowing) {
+                // Gdy zamykamy
                 closeAllTabs();
+                if (window.innerWidth <= 768) {
+                    document.body.classList.remove('reaching'); // Ręce natychmiast wracają i zjeżdżają
+                }
+            } else {
+                // Gdy otwieramy
+                if (window.innerWidth <= 768) {
+                    document.body.classList.add('reaching'); // Startujemy animację wysuwania rąk
+                }
             }
         });
 
         sizechartBtn.addEventListener('click', () => {
             const isActive = sizechartWrapper.classList.contains('active');
             closeAllTabs(); 
-            
             if (!isActive) {
                 sizechartWrapper.classList.add('active');
                 sizechartBtn.textContent = 'hide sizechart';
@@ -517,29 +543,19 @@
         availabilityBtn.addEventListener('click', () => {
             const isActive = availabilityWrapper.classList.contains('active');
             closeAllTabs(); 
-            
             if (!isActive) {
                 availabilityWrapper.classList.add('active');
                 availabilityBtn.textContent = 'hide size availability';
             }
         });
 
+        // Efekt hover działa tylko na desktopie
         product.addEventListener('mouseenter', () => {
             if (window.innerWidth > 768) document.body.classList.add('reaching');
         });
 
         product.addEventListener('mouseleave', () => {
             if (window.innerWidth > 768) document.body.classList.remove('reaching');
-        });
-
-        product.addEventListener('touchstart', () => {
-            document.body.classList.add('reaching');
-            clearTimeout(mobileTimer);
-            mobileTimer = setTimeout(() => {
-                if(!document.body.classList.contains('show-details')) {
-                    document.body.classList.remove('reaching');
-                }
-            }, 2500);
         });
     </script>
 
