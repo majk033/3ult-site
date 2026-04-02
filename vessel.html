@@ -53,10 +53,18 @@
             transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .product-container {
+     .product-container {
+            position: relative; 
             cursor: pointer;
             transition: transform 0.6s ease;
-            transform: translateY(-5vh); /* Domyślna pozycja na PC */
+            transform: translateY(-5vh); 
+            -webkit-tap-highlight-color: transparent; 
+            outline: none;
+            
+            /* --- ŻELAZNA MASKA --- */
+            overflow: hidden; /* Odcina wszystko, co wystaje poza wymiary */
+            border-radius: 2px; /* Lekkie zaokrąglenie pomaga sprzętowo wygładzić cięcie */
+            -webkit-mask-image: -webkit-radial-gradient(white, black); /* Hack wymuszający ostre ucięcie na Chrome/Edge */
         }
 
         .product-container:hover {
@@ -69,6 +77,16 @@
             min-width: 280px;
             height: auto;
             display: block; 
+            
+            outline: none; 
+            border: none;
+            background-color: transparent;
+            
+            /* --- WYPYCHANIE KRAWĘDZI --- */
+            /* Film wewnątrz jest o 4% większy, ale kontener wokół niego się nie zmienia. 
+               Mrugające, brudne krawędzie pliku MP4 są teraz wywalone "poza ramy" i ucięte. */
+            transform: scale(1.04); 
+            transform-origin: center;
         }
 
         /* --- PRAWA STRONA (DETALE) --- */
@@ -300,7 +318,7 @@
             .main-container {
                 flex-direction: column;
                 height: auto;
-                margin-top: 15vh; /* Zwiększony odstęp od góry */
+                margin-top: 15vh; 
             }
             
             body.show-details .top-logo {
@@ -316,7 +334,6 @@
 
             .product-mockup { width: 70vw; }
             
-            /* ZNACZĄCE OBNIŻENIE KOSZULKI NA TELEFONIE */
             .product-container {
                 transform: translateY(8vh); 
             }
@@ -328,9 +345,9 @@
                 padding-left: 0;
                 align-items: center;
                 max-width: 90vw;
-                padding-bottom: 15vh; /* Więcej miejsca na dole, by swobodnie scrollować */
+                padding-bottom: 15vh; 
                 max-height: none; 
-                margin-top: 8vh; /* Odstęp opisu od obniżonej koszulki */
+                margin-top: 8vh; 
             }
 
             body.show-details .details-side {
@@ -364,14 +381,12 @@
 
             /* --- ZNIKANIE RĄK NA TELEFONIE --- */
             .hands-container {
-                /* Przy zamykaniu (brak .show-details) wracają natychmiastowo */
                 transition: opacity 0.3s ease; 
             }
             
             body.show-details .hands-container {
                 opacity: 0;
-                pointer-events: none; /* Żeby nie blokowały klikania w tekst */
-                /* Czekają 1.2 sekundy (aż się wysuną), a potem znikają w 0.5 sekundy */
+                pointer-events: none; 
                 transition: opacity 0.5s ease 1.2s; 
             }
         }
