@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DMF60PRB1Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DMF60PRB1Y');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3ULT // TERMS & PRIVACY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #faf0e6; 
+            color: #000000; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+        .top-logo {
+            margin-top: 5vh; 
+            width: 120px; 
+            height: auto;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+            margin-bottom: 5vh;
+        }
+
+        .top-logo:hover {
+            filter: drop-shadow(0 0 8px rgba(153, 0, 0, 0.5));
+        }
+
+        /* --- KONTENER NA REGULAMIN --- */
+        .terms-container {
+            width: 90vw;
+            max-width: 800px; 
+            padding-bottom: 10vh;
+            font-size: 14px;
+        }
+
+        /* Główny tytuł strony */
+        .page-title {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 5vh;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Czytelne nagłówki sekcji (bez gotyku) */
+        .terms-container h2 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 5vh;
+            margin-bottom: 2vh;
+            letter-spacing: 1px;
+            color: #000000;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000; /* Kreska oddzielająca */
+            padding-bottom: 5px;
+        }
+
+        /* Numerowane listy dla podpunktów */
+        .terms-container ol {
+            padding-left: 20px;
+            margin-bottom: 4vh;
+        }
+
+        .terms-container li {
+            margin-bottom: 1.5vh;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+            text-align: justify; 
+        }
+
+        /* Wyróżnienia i linki */
+        .terms-container a {
+            color: #990000;
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            font-weight: bold;
+        }
+
+        .terms-container a:hover {
+            color: #990000;
+            text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
+            text-decoration: underline;
+        }
+
+        /* Przycisk powrotu na dół - ZMIENIONY NA CZYTELNY, TECHNICZNY STYL */
+        .back-btn {
+            display: block;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: lowercase;
+            color: #000;
+            text-decoration: none;
+            margin-top: 8vh;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: #990000;
+            text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .page-title { font-size: 32px; }
+            .terms-container h2 { font-size: 16px; }
+            .terms-container { text-align: left; } 
+            .terms-container li { text-align: left; } /* Na telefonie wyłączamy justify dla czytelności */
+        }
+    </style>
+</head>
+<body>
+
+    <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo" onclick="window.location.href='index.html?skipAnim=true'">
+
+    <div class="terms-container">
+        
+        <div class="page-title">Regulamin Sklepu</div>
+
+        <h2>§1. POSTANOWIENIA OGÓLNE</h2>
+        <ol>
+            <li>Sprzedawcą jest Michał Czaplicki, zamieszkały w Krakowie na Alei Kijowskiej 7/96, 30-079 prowadzący działalność nierejestrowaną zgodnie z art. 5 ustawy Prawo przedsiębiorców.</li>
+            <li>Kontakt ze Sprzedawcą odbywa się pod adresem e-mail: <a href="mailto:orders@3ult.pl">orders@3ult.pl</a>.</li>
+            <li>Regulamin określa zasady sprzedaży produktów (Vessels) za pośrednictwem strony 3ult.pl.</li>
+        </ol>
+
+        <h2>§2. ZAMÓWIENIA I PŁATNOŚCI</h2>
+        <ol>
+            <li>Zamówienie składa się poprzez kliknięcie w link płatności i dokonanie transakcji.</li>
+            <li>Płatności obsługiwane są przez firmę Stripe Payments Europe, Ltd. (obsługa kart płatniczych, Apple Pay, Google Pay, BLIK).</li>
+            <li>Wszystkie ceny podane na stronie są cenami brutto (zwolnienie z VAT ze względu na limit obrotów).</li>
+        </ol>
+
+        <h2>§3. DOSTAWA</h2>
+        <ol>
+            <li>Wysyłka realizowana jest na terenie Polski za pośrednictwem paczkomatów InPost.</li>
+            <li>Czas realizacji zamówienia wynosi do 3 dni roboczych od momentu zaksięgowania wpłaty.</li>
+            <li>Koszt dostawy jest doliczany w procesie płatności.</li>
+        </ol>
+
+        <h2>§4. PRAWO DO ODSTĄPIENIA OD UMOWY (ZWROTY)</h2>
+        <ol>
+            <li>Klient ma prawo odstąpić od umowy bez podania przyczyny w ciągu 14 dni od otrzymania towaru. Towar odsyła się na adres podany w §1 lub ustalony mailowo.</li>
+            <li>Towar nie może nosić śladów użytkowania (np. plamy z potu, zapach perfum, brak oryginalnych oznaczeń).</li>
+            <li>Koszt zwrotu towaru ponosi Kupujący.</li>
+            <li>Aby dokonać zwrotu, należy wysłać informację na e-mail: <a href="mailto:orders@3ult.pl">orders@3ult.pl</a>.</li>
+        </ol>
+
+        <h2>§5. REKLAMACJE</h2>
+        <ol>
+            <li>Sprzedawca ma obowiązek dostarczyć towar wolny od wad.</li>
+            <li>W przypadku stwierdzenia wady (np. błąd w nadruku, dziura w materiale), Klient ma prawo do reklamacji w ciągu 2 lat od zakupu.</li>
+            <li>Reklamacje należy zgłaszać na e-mail: <a href="mailto:orders@3ult.pl">orders@3ult.pl</a>. Sprzedawca rozpatrzy reklamację w ciągu 14 dni.</li>
+        </ol>
+
+        <h2>§6. POLITYKA PRYWATNOŚCI (RODO)</h2>
+        <ol>
+            <li>Administratorem danych osobowych Klienta jest Sprzedawca.</li>
+            <li>Dane (imię, nazwisko, adres, e-mail) przetwarzane są wyłącznie w celu realizacji zamówienia.</li>
+            <li>Dane są przekazywane podmiotom trzecim tylko w celu realizacji usługi: Stripe (płatność) oraz InPost (dostawa).</li>
+        </ol>
+
+        <a href="#" onclick="event.preventDefault(); document.referrer.includes('vessel.html') ? window.location.href='vessel.html' : window.location.href='index.html?skipAnim=true';" class="back-btn">[ go back ]</a>
+        
+    </div>
+
+</body>
+</html>

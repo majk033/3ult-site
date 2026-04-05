@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DMF60PRB1Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DMF60PRB1Y');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3ULT // ABOUT</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #faf0e6; 
+            color: #000000; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            position: relative; 
+            overflow-x: hidden;
+        }
+
+        .top-logo {
+            margin-top: 5vh; 
+            width: 120px; 
+            height: auto;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+            margin-bottom: 5vh;
+            position: relative;
+            z-index: 100; 
+        }
+
+        .top-logo:hover {
+            filter: drop-shadow(0 0 8px rgba(153, 0, 0, 0.5));
+        }
+
+        /* --- KONTENER NA TEKST --- */
+        .about-container {
+            width: 90vw;
+            max-width: 700px; 
+            padding-bottom: 10vh;
+            position: relative;
+            z-index: 10; 
+        }
+
+        /* --- TYTUŁ (POWRÓT DO GOTYKU) --- */
+        .page-title {
+            font-family: 'UnifrakturCook', cursive; /* Gotycka czcionka */
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 6vh;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #000;
+        }
+
+        /* STYL TEKSTU AKAPITÓW */
+        .about-container p {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.9;
+            letter-spacing: 0.8px;
+            margin-bottom: 3.5vh;
+            text-align: justify; 
+            position: relative;
+            padding-left: 28px; 
+        }
+
+        /* CZERWONE ROZPRYSKI FARBY */
+        .about-container p::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px; 
+            width: 10px;
+            height: 10px;
+            background-color: #990000;
+            border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; 
+            box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+
+        /* PODPIS NA KOŃCU (DESKTOP) */
+        .thanks-msg {
+            margin-top: 8vh;
+            text-align: center;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            letter-spacing: 3px; /* Szeroko na komputerze */
+            color: #990000;
+            font-size: 14px;
+            text-transform: uppercase;
+            white-space: nowrap; /* Blokuje łamanie linii */
+        }
+
+        /* Przycisk powrotu */
+        .back-btn {
+            display: block;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: lowercase;
+            color: #000;
+            text-decoration: none;
+            margin-top: 5vh;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: #990000;
+            text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
+        }
+
+        /* STYLIZACJA ZDJĘCIA WODNEGO (JA.JPG) */
+        .watermark-image {
+            position: fixed; 
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            width: 80vw; 
+            max-width: 700px; 
+            height: auto;
+            opacity: 0.15; 
+            mix-blend-mode: multiply; 
+            z-index: 5; 
+            pointer-events: none; 
+        }
+
+        /* --- MEDIA QUERIES (MOBILE) --- */
+        @media (max-width: 768px) {
+            .page-title { font-size: 32px; letter-spacing: 1px; }
+            .about-container { text-align: left; } 
+            .about-container p { text-align: left; }
+            .watermark-image {
+                width: 95vw; 
+                opacity: 0.18; 
+            }
+
+            /* --- MAGICZNY FIX DLA PODPISU NA TELEFONIE --- */
+            .thanks-msg {
+                font-size: 11px; /* Mniejsza czcionka */
+                letter-spacing: 0.5px; /* Drastycznie mniejsze odstępy, by zmieścić w jednej linii */
+                width: 100%;
+                padding: 0 5px;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DMF60PRB1Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DMF60PRB1Y');
+</script>
+<body>
+
+    <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo" onclick="window.location.href='index.html?skipAnim=true'">
+
+    <img src="ja.jpg" alt="Originator" class="watermark-image">
+
+    <div class="about-container">
+        
+        <div class="page-title">About...</div>
+
+        <p>I have been working on graphics since 2018. Over the years, I have been quietly gaining experience, testing various printing houses and different materials to see what truly holds up. It was a long process of trial and error, but it allowed me to understand exactly what I want to represent.</p>
+
+        <p>Now, I am taking 3ULT seriously. I am dedicating all my free time to this project because it is where I find my true fulfillment. This brand exists as a way to express myself and to draw attention to dark, detailed graphics that are the result of hours of refinement.</p>
+
+        <p>The logo—three dots placed side by side—is a symbol that has followed me throughout my life. To me, the number three represents balance. This detail is integrated into everything I do: from the hand-sewn tags on every garment to the subtle elements woven into the graphics themselves.</p>
+
+        <div class="thanks-msg">
+            THANK YOU FOR BEING PART OF IT — 3ULT
+        </div>
+
+        <a href="javascript:history.back()" class="back-btn">[ go back ]</a>
+        
+    </div>
+
+</body>
+</html>
