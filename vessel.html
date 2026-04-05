@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DMF60PRB1Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DMF60PRB1Y');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3ULT // NEXT VESSEL</title>
@@ -29,8 +38,12 @@
             width: 120px; 
             height: auto;
             z-index: 100;
-            pointer-events: none;
-            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer; 
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
+        }
+
+        .top-logo:hover {
+            filter: drop-shadow(0 0 8px rgba(153, 0, 0, 0.5));
         }
 
         /* --- UKŁAD GŁÓWNY --- */
@@ -53,18 +66,16 @@
             transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-     .product-container {
+        .product-container {
             position: relative; 
             cursor: pointer;
             transition: transform 0.6s ease;
             transform: translateY(-5vh); 
             -webkit-tap-highlight-color: transparent; 
             outline: none;
-            
-            /* --- ŻELAZNA MASKA --- */
-            overflow: hidden; /* Odcina wszystko, co wystaje poza wymiary */
-            border-radius: 2px; /* Lekkie zaokrąglenie pomaga sprzętowo wygładzić cięcie */
-            -webkit-mask-image: -webkit-radial-gradient(white, black); /* Hack wymuszający ostre ucięcie na Chrome/Edge */
+            overflow: hidden; 
+            border-radius: 2px; 
+            -webkit-mask-image: -webkit-radial-gradient(white, black); 
         }
 
         .product-container:hover {
@@ -77,14 +88,9 @@
             min-width: 280px;
             height: auto;
             display: block; 
-            
             outline: none; 
             border: none;
             background-color: transparent;
-            
-            /* --- WYPYCHANIE KRAWĘDZI --- */
-            /* Film wewnątrz jest o 4% większy, ale kontener wokół niego się nie zmienia. 
-               Mrugające, brudne krawędzie pliku MP4 są teraz wywalone "poza ramy" i ucięte. */
             transform: scale(1.04); 
             transform-origin: center;
         }
@@ -109,7 +115,6 @@
             display: none;
         }
 
-        /* --- TYTUŁ PRODUKTU --- */
         .product-title {
             font-family: 'UnifrakturCook', cursive;
             font-size: 32px;
@@ -120,7 +125,6 @@
             white-space: nowrap; 
         }
 
-        /* --- ESTETYCZNY OPIS KOSZULKI --- */
         .product-description {
             color: #000000;
             font-size: 14px;
@@ -132,25 +136,10 @@
             margin-bottom: 3vh;
         }
 
-        .desc-item {
-            display: flex;
-            margin-bottom: 8px; 
-        }
+        .desc-item { display: flex; margin-bottom: 8px; }
+        .desc-label { font-weight: 700; text-transform: uppercase; font-size: 12px; display: inline-block; width: 75px; flex-shrink: 0; }
+        .desc-content { flex: 1; }
 
-        .desc-label {
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 12px;
-            display: inline-block;
-            width: 75px; 
-            flex-shrink: 0; 
-        }
-
-        .desc-content {
-            flex: 1;
-        }
-
-        /* --- PRZYCISKI AKCJI --- */
         .action-buttons {
             display: flex;
             flex-direction: column;
@@ -174,12 +163,8 @@
             white-space: nowrap;
         }
 
-        .action-btn:hover {
-            color: #990000;
-            text-shadow: 0 0 10px rgba(153, 0, 0, 0.4);
-        }
+        .action-btn:hover { color: #990000; text-shadow: 0 0 10px rgba(153, 0, 0, 0.4); }
 
-        /* --- UKRYTE ZAKŁADKI --- */
         .collapsible-wrapper {
             max-height: 0;
             opacity: 0;
@@ -195,206 +180,121 @@
             margin-bottom: 3vh;
         }
 
-        .size-chart-image {
-            width: 100%;
-            height: auto; 
-            border: none; 
-            display: block;
-        }
+        .size-chart-image { width: 100%; height: auto; border: none; display: block; }
 
         /* --- LISTA DOSTĘPNOŚCI --- */
-        .stock-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            padding-top: 10px;
+        .stock-list { display: flex; flex-direction: column; gap: 15px; width: 100%; padding-top: 10px; }
+        .stock-item { display: flex; flex-direction: column; gap: 5px; }
+        
+        .stock-info { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-size: 14px; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
         }
-
-        .stock-item {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+        
+        .stock-left { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            flex-wrap: wrap; 
         }
-
-        .stock-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .stock-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .stock-size {
-            text-transform: uppercase;
-        }
-
+        
+        .stock-size { text-transform: uppercase; }
+        
         .request-btn {
+            font-size: 10px;
+            color: #990000;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            white-space: nowrap;
+        }
+        .request-btn:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.5); }
+        
+        .sold-out-btn {
             font-size: 10px;
             color: #666;
             text-decoration: none;
             text-transform: lowercase;
             letter-spacing: 2px;
-            transition: color 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
         }
 
-        .request-btn:hover {
-            color: #990000;
+        .stock-bar-bg { width: 100%; height: 2px; background-color: #dcd3c9; position: relative; }
+        
+        .stock-bar-fill { 
+            height: 100%; 
+            background-color: #000000; 
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.5s ease; 
+        }
+        
+        /* --- EFEKT LOW STOCK (ZMIANA NA CZERWONY + ŚWIECENIE) --- */
+        .stock-bar-fill.low-stock {
+            background-color: #990000;
+            box-shadow: 0 0 8px rgba(153, 0, 0, 0.6);
         }
 
-        .stock-bar-bg {
-            width: 100%;
-            height: 2px;
-            background-color: #dcd3c9; 
-            position: relative;
-        }
+        /* --- DOLNE LINKI --- */
+        .subtle-link { position: fixed; bottom: 3vh; z-index: 105; color: #888; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: lowercase; text-decoration: none; transition: color 0.4s ease, text-shadow 0.4s ease; }
+        .link-left { left: 5vw; }
+        .link-right { right: 5vw; }
+        .subtle-link:hover { color: #990000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.4); }
 
-        .stock-bar-fill {
-            height: 100%;
-            background-color: #000000;
-            position: absolute;
-            left: 0;
-            top: 0;
-            transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        /* --- STAN PO KLIKNIĘCIU (SHOW DETAILS) --- */
-        body.show-details {
-            overflow-y: auto; 
-        }
-
-        body.show-details .details-side {
-            flex: 1.5; 
-            opacity: 1;
-            visibility: visible;
-            max-width: 800px; 
-            padding-left: 5vw; 
-        }
-
-        body.show-details .top-logo {
-            transform: translateX(-25vw); 
-        }
+        /* --- STAN PO KLIKNIĘCIU --- */
+        body.show-details { overflow-y: auto; }
+        body.show-details .details-side { flex: 1.5; opacity: 1; visibility: visible; max-width: 800px; padding-left: 5vw; }
+        body.show-details .top-logo { transform: translateX(-25vw); }
 
         /* --- RĘCE --- */
-        .hands-container {
-            position: fixed; 
-            inset: 0; 
-            pointer-events: none; 
-            z-index: 10; 
-            overflow: hidden;
-        }
-
-        .hand {
-            position: absolute;
-            width: 42vw; 
-            max-width: 480px;
-            min-width: 260px;
-            height: auto;
-            filter: grayscale(100%) contrast(1.5) brightness(0.7); 
-            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
-            transform-origin: bottom center;
-            bottom: -5vh; 
-            opacity: 0.9; 
-        }
-
+        .hands-container { position: fixed; inset: 0; pointer-events: none; z-index: 10; overflow: hidden; }
+        .hand { position: absolute; width: 42vw; max-width: 480px; min-width: 260px; height: auto; filter: grayscale(100%) contrast(1.5) brightness(0.7); transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease; transform-origin: bottom center; bottom: -5vh; opacity: 0.9; }
         .hand-left { left: 50%; transform: translateX(-85%) translateY(12vh); z-index: 11; }
         .hand-center { left: 50%; transform: translateX(-50%) translateY(14vh) scale(1.05); z-index: 12; }
         .hand-right { left: 50%; transform: translateX(-15%) translateY(12vh); z-index: 11; }
-
         body.reaching .hand { opacity: 1; }
         body.reaching .hand-left { transform: translateX(-85%) translateY(7vh); }
         body.reaching .hand-center { transform: translateX(-50%) translateY(9vh) scale(1.1); }
         body.reaching .hand-right { transform: translateX(-15%) translateY(7vh); }
 
-        /* --- MEDIA QUERIES (MOBILE) --- */
         @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-                height: auto;
-                margin-top: 15vh; 
-            }
-            
-            body.show-details .top-logo {
-                transform: none; 
-            }
-            
-            .product-side {
-                flex: none;
-                width: 100%;
-                justify-content: center;
-                padding-left: 0;
-            }
-
+            .main-container { flex-direction: column; height: auto; margin-top: 15vh; }
+            body.show-details .top-logo { transform: none; }
+            .product-side { flex: none; width: 100%; justify-content: center; padding-left: 0; }
             .product-mockup { width: 70vw; }
-            
-            .product-container {
-                transform: translateY(8vh); 
-            }
-            .product-container:hover {
-                transform: translateY(8vh) scale(1.02);
-            }
-            
-            .details-side {
-                padding-left: 0;
-                align-items: center;
-                max-width: 90vw;
-                padding-bottom: 15vh; 
-                max-height: none; 
-                margin-top: 8vh; 
-            }
-
-            body.show-details .details-side {
-                padding-left: 0; 
-            }
-            
-            .product-title {
-                text-align: center;
-                font-size: 28px; 
-                white-space: normal; 
-            }
-            
+            .product-container { transform: translateY(8vh); }
+            .product-container:hover { transform: translateY(8vh) scale(1.02); }
+            .details-side { padding-left: 0; align-items: center; max-width: 90vw; padding-bottom: 15vh; max-height: none; margin-top: 8vh; }
+            body.show-details .details-side { padding-left: 0; }
+            .product-title { text-align: center; font-size: 28px; white-space: normal; }
             .collapsible-wrapper { max-width: 90vw; }
             .size-chart-image { width: 90vw; max-width: none; } 
-
-            .product-description {
-                max-width: 90vw;
-                min-width: unset;
-                font-size: 13px;
-                text-align: left;
-            }
-
+            .product-description { max-width: 90vw; min-width: unset; font-size: 13px; text-align: left; }
             .desc-label { width: 65px; }
-
             .hand { width: 55vw; bottom: 2vh; }
             .hand-left { transform: translateX(-80%) translateY(8vh); }
             .hand-center { transform: translateX(-50%) translateY(10vh) scale(1.05); }
             .hand-right { transform: translateX(-20%) translateY(8vh); }
-            
             .action-buttons { align-items: center; }
-
-            /* --- ZNIKANIE RĄK NA TELEFONIE --- */
-            .hands-container {
-                transition: opacity 0.3s ease; 
-            }
-            
-            body.show-details .hands-container {
-                opacity: 0;
-                pointer-events: none; 
-                transition: opacity 0.5s ease 1.2s; 
-            }
+            .hands-container { transition: opacity 0.3s ease; }
+            body.show-details .hands-container { opacity: 0; pointer-events: none; transition: opacity 0.5s ease 1.2s; }
+            .subtle-link { bottom: 2vh; font-size: 10px; letter-spacing: 1px; }
+            .link-left { left: 4vw; }
+            .link-right { right: 4vw; }
         }
     </style>
 </head>
 <body>
 
-    <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo">
+    <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo" onclick="window.location.href='index.html?skipAnim=true'">
 
     <div class="main-container">
         <div class="product-side">
@@ -404,26 +304,13 @@
         </div>
 
         <div class="details-side">
-            
             <div class="product-title">BE YRSLF BOXY TEE</div>
             
             <div class="product-description">
-                <div class="desc-item">
-                    <span class="desc-label">Fabric:</span>
-                    <span class="desc-content">100% premium heavyweight cotton.</span>
-                </div>
-                <div class="desc-item">
-                    <span class="desc-label">Weight:</span>
-                    <span class="desc-content">240 GSM for a structured, substantial drape.</span>
-                </div>
-                <div class="desc-item">
-                    <span class="desc-label">Finish:</span>
-                    <span class="desc-content">High-definition graphics realized via industry-leading DTG technology.</span>
-                </div>
-                <div class="desc-item">
-                    <span class="desc-label">Fit:</span>
-                    <span class="desc-content">Signature boxy cut with dropped shoulders.</span>
-                </div>
+                <div class="desc-item"><span class="desc-label">Fabric:</span><span class="desc-content">100% premium heavyweight cotton.</span></div>
+                <div class="desc-item"><span class="desc-label">Weight:</span><span class="desc-content">240 GSM for a structured, substantial drape.</span></div>
+                <div class="desc-item"><span class="desc-label">Finish:</span><span class="desc-content">High-definition graphics realized via industry-leading DTG technology.</span></div>
+                <div class="desc-item"><span class="desc-label">Fit:</span><span class="desc-content">Signature boxy cut with dropped shoulders.</span></div>
             </div>
 
             <div class="action-buttons">
@@ -436,77 +323,13 @@
             </div>
 
             <div class="collapsible-wrapper" id="availability-wrapper">
-                <div class="stock-list">
-                    <div class="stock-item">
-                        <div class="stock-info">
-                            <div class="stock-left">
-                                <span class="stock-size">Size XS</span>
-                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size XS" class="request-btn">[ request ]</a>
-                            </div>
-                            <span class="stock-percent">100%</span>
-                        </div>
-                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
-                    </div>
-                    
-                    <div class="stock-item">
-                        <div class="stock-info">
-                            <div class="stock-left">
-                                <span class="stock-size">Size S</span>
-                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size S" class="request-btn">[ request ]</a>
-                            </div>
-                            <span class="stock-percent">100%</span>
-                        </div>
-                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
-                    </div>
-
-                    <div class="stock-item">
-                        <div class="stock-info">
-                            <div class="stock-left">
-                                <span class="stock-size">Size M</span>
-                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size M" class="request-btn">[ request ]</a>
-                            </div>
-                            <span class="stock-percent">100%</span>
-                        </div>
-                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
-                    </div>
-
-                    <div class="stock-item">
-                        <div class="stock-info">
-                            <div class="stock-left">
-                                <span class="stock-size">Size L</span>
-                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size L" class="request-btn">[ request ]</a>
-                            </div>
-                            <span class="stock-percent">100%</span>
-                        </div>
-                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
-                    </div>
-
-                    <div class="stock-item">
-                        <div class="stock-info">
-                            <div class="stock-left">
-                                <span class="stock-size">Size XL</span>
-                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size XL" class="request-btn">[ request ]</a>
-                            </div>
-                            <span class="stock-percent">100%</span>
-                        </div>
-                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
-                    </div>
-
-                    <div class="stock-item">
-                        <div class="stock-info">
-                            <div class="stock-left">
-                                <span class="stock-size">Size XXL</span>
-                                <a href="mailto:twoj@email.com?subject=3ULT Inquiry: Size XXL" class="request-btn">[ request ]</a>
-                            </div>
-                            <span class="stock-percent">100%</span>
-                        </div>
-                        <div class="stock-bar-bg"><div class="stock-bar-fill" style="width: 100%;"></div></div>
-                    </div>
-                </div>
+                <div class="stock-list" id="stock-container"></div>
             </div>
-
         </div>
     </div>
+
+    <a href="about.html" class="subtle-link link-left">about...</a>
+    <a href="terms.html" class="subtle-link link-right">terms & privacy</a>
 
     <div class="hands-container">
         <img src="hand-left.png" alt="hand" class="hand hand-left">
@@ -515,6 +338,65 @@
     </div>
 
     <script>
+        /* =========================================
+           PANEL STEROWANIA MAGAZYNEM I LINKAMI STRIPE
+           ========================================= */
+        const inventoryData = [
+            { size: "XS",  total: 10, current: 10, link: "https://buy.stripe.com/twoj_link_xs" }, // 100% (Czarny)
+            { size: "S",   total: 20, current: 8,  link: "https://buy.stripe.com/twoj_link_s" },  // 40% (Czerwony, świecący!)
+            { size: "M",   total: 30, current: 0,  link: "https://buy.stripe.com/twoj_link_m" },  // Wyprzedany - test
+            { size: "L",   total: 30, current: 5,  link: "https://buy.stripe.com/twoj_link_l" },  // 16% (Czerwony, świecący!)
+            { size: "XL",  total: 20, current: 20, link: "https://buy.stripe.com/twoj_link_xl" }, // 100% (Czarny)
+            { size: "XXL", total: 10, current: 0,  link: "https://buy.stripe.com/twoj_link_xxl" } // Wyprzedany - test
+        ];
+
+        function renderInventory() {
+            const container = document.getElementById('stock-container');
+            let html = '';
+
+            inventoryData.forEach(item => {
+                let percentage = (item.current / item.total) * 100;
+                
+                // Dodajemy czerwoną klasę, jeśli stock jest <= 40% (ale > 0, bo 0 to sold out)
+                let lowStockClass = (percentage <= 40 && percentage > 0) ? 'low-stock' : '';
+                
+                let actionBtnHTML = '';
+                if (item.current > 0) {
+                    // Produkt DOSTĘPNY - przycisk BUY
+                    actionBtnHTML = `<a href="${item.link}" target="_blank" class="request-btn">[ buy ]</a>`;
+                } else {
+                    // Produkt WYPRZEDANY - etykieta SOLD OUT + link REQUEST (zapytanie o powrót)
+                    actionBtnHTML = `
+                        <span class="sold-out-btn">[ sold out ]</span>
+                        <a href="mailto:orders@3ult.pl?subject=3ULT Restock Request: Size ${item.size}" class="request-btn">[ request ]</a>
+                    `;
+                    percentage = 0; 
+                }
+
+                html += `
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-left">
+                                <span class="stock-size">Size ${item.size}</span>
+                                ${actionBtnHTML}
+                            </div>
+                            <span class="stock-percent">${Math.round(percentage)}%</span>
+                        </div>
+                        <div class="stock-bar-bg">
+                            <div class="stock-bar-fill ${lowStockClass}" style="width: ${percentage}%;"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        renderInventory();
+
+        /* =========================================
+           OBSŁUGA ANIMACJI I OTWIERANIA ZAKŁADEK
+           ========================================= */
         const product = document.getElementById('product-trigger');
         const sizechartBtn = document.getElementById('toggle-sizechart');
         const availabilityBtn = document.getElementById('toggle-availability');
@@ -528,21 +410,13 @@
             availabilityBtn.textContent = 'check size availability';
         }
 
-        // Ujednolicony kod obsługujący kliknięcie na PC i Telefonie
         product.addEventListener('click', () => {
             const isShowing = document.body.classList.toggle('show-details');
-            
             if (!isShowing) {
-                // Gdy zamykamy
                 closeAllTabs();
-                if (window.innerWidth <= 768) {
-                    document.body.classList.remove('reaching'); // Ręce natychmiast wracają i zjeżdżają
-                }
+                if (window.innerWidth <= 768) document.body.classList.remove('reaching'); 
             } else {
-                // Gdy otwieramy
-                if (window.innerWidth <= 768) {
-                    document.body.classList.add('reaching'); // Startujemy animację wysuwania rąk
-                }
+                if (window.innerWidth <= 768) document.body.classList.add('reaching'); 
             }
         });
 
@@ -564,7 +438,6 @@
             }
         });
 
-        // Efekt hover działa tylko na desktopie
         product.addEventListener('mouseenter', () => {
             if (window.innerWidth > 768) document.body.classList.add('reaching');
         });
