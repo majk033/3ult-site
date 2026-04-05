@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DMF60PRB1Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DMF60PRB1Y');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3ULT // COMING SOON...</title>
@@ -19,20 +27,6 @@
             --beam-C-Y: -7vh;  
             --beam-L-X: -32vw; --beam-L-Y: -7vh;
             --beam-R-X: 32vw;  --beam-R-Y: -7vh;
-        }
-
-        @media (max-width: 768px) {
-            :root {
-                --light-size: 260px; 
-                --light-offset: -130px;
-                --blur-max: 20px;
-                --step1-y: -24vh;
-                --step2-y: -7vh; 
-                --step3-y: 9vh;  
-                --beam-C-Y: -7vh;  
-                --beam-L-X: 0vw;   --beam-L-Y: -37vh;
-                --beam-R-X: 0vw;   --beam-R-Y: 23vh;  
-            }
         }
 
         body {
@@ -86,7 +80,18 @@
         .gothic-text { font-family: 'UnifrakturCook', cursive; font-weight: 700; }
         
         img {
-            max-width: 300px; width: 70%; height: auto; margin-bottom: 7vh; min-height: 80px; 
+            max-width: 300px; width: 70%; height: auto; margin-bottom: 1vh; min-height: 80px; 
+        }
+
+        /* --- NOWY NAPIS O FAZIE ROZWOJOWEJ --- */
+        .dev-phase-note {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 10px;
+            color: #888;
+            letter-spacing: 2px;
+            margin-bottom: 5vh;
+            opacity: 0.6;
+            text-transform: lowercase;
         }
 
         .coming-soon-container {
@@ -117,42 +122,63 @@
             letter-spacing: 2px; text-transform: uppercase; color: #666; margin-top: 5px;
         }
 
-        /* --- STYL PRZYCISKU (ZMIENIONY NA CZARNY I PODKREŚLONY) --- */
         .next-vessel-link {
             display: inline-block;
             background-color: transparent; 
-            
-            color: #000000; /* Czarny, dobrze widoczny kolor */
-            
+            color: #000000; 
             font-family: 'UnifrakturCook', cursive;
             font-weight: 700;
             font-size: 24px;
             letter-spacing: 3px;
             text-transform: lowercase;
-            
-            /* Dodane estetyczne podkreślenie odseparowane od liter */
             text-decoration: underline;
             text-decoration-thickness: 2px;
             text-underline-offset: 8px;
-            
-            margin-top: 7vh; /* Przesunięte w dół, z 4vh na 7vh */
-            
+            margin-top: 7vh; 
             transition: color 0.4s ease-in-out, text-shadow 0.4s ease-in-out, text-decoration-color 0.4s ease-in-out; 
             position: relative;
             z-index: 105; 
         }
 
         .next-vessel-link:hover, .next-vessel-link.active-shadow {
-            color: #990000; /* Zmiana na czerwony */
-            text-decoration-color: #990000; /* Czerwone podkreślenie */
-            text-shadow: 0 0 15px rgba(153, 0, 0, 0.5); /* Lekki rozbłysk */
+            color: #990000; 
+            text-decoration-color: #990000; 
+            text-shadow: 0 0 15px rgba(153, 0, 0, 0.5); 
         }
 
         .footer {
-            position: absolute; bottom: 20px; font-size: 11px; color: #aaa; letter-spacing: 3px; z-index: 10; 
+            position: absolute; 
+            bottom: 20px; 
+            font-size: 11px; 
+            color: #aaa; 
+            letter-spacing: 3px; 
+            z-index: 10;
+            transition: bottom 0.3s ease;
         }
 
-        /* --- MASKA ŚWIATŁA (PRZYSPIESZONA O POŁOWĘ) --- */
+        /* --- DOLNE LINKI (ABOUT / TERMS) --- */
+        .subtle-link {
+            position: fixed;
+            bottom: 20px;
+            z-index: 105; 
+            color: #888; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            text-decoration: none;
+            transition: color 0.4s ease, text-shadow 0.4s ease;
+        }
+
+        .link-left { left: 5vw; }
+        .link-right { right: 5vw; }
+
+        .subtle-link:hover {
+            color: #990000; 
+            text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
+        }
+
+        /* --- MASKA ŚWIATŁA --- */
         .spotlight-wrapper {
             position: fixed; inset: 0; z-index: 100; pointer-events: none; 
             mix-blend-mode: multiply; 
@@ -179,11 +205,11 @@
         @keyframes beamCenter {
             0%   { transform: translate(0, var(--step1-y)); opacity: 0; } 
             2%   { transform: translate(0, var(--step1-y)); opacity: 1; }
-            15%  { transform: translate(0, var(--step1-y)); }             
-            25%  { transform: translate(0, var(--step2-y)); }             
-            35%  { transform: translate(0, var(--step2-y)); }             
-            45%  { transform: translate(0, var(--step3-y)); }              
-            60%  { transform: translate(0, var(--step3-y)); }              
+            15%  { transform: translate(0, var(--step1-y)); }              
+            25%  { transform: translate(0, var(--step2-y)); }              
+            35%  { transform: translate(0, var(--step2-y)); }              
+            45%  { transform: translate(0, var(--step3-y)); }               
+            60%  { transform: translate(0, var(--step3-y)); }               
             75%  { transform: translate(0, var(--step2-y)); }
             81%  { transform: translate(0, var(--step2-y)); }
             84%  { transform: translate(0, var(--step2-y)); opacity: 1;}
@@ -207,6 +233,33 @@
             97% { opacity: 1; } 98% { opacity: 0.1; } 99%, 100% { opacity: 1; }
         }
         @keyframes removeDarkness { 0%, 99% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
+        /* --- MEDIA QUERIES (MOBILE) --- */
+        @media (max-width: 768px) {
+            :root {
+                --light-size: 260px; 
+                --light-offset: -130px;
+                --blur-max: 20px;
+                --step1-y: -24vh;
+                --step2-y: -7vh; 
+                --step3-y: 9vh;  
+                --beam-C-Y: -7vh;  
+                --beam-L-X: 0vw;   --beam-L-Y: -37vh;
+                --beam-R-X: 0vw;   --beam-R-Y: 23vh;  
+            }
+
+            /* Unikanie nachodzenia tekstów na telefonie */
+            .footer {
+                bottom: 45px; /* Podnosimy główny napis */
+            }
+            .subtle-link {
+                bottom: 15px; /* Linki zostają na dole */
+                font-size: 10px;
+                letter-spacing: 1px;
+            }
+            .link-left { left: 5vw; }
+            .link-right { right: 5vw; }
+        }
     </style>
 </head>
 <body>
@@ -223,17 +276,22 @@
     <div class="content-wrapper">
         <img src="logowektor.svg" alt="3ULT LOGO">
         
+        <div class="dev-phase-note">* website in development</div>
+        
         <div class="coming-soon-container gothic-text">
             <span>COMING</span>
             <span>SOON...</span>
         </div>
 
-        <div class="part-of-it gothic-text">be the part of it.</div>
+        <div class="part-of-it gothic-text">be part of it.</div>
         
         <div id="countdown" class="countdown"></div>
         
         <a href="vessel.html" class="next-vessel-link">next vessel</a>
     </div>
+
+    <a href="about.html" class="subtle-link link-left">about...</a>
+    <a href="terms.html" class="subtle-link link-right">terms & privacy</a>
 
     <div class="footer">3ULT /// 2026 /// APRIL</div>
 
@@ -298,7 +356,7 @@
             }
         }
 
-        // --- SKRYPT DLA PRZYCISKU NA TELEFON (Opóźnienie przejścia) ---
+        // --- SKRYPT DLA PRZYCISKU NA TELEFON ---
         const nextVesselLink = document.querySelector('.next-vessel-link');
         nextVesselLink.addEventListener('click', function(e) {
             if (window.innerWidth <= 768 || 'ontouchstart' in window) {
@@ -312,6 +370,12 @@
         });
 
         window.addEventListener('DOMContentLoaded', () => {
+if (window.location.search.includes('skipAnim=true')) {
+                const spotlight = document.querySelector('.spotlight-wrapper');
+                if (spotlight) spotlight.style.display = 'none';
+            }
+            // ---------------------------------
+
             spawnLoop(); updateCountdown(); intervalId = setInterval(updateCountdown, 1000);
         });
     </script>
