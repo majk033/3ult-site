@@ -37,7 +37,6 @@
             height: auto;
             z-index: 100;
             cursor: pointer; 
-            /* Brak przesuwania, zostaje w centrum */
             transition: filter 0.3s ease;
         }
 
@@ -55,7 +54,6 @@
             transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* --- LEWA STRONA (PRODUKT) --- */
         .product-side {
             flex: 1; 
             display: flex;
@@ -85,9 +83,9 @@
             width: 35vw; 
             max-width: 450px;
             min-width: 280px;
+            min-height: 350px; /* ZABEZPIECZENIE przed zapadnięciem się strony przy braku wideo */
             height: auto;
             display: block; 
-            outline: none; 
             border: none;
             background-color: transparent;
             transform: scale(1.04); 
@@ -109,7 +107,6 @@
             max-height: 80vh;
             overflow-y: auto;
             scrollbar-width: none; 
-            -ms-overflow-style: none;
         }
         .details-side::-webkit-scrollbar { display: none; }
 
@@ -123,7 +120,15 @@
         .action-btn { background: none; border: none; color: #000000; font-family: 'UnifrakturCook', cursive; font-size: 22px; letter-spacing: 2px; text-transform: lowercase; cursor: pointer; padding: 0; transition: color 0.3s ease, text-shadow 0.3s ease; white-space: nowrap; }
         .action-btn:hover { color: #990000; text-shadow: 0 0 10px rgba(153, 0, 0, 0.4); }
 
-        .collapsible-wrapper { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease; width: 100%; max-width: 400px; }
+        .collapsible-wrapper {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+            width: 100%;
+            max-width: 400px; 
+        }
+
         .collapsible-wrapper.active { max-height: 1000px; opacity: 1; margin-bottom: 3vh; }
         .size-chart-image { width: 100%; height: auto; border: none; display: block; }
 
@@ -137,7 +142,6 @@
         .request-btn { font-size: 10px; color: #990000; font-weight: bold; text-decoration: none; text-transform: lowercase; letter-spacing: 2px; transition: color 0.3s ease; white-space: nowrap; }
         .request-btn:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.5); }
         
-        /* Styl zablokowanego przycisku (Kłódka) */
         .locked-btn { font-size: 10px; color: #990000; text-transform: lowercase; letter-spacing: 1.5px; font-weight: 700; cursor: default; display: flex; align-items: center; gap: 5px; }
         .sold-out-btn { font-size: 10px; color: #666; text-decoration: none; text-transform: lowercase; letter-spacing: 2px; pointer-events: none; white-space: nowrap; }
 
@@ -146,10 +150,10 @@
         .stock-bar-fill.low-stock { background-color: #990000; box-shadow: 0 0 8px rgba(153, 0, 0, 0.6); }
 
         /* --- DOLNE LINKI --- */
-        .subtle-link { position: fixed; bottom: 3vh; z-index: 105; color: #888; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: lowercase; text-decoration: none; transition: color 0.4s ease, text-shadow 0.4s ease; }
+        .subtle-link { position: fixed; bottom: 3vh; z-index: 105; color: #888; font-family: 'Segoe UI', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: lowercase; text-decoration: none; transition: color 0.4s ease; }
         .link-left { left: 5vw; }
         .link-right { right: 5vw; }
-        .subtle-link:hover { color: #990000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.4); }
+        .subtle-link:hover { color: #990000; }
 
         /* --- STAN PO KLIKNIĘCIU --- */
         body.show-details { overflow-y: auto; }
@@ -175,13 +179,11 @@
         .transition-overlay {
             position: absolute; inset: 0; background-color: #faf0e6; z-index: 50; display: flex; justify-content: center; align-items: center; gap: 15px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-
         body.is-transitioning .transition-overlay { opacity: 1; visibility: visible; }
 
         .trans-dot {
             width: 14px; height: 14px; background-color: #990000; border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; box-shadow: inset 0 0 3px rgba(0,0,0,0.4); opacity: 0; transform: scale(0.5);
         }
-
         body.is-transitioning .trans-dot { animation: dotPulse 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         body.is-transitioning .trans-dot:nth-child(1) { animation-delay: 0.1s; }
         body.is-transitioning .trans-dot:nth-child(2) { animation-delay: 0.25s; }
@@ -198,4 +200,231 @@
         .hand { position: absolute; width: 42vw; max-width: 480px; min-width: 260px; height: auto; filter: grayscale(100%) contrast(1.5) brightness(0.7); transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease; bottom: -5vh; opacity: 0.9; }
         .hand-left { left: 50%; transform: translateX(-85%) translateY(12vh); }
         .hand-center { left: 50%; transform: translateX(-50%) translateY(14vh) scale(1.05); }
-        .
+        .hand-right { left: 50%; transform: translateX(-15%) translateY(12vh); }
+        body.reaching .hand { opacity: 1; }
+        body.reaching .hand-left { transform: translateX(-85%) translateY(7vh); }
+        body.reaching .hand-center { transform: translateX(-50%) translateY(9vh) scale(1.1); }
+        body.reaching .hand-right { transform: translateX(-15%) translateY(7vh); }
+
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; height: auto; margin-top: 15vh; }
+            .product-side { flex: none; width: 100%; }
+            .product-mockup { width: 70vw; min-height: 250px; }
+            .product-container { transform: translateY(8vh); }
+            .product-container:hover { transform: translateY(8vh); } 
+            .details-side { padding-left: 0; align-items: center; max-width: 90vw; padding-bottom: 15vh; margin-top: 8vh; }
+            body.show-details .details-side { padding-left: 0; }
+            .product-title { text-align: center; font-size: 28px; white-space: normal; }
+            .collapsible-wrapper { max-width: 90vw; }
+            .product-description { max-width: 90vw; font-size: 13px; }
+            .desc-label { width: 65px; }
+            .action-buttons { align-items: center; }
+            .subtle-link { bottom: 2vh; font-size: 10px; }
+            #slide-prev { left: -5vw; }
+            #slide-next { right: -5vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo" onclick="window.location.href='index.html?skipAnim=true'">
+
+    <div class="main-container">
+        <div class="product-side">
+            <div class="product-container" id="product-trigger">
+                <video src="3vid.mp4" class="product-mockup" autoplay loop muted playsinline></video>
+                
+                <div class="transition-overlay">
+                    <div class="trans-dot"></div>
+                    <div class="trans-dot"></div>
+                    <div class="trans-dot"></div>
+                </div>
+
+                <div class="slider-wrapper">
+                    <button class="slider-nav nav-close" id="slider-close">[ return ]</button>
+                    <button class="slider-nav nav-arrow" id="slide-prev">[ &lt; ]</button>
+                    <button class="slider-nav nav-arrow" id="slide-next">[ &gt; ]</button>
+
+                    <img src="1.jpg" class="slide-img active">
+                    <img src="2.jpg" class="slide-img">
+                    <img src="3.jpg" class="slide-img">
+                    <img src="4.jpg" class="slide-img">
+                    <img src="5.jpg" class="slide-img">
+                    <img src="6.jpg" class="slide-img">
+                </div>
+            </div>
+        </div>
+
+        <div class="details-side">
+            <div class="product-title">BE YRSLF BOXY TEE</div>
+            
+            <div class="product-description">
+                <div class="desc-item"><span class="desc-label">Fabric:</span><span class="desc-content">100% premium heavyweight cotton.</span></div>
+                <div class="desc-item"><span class="desc-label">Weight:</span><span class="desc-content">240 GSM for a structured, substantial drape.</span></div>
+                <div class="desc-item"><span class="desc-label">Finish:</span><span class="desc-content">High-definition graphics realized via industry-leading DTG technology.</span></div>
+                <div class="desc-item"><span class="desc-label">Fit:</span><span class="desc-content">Signature boxy cut with dropped shoulders.</span></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn" id="toggle-sizechart">show sizechart</button>
+                <button class="action-btn" id="toggle-availability">check size availability</button>
+            </div>
+
+            <div class="collapsible-wrapper" id="sizechart-wrapper">
+                <img src="sizechart.png" alt="Size Chart" class="size-chart-image">
+            </div>
+
+            <div class="collapsible-wrapper" id="availability-wrapper">
+                <div class="stock-list" id="stock-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <a href="about.html" class="subtle-link link-left">about...</a>
+    <a href="terms.html" class="subtle-link link-right">terms & privacy</a>
+
+    <div class="hands-container">
+        <img src="hand-left.png" alt="hand" class="hand hand-left">
+        <img src="hand-center.png" alt="hand" class="hand hand-center">
+        <img src="hand-right.png" alt="hand" class="hand hand-right">
+    </div>
+
+    <script>
+        // BEZPIECZNY FORMAT DATY DLA SYSTEMÓW APPLE (ISO 8601)
+        const dropDate = new Date("2026-04-23T00:00:00").getTime();
+
+        const inventoryData = [
+            { size: "S",   total: 100, current: 100, link: "https://buy.stripe.com/link_s" },
+            { size: "M",   total: 100, current: 100, link: "https://buy.stripe.com/link_m" },
+            { size: "L",   total: 100, current: 100, link: "https://buy.stripe.com/link_l" },
+            { size: "XL",  total: 100, current: 100, link: "https://buy.stripe.com/link_xl" },
+            { size: "XXL", total: 100, current: 100, link: "https://buy.stripe.com/link_xxl" }
+        ];
+
+        function renderInventory() {
+            const now = new Date().getTime();
+            const isDropActive = now >= dropDate;
+            const container = document.getElementById('stock-container');
+            let html = '';
+
+            inventoryData.forEach(item => {
+                let percentage = (item.current / item.total) * 100;
+                let lowStockClass = (percentage <= 40 && percentage > 0) ? 'low-stock' : '';
+                
+                let actionBtnHTML = '';
+                
+                if (!isDropActive) {
+                    actionBtnHTML = `<span class="locked-btn">[ 🔒 drop coming soon ]</span>`;
+                } else if (item.current > 0) {
+                    actionBtnHTML = `<a href="${item.link}" target="_blank" class="request-btn">[ buy ]</a>`;
+                } else {
+                    actionBtnHTML = `<span style="font-size:10px; color:#666;">[ sold out ]</span>`;
+                }
+
+                html += `
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-left">
+                                <span class="stock-size">Size ${item.size}</span>
+                                ${actionBtnHTML}
+                            </div>
+                            <span class="stock-percent">${Math.round(percentage)}%</span>
+                        </div>
+                        <div class="stock-bar-bg">
+                            <div class="stock-bar-fill ${lowStockClass}" style="width: ${percentage}%;"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        setInterval(renderInventory, 1000);
+        renderInventory();
+
+        /* --- OBSŁUGA INTERFEJSU I SLIDERA --- */
+        const product = document.getElementById('product-trigger');
+        const sizechartBtn = document.getElementById('toggle-sizechart');
+        const availabilityBtn = document.getElementById('toggle-availability');
+        const sizechartWrapper = document.getElementById('sizechart-wrapper');
+        const availabilityWrapper = document.getElementById('availability-wrapper');
+        const slides = document.querySelectorAll('.slide-img');
+        let currentSlide = 0;
+
+        function closeAllTabs() {
+            sizechartWrapper.classList.remove('active');
+            availabilityWrapper.classList.remove('active');
+            sizechartBtn.textContent = 'show sizechart';
+            availabilityBtn.textContent = 'check size availability';
+        }
+
+        product.addEventListener('click', (e) => {
+            if(e.target.tagName.toLowerCase() === 'button') return;
+
+            if (!document.body.classList.contains('show-details')) {
+                document.body.classList.add('is-transitioning');
+                
+                setTimeout(() => {
+                    document.body.classList.add('show-details');
+                    if (window.innerWidth <= 768) document.body.classList.add('reaching'); 
+                    
+                    setTimeout(() => {
+                        document.body.classList.remove('is-transitioning');
+                    }, 600); 
+                }, 500); 
+            }
+        });
+
+        document.getElementById('slider-close').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.body.classList.add('is-transitioning');
+            
+            setTimeout(() => {
+                document.body.classList.remove('show-details');
+                closeAllTabs();
+                if (window.innerWidth <= 768) document.body.classList.remove('reaching'); 
+                
+                setTimeout(() => {
+                    document.body.classList.remove('is-transitioning');
+                }, 600);
+            }, 500);
+        });
+
+        document.getElementById('slide-next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        });
+
+        document.getElementById('slide-prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        });
+
+        sizechartBtn.addEventListener('click', () => {
+            const isActive = sizechartWrapper.classList.contains('active');
+            closeAllTabs(); 
+            if (!isActive) {
+                sizechartWrapper.classList.add('active');
+                sizechartBtn.textContent = 'hide sizechart';
+            }
+        });
+
+        availabilityBtn.addEventListener('click', () => {
+            const isActive = availabilityWrapper.classList.contains('active');
+            closeAllTabs(); 
+            if (!isActive) {
+                availabilityWrapper.classList.add('active');
+                availabilityBtn.textContent = 'hide size availability';
+            }
+        });
+
+        product.addEventListener('mouseenter', () => { if (window.innerWidth > 768) document.body.classList.add('reaching'); });
+        product.addEventListener('mouseleave', () => { if (window.innerWidth > 768) document.body.classList.remove('reaching'); });
+    </script>
+</body>
+</html>
