@@ -40,7 +40,7 @@
             transition: filter 0.3s ease;
         }
 
-        .top-logo:hover {
+        .top-logo:hover, .top-logo.active-shadow {
             filter: drop-shadow(0 0 8px rgba(153, 0, 0, 0.5));
         }
 
@@ -83,7 +83,7 @@
             width: 35vw; 
             max-width: 450px;
             min-width: 280px;
-            min-height: 350px; /* ZABEZPIECZENIE przed zapadnięciem się strony przy braku wideo */
+            min-height: 350px; 
             height: auto;
             display: block; 
             border: none;
@@ -118,7 +118,8 @@
 
         .action-buttons { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5vh; margin-bottom: 3vh; width: 100%; }
         .action-btn { background: none; border: none; color: #000000; font-family: 'UnifrakturCook', cursive; font-size: 22px; letter-spacing: 2px; text-transform: lowercase; cursor: pointer; padding: 0; transition: color 0.3s ease, text-shadow 0.3s ease; white-space: nowrap; }
-        .action-btn:hover { color: #990000; text-shadow: 0 0 10px rgba(153, 0, 0, 0.4); }
+        
+        .action-btn:hover, .action-btn.active-shadow { color: #990000; text-shadow: 0 0 10px rgba(153, 0, 0, 0.4); }
 
         .collapsible-wrapper {
             max-height: 0;
@@ -139,8 +140,8 @@
         .stock-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .stock-size { text-transform: uppercase; }
         
-        .request-btn { font-size: 10px; color: #990000; font-weight: bold; text-decoration: none; text-transform: lowercase; letter-spacing: 2px; transition: color 0.3s ease; white-space: nowrap; }
-        .request-btn:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.5); }
+        .request-btn { font-size: 10px; color: #990000; font-weight: bold; text-decoration: none; text-transform: lowercase; letter-spacing: 2px; transition: color 0.3s ease, text-shadow 0.3s ease; white-space: nowrap; }
+        .request-btn:hover, .request-btn.active-shadow { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.5); }
         
         .locked-btn { font-size: 10px; color: #990000; text-transform: lowercase; letter-spacing: 1.5px; font-weight: 700; cursor: default; display: flex; align-items: center; gap: 5px; }
         .sold-out-btn { font-size: 10px; color: #666; text-decoration: none; text-transform: lowercase; letter-spacing: 2px; pointer-events: none; white-space: nowrap; }
@@ -150,27 +151,41 @@
         .stock-bar-fill.low-stock { background-color: #990000; box-shadow: 0 0 8px rgba(153, 0, 0, 0.6); }
 
         /* --- DOLNE LINKI --- */
-        .subtle-link { position: fixed; bottom: 3vh; z-index: 105; color: #888; font-family: 'Segoe UI', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: lowercase; text-decoration: none; transition: color 0.4s ease; }
+        .subtle-link { position: fixed; bottom: 3vh; z-index: 105; color: #888; font-family: 'Segoe UI', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: lowercase; text-decoration: none; transition: color 0.4s ease, text-shadow 0.4s ease; }
         .link-left { left: 5vw; }
         .link-right { right: 5vw; }
-        .subtle-link:hover { color: #990000; }
+        .subtle-link:hover, .subtle-link.active-shadow { color: #990000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.4); }
 
         /* --- STAN PO KLIKNIĘCIU --- */
         body.show-details { overflow-y: auto; }
         body.show-details .details-side { flex: 1.5; opacity: 1; visibility: visible; max-width: 800px; padding-left: 5vw; }
-        
+
         /* --- SLIDER I ZDJĘCIA --- */
         .slider-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; pointer-events: none; }
         .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; transform: scale(1.04); }
         .slide-img.active { opacity: 1; }
 
         .slider-nav { position: absolute; background: transparent; border: none; color: #000000; font-family: 'Segoe UI', sans-serif; font-weight: 700; cursor: pointer; z-index: 40; transition: color 0.3s, text-shadow 0.3s; pointer-events: auto; }
-        .slider-nav:hover { color: #990000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.5); }
-
+        
         .nav-arrow { top: 50%; transform: translateY(-50%); font-size: 24px; padding: 20px; }
+        .nav-arrow:hover { color: #990000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.5); }
         #slide-prev { left: -10px; }
         #slide-next { right: -10px; }
-        .nav-close { top: 15px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: lowercase; padding: 10px; }
+        
+        /* CZERWONY PRZYCISK RETURN NA GÓRZE SLIDERA */
+        .nav-close { 
+            top: 5px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            font-size: 11px; 
+            letter-spacing: 2px; 
+            text-transform: lowercase; 
+            padding: 10px; 
+            color: #990000; 
+            font-weight: 900; 
+            text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); 
+        }
+        .nav-close:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.8); }
 
         body.show-details .product-mockup { opacity: 0; }
         body.show-details .slider-wrapper { opacity: 1; visibility: visible; pointer-events: auto; }
@@ -195,7 +210,7 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* --- RĘCE --- */
+        /* --- RĘCE (DESKTOP) --- */
         .hands-container { position: fixed; inset: 0; pointer-events: none; z-index: 10; overflow: hidden; }
         .hand { position: absolute; width: 42vw; max-width: 480px; min-width: 260px; height: auto; filter: grayscale(100%) contrast(1.5) brightness(0.7); transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease; bottom: -5vh; opacity: 0.9; }
         .hand-left { left: 50%; transform: translateX(-85%) translateY(12vh); }
@@ -206,28 +221,60 @@
         body.reaching .hand-center { transform: translateX(-50%) translateY(9vh) scale(1.1); }
         body.reaching .hand-right { transform: translateX(-15%) translateY(7vh); }
 
+        /* --- TELEFONY (MOBILE) --- */
         @media (max-width: 768px) {
             .main-container { flex-direction: column; height: auto; margin-top: 15vh; }
             .product-side { flex: none; width: 100%; }
             .product-mockup { width: 70vw; min-height: 250px; }
-            .product-container { transform: translateY(8vh); }
-            .product-container:hover { transform: translateY(8vh); } 
-            .details-side { padding-left: 0; align-items: center; max-width: 90vw; padding-bottom: 15vh; margin-top: 8vh; }
+            
+            /* ZMIANA 1: KOSZULKA WYJŚCIOWO JEST NIŻEJ */
+            .product-container { transform: translateY(10vh); transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+            .product-container:hover { transform: translateY(10vh); } 
+            
+            /* ZMIANA 2: PO KLIKNIĘCIU (WIDOK DETALI) SLIDER WĘDRUJE WYŻEJ */
+            body.show-details .product-container { transform: translateY(3vh); }
+
+            .details-side { padding-left: 0; align-items: center; max-width: 90vw; padding-bottom: 15vh; margin-top: 5vh; }
             body.show-details .details-side { padding-left: 0; }
+            
             .product-title { text-align: center; font-size: 28px; white-space: normal; }
             .collapsible-wrapper { max-width: 90vw; }
-            .product-description { max-width: 90vw; font-size: 13px; }
+            .product-description { max-width: 90vw; font-size: 13px; text-align: left; }
             .desc-label { width: 65px; }
             .action-buttons { align-items: center; }
-            .subtle-link { bottom: 2vh; font-size: 10px; }
+            
+            /* Usunięcie dolnych linków na telefonie */
+            .subtle-link { display: none; }
+            
             #slide-prev { left: -5vw; }
             #slide-next { right: -5vw; }
+
+            /* RĘCE - BAZOWA POZYCJA (Wysoko, ale widoczne) */
+            .hand { width: 55vw; bottom: 0; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease, visibility 0.5s; }
+            .hand-left { transform: translateX(-80%) translateY(2vh); }
+            .hand-center { transform: translateX(-50%) translateY(4vh) scale(1.05); }
+            .hand-right { transform: translateX(-20%) translateY(2vh); }
+
+            /* RĘCE - WYCIĄGANIE (reaching) */
+            body.reaching .hand-left { transform: translateX(-80%) translateY(-6vh); }
+            body.reaching .hand-center { transform: translateX(-50%) translateY(-4vh) scale(1.1); }
+            body.reaching .hand-right { transform: translateX(-20%) translateY(-6vh); }
+
+            /* RĘCE - ZNIKANIE (Znikają w miejscu do którego się wyciągnęły) */
+            body.show-details .hand {
+                opacity: 0 !important;
+                visibility: hidden;
+                pointer-events: none;
+            }
+            body.show-details .hand-left { transform: translateX(-80%) translateY(-6vh) !important; }
+            body.show-details .hand-center { transform: translateX(-50%) translateY(-4vh) scale(1.1) !important; }
+            body.show-details .hand-right { transform: translateX(-20%) translateY(-6vh) !important; }
         }
     </style>
 </head>
 <body>
 
-    <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo" onclick="window.location.href='index.html?skipAnim=true'">
+    <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo" id="main-logo">
 
     <div class="main-container">
         <div class="product-side">
@@ -288,7 +335,7 @@
     </div>
 
     <script>
-        // BEZPIECZNY FORMAT DATY DLA SYSTEMÓW APPLE (ISO 8601)
+        // DATA DROPU
         const dropDate = new Date("2026-04-23T00:00:00").getTime();
 
         const inventoryData = [
@@ -312,9 +359,9 @@
                 let actionBtnHTML = '';
                 
                 if (!isDropActive) {
-                    actionBtnHTML = `<span class="locked-btn">[ 🔒 drop coming soon ]</span>`;
+                    actionBtnHTML = `<span class="locked-btn">[ be patient... ]</span>`;
                 } else if (item.current > 0) {
-                    actionBtnHTML = `<a href="${item.link}" target="_blank" class="request-btn">[ buy ]</a>`;
+                    actionBtnHTML = `<a href="${item.link}" target="_blank" class="request-btn subtle-nav-item">[ buy ]</a>`;
                 } else {
                     actionBtnHTML = `<span style="font-size:10px; color:#666;">[ sold out ]</span>`;
                 }
@@ -341,6 +388,32 @@
         setInterval(renderInventory, 1000);
         renderInventory();
 
+        /* --- LOGIKA OPÓŹNIENIA KLIKNIĘĆ NA TELEFONACH --- */
+        document.querySelectorAll('.subtle-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 || 'ontouchstart' in window) {
+                    e.preventDefault();
+                    this.classList.add('active-shadow');
+                    setTimeout(() => {
+                        window.location.href = this.href;
+                    }, 400); 
+                }
+            });
+        });
+
+        document.getElementById('main-logo').addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 || 'ontouchstart' in window) {
+                e.preventDefault();
+                this.classList.add('active-shadow');
+                setTimeout(() => {
+                    window.location.href = 'index.html?skipAnim=true';
+                }, 400);
+            } else {
+                window.location.href = 'index.html?skipAnim=true';
+            }
+        });
+
+
         /* --- OBSŁUGA INTERFEJSU I SLIDERA --- */
         const product = document.getElementById('product-trigger');
         const sizechartBtn = document.getElementById('toggle-sizechart');
@@ -361,11 +434,15 @@
             if(e.target.tagName.toLowerCase() === 'button') return;
 
             if (!document.body.classList.contains('show-details')) {
+                // Wyciąganie rąk na telefonie
+                if (window.innerWidth <= 768) {
+                    document.body.classList.add('reaching'); 
+                }
+
                 document.body.classList.add('is-transitioning');
                 
                 setTimeout(() => {
                     document.body.classList.add('show-details');
-                    if (window.innerWidth <= 768) document.body.classList.add('reaching'); 
                     
                     setTimeout(() => {
                         document.body.classList.remove('is-transitioning');
@@ -379,9 +456,15 @@
             document.body.classList.add('is-transitioning');
             
             setTimeout(() => {
+                window.scrollTo(0, 0); 
+                
                 document.body.classList.remove('show-details');
                 closeAllTabs();
-                if (window.innerWidth <= 768) document.body.classList.remove('reaching'); 
+
+                // Ręce wracają
+                if (window.innerWidth <= 768) {
+                    document.body.classList.remove('reaching'); 
+                }
                 
                 setTimeout(() => {
                     document.body.classList.remove('is-transitioning');
