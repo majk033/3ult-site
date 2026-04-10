@@ -70,23 +70,35 @@
             transform: translateY(-5vh); 
             -webkit-tap-highlight-color: transparent; 
             outline: none;
-            overflow: hidden; 
+            /* ZMIANA: Widoczny overflow, żeby strzałki mogły być na zewnątrz */
+            overflow: visible; 
             border-radius: 2px; 
-            -webkit-mask-image: -webkit-radial-gradient(white, black); 
         }
 
         .product-container:hover {
             transform: translateY(-5vh) scale(1.02);
         }
+        .product-container:focus { outline: none; }
 
-        .product-mockup {
+        /* NOWOŚĆ: Niewidzialna maska, która idealnie odcina czarne krawędzie wideo i obwódki */
+        .media-mask {
+            position: relative;
             width: 35vw; 
             max-width: 450px;
             min-width: 280px;
             min-height: 350px; 
+            overflow: hidden; 
+            border-radius: 2px;
+            -webkit-mask-image: -webkit-radial-gradient(white, black); 
+            outline: none;
+        }
+
+        .product-mockup {
+            width: 100%; 
             height: auto;
             display: block; 
             border: none;
+            outline: none;
             background-color: transparent;
             transform: scale(1.04); 
             transform-origin: center;
@@ -162,28 +174,29 @@
 
         /* --- SLIDER I ZDJĘCIA --- */
         .slider-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; pointer-events: none; }
-        .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; transform: scale(1.04); }
+        .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; transform: scale(1.04); border-radius: 2px; outline: none; border: none; }
         .slide-img.active { opacity: 1; }
 
-        .slider-nav { position: absolute; background: transparent; border: none; color: #000000; font-family: 'Segoe UI', sans-serif; font-weight: 700; cursor: pointer; z-index: 40; transition: color 0.3s, text-shadow 0.3s; pointer-events: auto; }
+        /* ZMIANA: Animowane pojawianie się przycisków dopiero w trybie show-details */
+        .slider-nav { 
+            position: absolute; 
+            background: transparent; border: none; font-family: 'Segoe UI', sans-serif; font-weight: 700; cursor: pointer; z-index: 40; 
+            transition: color 0.3s, text-shadow 0.3s, opacity 0.4s ease, visibility 0.4s; 
+            opacity: 0; visibility: hidden; pointer-events: none;
+        }
+        body.show-details .slider-nav { opacity: 1; visibility: visible; pointer-events: auto; }
         
-        .nav-arrow { top: 50%; transform: translateY(-50%); font-size: 24px; padding: 20px; }
-        .nav-arrow:hover { color: #990000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.5); }
-        #slide-prev { left: -10px; }
-        #slide-next { right: -10px; }
+        .nav-arrow { 
+            top: 50%; transform: translateY(-50%); font-size: 24px; padding: 20px; 
+            color: #990000; font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); 
+        }
+        .nav-arrow:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.8); }
+        #slide-prev { left: -40px; }
+        #slide-next { right: -40px; }
         
-        /* CZERWONY PRZYCISK RETURN NA GÓRZE SLIDERA */
         .nav-close { 
-            top: 5px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            font-size: 11px; 
-            letter-spacing: 2px; 
-            text-transform: lowercase; 
-            padding: 10px; 
-            color: #990000; 
-            font-weight: 900; 
-            text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); 
+            top: 5px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: lowercase; padding: 10px; 
+            color: #990000; font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); 
         }
         .nav-close:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.8); }
 
@@ -191,8 +204,9 @@
         body.show-details .slider-wrapper { opacity: 1; visibility: visible; pointer-events: auto; }
 
         /* --- KURTYNA PRZEJŚCIA (3 KROPKI) --- */
+        /* Wewnątrz .media-mask dopasowuje się idealnie do ramki */
         .transition-overlay {
-            position: absolute; inset: 0; background-color: #faf0e6; z-index: 50; display: flex; justify-content: center; align-items: center; gap: 15px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+            position: absolute; inset: 0; background-color: #faf0e6; z-index: 50; display: flex; justify-content: center; align-items: center; gap: 15px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; border-radius: 2px;
         }
         body.is-transitioning .transition-overlay { opacity: 1; visibility: visible; }
 
@@ -225,13 +239,13 @@
         @media (max-width: 768px) {
             .main-container { flex-direction: column; height: auto; margin-top: 15vh; }
             .product-side { flex: none; width: 100%; }
-            .product-mockup { width: 70vw; min-height: 250px; }
             
-            /* ZMIANA 1: KOSZULKA WYJŚCIOWO JEST NIŻEJ */
+            /* Przeniesienie szerokości na maskę wideo */
+            .media-mask { width: 70vw; min-height: 250px; }
+            
             .product-container { transform: translateY(10vh); transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
             .product-container:hover { transform: translateY(10vh); } 
             
-            /* ZMIANA 2: PO KLIKNIĘCIU (WIDOK DETALI) SLIDER WĘDRUJE WYŻEJ */
             body.show-details .product-container { transform: translateY(3vh); }
 
             .details-side { padding-left: 0; align-items: center; max-width: 90vw; padding-bottom: 15vh; margin-top: 5vh; }
@@ -243,32 +257,30 @@
             .desc-label { width: 65px; }
             .action-buttons { align-items: center; }
             
-            /* Usunięcie dolnych linków na telefonie */
             .subtle-link { display: none; }
             
+            /* Zmniejszone strzałki poza obrazkiem */
+            .nav-arrow { font-size: 16px; padding: 6px; }
             #slide-prev { left: -5vw; }
             #slide-next { right: -5vw; }
 
-            /* RĘCE - BAZOWA POZYCJA (Wysoko, ale widoczne) */
             .hand { width: 55vw; bottom: 0; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease, visibility 0.5s; }
-            .hand-left { transform: translateX(-80%) translateY(2vh); }
-            .hand-center { transform: translateX(-50%) translateY(4vh) scale(1.05); }
-            .hand-right { transform: translateX(-20%) translateY(2vh); }
+            .hand-left { transform: translateX(-80%) translateY(5vh); }
+            .hand-center { transform: translateX(-50%) translateY(7vh) scale(1.05); }
+            .hand-right { transform: translateX(-20%) translateY(5vh); }
 
-            /* RĘCE - WYCIĄGANIE (reaching) */
-            body.reaching .hand-left { transform: translateX(-80%) translateY(-6vh); }
-            body.reaching .hand-center { transform: translateX(-50%) translateY(-4vh) scale(1.1); }
-            body.reaching .hand-right { transform: translateX(-20%) translateY(-6vh); }
+            body.reaching .hand-left { transform: translateX(-80%) translateY(0vh); }
+            body.reaching .hand-center { transform: translateX(-50%) translateY(2vh) scale(1.1); }
+            body.reaching .hand-right { transform: translateX(-20%) translateY(0vh); }
 
-            /* RĘCE - ZNIKANIE (Znikają w miejscu do którego się wyciągnęły) */
             body.show-details .hand {
                 opacity: 0 !important;
                 visibility: hidden;
                 pointer-events: none;
             }
-            body.show-details .hand-left { transform: translateX(-80%) translateY(-6vh) !important; }
-            body.show-details .hand-center { transform: translateX(-50%) translateY(-4vh) scale(1.1) !important; }
-            body.show-details .hand-right { transform: translateX(-20%) translateY(-6vh) !important; }
+            body.show-details .hand-left { transform: translateX(-80%) translateY(0vh) !important; }
+            body.show-details .hand-center { transform: translateX(-50%) translateY(2vh) scale(1.1) !important; }
+            body.show-details .hand-right { transform: translateX(-20%) translateY(0vh) !important; }
         }
     </style>
 </head>
@@ -279,24 +291,28 @@
     <div class="main-container">
         <div class="product-side">
             <div class="product-container" id="product-trigger">
-                <video src="3vid.mp4" class="product-mockup" autoplay loop muted playsinline></video>
                 
-                <div class="transition-overlay">
-                    <div class="trans-dot"></div>
-                    <div class="trans-dot"></div>
-                    <div class="trans-dot"></div>
+                <div class="media-mask">
+                    <video src="3vid.mp4" class="product-mockup" autoplay loop muted playsinline></video>
+                    
+                    <div class="transition-overlay">
+                        <div class="trans-dot"></div>
+                        <div class="trans-dot"></div>
+                        <div class="trans-dot"></div>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <img src="1.jpg" class="slide-img active">
+                        <img src="3.jpg" class="slide-img">
+                        <img src="4.jpg" class="slide-img">
+                        <img src="6.jpg" class="slide-img">
+                    </div>
                 </div>
 
-                <div class="slider-wrapper">
-                    <button class="slider-nav nav-close" id="slider-close">[ return ]</button>
-                    <button class="slider-nav nav-arrow" id="slide-prev">[ &lt; ]</button>
-                    <button class="slider-nav nav-arrow" id="slide-next">[ &gt; ]</button>
+                <button class="slider-nav nav-close" id="slider-close">[ return ]</button>
+                <button class="slider-nav nav-arrow" id="slide-prev">[ &lt; ]</button>
+                <button class="slider-nav nav-arrow" id="slide-next">[ &gt; ]</button>
 
-                    <img src="1.jpg" class="slide-img active">
-                    <img src="3.jpg" class="slide-img">
-                    <img src="4.jpg" class="slide-img">
-                    <img src="6.jpg" class="slide-img">
-                </div>
             </div>
         </div>
 
@@ -335,7 +351,6 @@
     </div>
 
     <script>
-        // DATA DROPU
         const dropDate = new Date("2026-04-23T00:00:00").getTime();
 
         const inventoryData = [
@@ -388,7 +403,6 @@
         setInterval(renderInventory, 1000);
         renderInventory();
 
-        /* --- LOGIKA OPÓŹNIENIA KLIKNIĘĆ NA TELEFONACH --- */
         document.querySelectorAll('.subtle-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768 || 'ontouchstart' in window) {
@@ -413,8 +427,6 @@
             }
         });
 
-
-        /* --- OBSŁUGA INTERFEJSU I SLIDERA --- */
         const product = document.getElementById('product-trigger');
         const sizechartBtn = document.getElementById('toggle-sizechart');
         const availabilityBtn = document.getElementById('toggle-availability');
@@ -434,7 +446,6 @@
             if(e.target.tagName.toLowerCase() === 'button') return;
 
             if (!document.body.classList.contains('show-details')) {
-                // Wyciąganie rąk na telefonie
                 if (window.innerWidth <= 768) {
                     document.body.classList.add('reaching'); 
                 }
@@ -461,7 +472,6 @@
                 document.body.classList.remove('show-details');
                 closeAllTabs();
 
-                // Ręce wracają
                 if (window.innerWidth <= 768) {
                     document.body.classList.remove('reaching'); 
                 }
