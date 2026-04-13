@@ -70,7 +70,6 @@
             transform: translateY(-5vh); 
             -webkit-tap-highlight-color: transparent; 
             outline: none;
-            /* ZMIANA: Widoczny overflow, żeby strzałki mogły być na zewnątrz */
             overflow: visible; 
             border-radius: 2px; 
         }
@@ -80,7 +79,6 @@
         }
         .product-container:focus { outline: none; }
 
-        /* NOWOŚĆ: Niewidzialna maska, która idealnie odcina czarne krawędzie wideo i obwódki */
         .media-mask {
             position: relative;
             width: 35vw; 
@@ -145,8 +143,29 @@
         .collapsible-wrapper.active { max-height: 1000px; opacity: 1; margin-bottom: 3vh; }
         .size-chart-image { width: 100%; height: auto; border: none; display: block; }
 
+        /* --- STYL CZEŚCI Z CENĄ --- */
+        .price-display {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 26px;
+            color: #000000;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #dcd3c9;
+            padding-bottom: 10px;
+            width: 100%;
+        }
+        .price-sub {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            color: #888;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+            margin-left: 8px;
+        }
+
         /* --- LISTA DOSTĘPNOŚCI --- */
-        .stock-list { display: flex; flex-direction: column; gap: 15px; width: 100%; padding-top: 10px; }
+        .stock-list { display: flex; flex-direction: column; gap: 15px; width: 100%; padding-top: 5px; }
         .stock-item { display: flex; flex-direction: column; gap: 5px; }
         .stock-info { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
         .stock-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -177,7 +196,6 @@
         .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; transform: scale(1.04); border-radius: 2px; outline: none; border: none; }
         .slide-img.active { opacity: 1; }
 
-        /* ZMIANA: Animowane pojawianie się przycisków dopiero w trybie show-details */
         .slider-nav { 
             position: absolute; 
             background: transparent; border: none; font-family: 'Segoe UI', sans-serif; font-weight: 700; cursor: pointer; z-index: 40; 
@@ -191,12 +209,14 @@
             color: #990000; font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); 
         }
         .nav-arrow:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.8); }
-        #slide-prev { left: -40px; }
-        #slide-next { right: -40px; }
+        
+        /* ZMIANA: Szerszy rozstaw strzałek (komputer) */
+        #slide-prev { left: -80px; }
+        #slide-next { right: -80px; }
         
         .nav-close { 
-            top: 5px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: lowercase; padding: 10px; 
-            color: #990000; font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); 
+            top: -30px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: lowercase; padding: 10px; 
+            color: #990000; font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); white-space: nowrap;
         }
         .nav-close:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.8); }
 
@@ -204,7 +224,6 @@
         body.show-details .slider-wrapper { opacity: 1; visibility: visible; pointer-events: auto; }
 
         /* --- KURTYNA PRZEJŚCIA (3 KROPKI) --- */
-        /* Wewnątrz .media-mask dopasowuje się idealnie do ramki */
         .transition-overlay {
             position: absolute; inset: 0; background-color: #faf0e6; z-index: 50; display: flex; justify-content: center; align-items: center; gap: 15px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; border-radius: 2px;
         }
@@ -240,7 +259,6 @@
             .main-container { flex-direction: column; height: auto; margin-top: 15vh; }
             .product-side { flex: none; width: 100%; }
             
-            /* Przeniesienie szerokości na maskę wideo */
             .media-mask { width: 70vw; min-height: 250px; }
             
             .product-container { transform: translateY(10vh); transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -259,10 +277,10 @@
             
             .subtle-link { display: none; }
             
-            /* Zmniejszone strzałki poza obrazkiem */
             .nav-arrow { font-size: 16px; padding: 6px; }
-            #slide-prev { left: -5vw; }
-            #slide-next { right: -5vw; }
+            /* ZMIANA: Szerszy rozstaw strzałek (telefon) */
+            #slide-prev { left: -45px; }
+            #slide-next { right: -45px; }
 
             .hand { width: 55vw; bottom: 0; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease, visibility 0.5s; }
             .hand-left { transform: translateX(-80%) translateY(5vh); }
@@ -324,6 +342,7 @@
                 <div class="desc-item"><span class="desc-label">Weight:</span><span class="desc-content">240 GSM for a structured, substantial drape.</span></div>
                 <div class="desc-item"><span class="desc-label">Finish:</span><span class="desc-content">High-definition graphics realized via industry-leading DTG technology.</span></div>
                 <div class="desc-item"><span class="desc-label">Fit:</span><span class="desc-content">Boxy cut with dropped shoulders.</span></div>
+                <div class="desc-item"><span class="desc-label">Details:</span><span class="desc-content">Hand-crafted and sewn-in neck label & DTF printed wash tag.</span></div>
             </div>
 
             <div class="action-buttons">
@@ -336,6 +355,8 @@
             </div>
 
             <div class="collapsible-wrapper" id="availability-wrapper">
+                <div class="price-display">120 PLN <span class="price-sub">+ dostawa</span></div>
+
                 <div class="stock-list" id="stock-container"></div>
             </div>
         </div>
