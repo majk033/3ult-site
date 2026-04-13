@@ -6,7 +6,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-DMF60PRB1Y');
 </script>
     <meta charset="UTF-8">
@@ -73,35 +72,27 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            transform: translateY(-8vh);
+            transform: translateY(-8vh); /* Trzyma logo wysoko */
             z-index: 50; 
         }
 
         .gothic-text { font-family: 'UnifrakturCook', cursive; font-weight: 700; }
         
         img {
-            max-width: 300px; width: 70%; height: auto; margin-bottom: 1vh; min-height: 80px; 
+            max-width: 300px; width: 70%; height: auto; min-height: 80px; 
         }
 
-        /* --- NOWY NAPIS O FAZIE ROZWOJOWEJ --- */
-        .dev-phase-note {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 10px;
-            color: #888;
-            letter-spacing: 2px;
-            margin-bottom: 5vh;
-            opacity: 0.6;
-            text-transform: lowercase;
-        }
-
+        /* --- ZMIANA: Twarde odepchnięcie napisów od logo w dół --- */
         .coming-soon-container {
             color: #990000; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; 
-            display: flex; gap: 15px; margin-bottom: 1vh;
+            display: flex; gap: 15px; 
+            margin-top: 12vh; /* Sztywny dystans od loga w dół */
+            margin-bottom: 8vh; /* ZMIANA: Bardzo duży odstęp od odliczania */
         }
 
         .part-of-it {
             color: #000000; font-size: 26px; letter-spacing: 2px; text-transform: lowercase;
-            text-align: center; margin-bottom: 8vh; 
+            text-align: center; margin-bottom: 6vh; 
         }
 
         .countdown {
@@ -134,7 +125,7 @@
             text-decoration: underline;
             text-decoration-thickness: 2px;
             text-underline-offset: 8px;
-            margin-top: 7vh; 
+            margin-top: 8vh; 
             transition: color 0.4s ease-in-out, text-shadow 0.4s ease-in-out, text-decoration-color 0.4s ease-in-out; 
             position: relative;
             z-index: 105; 
@@ -208,8 +199,8 @@
             15%  { transform: translate(0, var(--step1-y)); }              
             25%  { transform: translate(0, var(--step2-y)); }              
             35%  { transform: translate(0, var(--step2-y)); }              
-            45%  { transform: translate(0, var(--step3-y)); }               
-            60%  { transform: translate(0, var(--step3-y)); }               
+            45%  { transform: translate(0, var(--step3-y)); }                
+            60%  { transform: translate(0, var(--step3-y)); }                
             75%  { transform: translate(0, var(--step2-y)); }
             81%  { transform: translate(0, var(--step2-y)); }
             84%  { transform: translate(0, var(--step2-y)); opacity: 1;}
@@ -248,12 +239,21 @@
                 --beam-R-X: 0vw;   --beam-R-Y: 23vh;  
             }
 
-            /* Unikanie nachodzenia tekstów na telefonie */
-            .footer {
-                bottom: 45px; /* Podnosimy główny napis */
+            .content-wrapper {
+                transform: translateY(-12vh); /* Trzyma logo wysoko na telefonie */
             }
+
+            .coming-soon-container {
+                margin-top: 25vh; /* ZMIANA: Ogromne, przymusowe zsunięcie tekstów na dół */
+                margin-bottom: 12vh; /* ZMIANA: Ogromna przerwa pod COMING SOON */
+            }
+
+            .footer {
+                display: none; 
+            }
+            
             .subtle-link {
-                bottom: 15px; /* Linki zostają na dole */
+                bottom: 15px; 
                 font-size: 10px;
                 letter-spacing: 1px;
             }
@@ -275,8 +275,6 @@
 
     <div class="content-wrapper">
         <img src="logowektor.svg" alt="3ULT LOGO">
-        
-        <div class="dev-phase-note">* website in development</div>
         
         <div class="coming-soon-container gothic-text">
             <span>COMING</span>
@@ -370,7 +368,7 @@
         });
 
         window.addEventListener('DOMContentLoaded', () => {
-if (window.location.search.includes('skipAnim=true')) {
+            if (window.location.search.includes('skipAnim=true')) {
                 const spotlight = document.querySelector('.spotlight-wrapper');
                 if (spotlight) spotlight.style.display = 'none';
             }
