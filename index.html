@@ -6,6 +6,7 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+
   gtag('config', 'G-DMF60PRB1Y');
 </script>
     <meta charset="UTF-8">
@@ -72,27 +73,38 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            transform: translateY(-8vh); /* Trzyma logo wysoko */
+            transform: translateY(-8vh);
             z-index: 50; 
         }
 
         .gothic-text { font-family: 'UnifrakturCook', cursive; font-weight: 700; }
         
         img {
-            max-width: 300px; width: 70%; height: auto; min-height: 80px; 
+            max-width: 300px; width: 70%; height: auto; margin-bottom: 1vh; min-height: 80px; 
         }
 
-        /* --- ZMIANA: Twarde odepchnięcie napisów od logo w dół --- */
+        /* --- UKRYTY NAPIS O FAZIE ROZWOJOWEJ --- */
+        /* Zajmuje miejsce, ale jest niewidoczny */
+        .dev-phase-note {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 5vh;
+            text-transform: lowercase;
+            
+            visibility: hidden; 
+            opacity: 0;
+            pointer-events: none;
+        }
+
         .coming-soon-container {
             color: #990000; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; 
-            display: flex; gap: 15px; 
-            margin-top: 12vh; /* Sztywny dystans od loga w dół */
-            margin-bottom: 8vh; /* ZMIANA: Bardzo duży odstęp od odliczania */
+            display: flex; gap: 15px; margin-bottom: 1vh;
         }
 
         .part-of-it {
             color: #000000; font-size: 26px; letter-spacing: 2px; text-transform: lowercase;
-            text-align: center; margin-bottom: 6vh; 
+            text-align: center; margin-bottom: 8vh; 
         }
 
         .countdown {
@@ -125,7 +137,7 @@
             text-decoration: underline;
             text-decoration-thickness: 2px;
             text-underline-offset: 8px;
-            margin-top: 8vh; 
+            margin-top: 7vh; 
             transition: color 0.4s ease-in-out, text-shadow 0.4s ease-in-out, text-decoration-color 0.4s ease-in-out; 
             position: relative;
             z-index: 105; 
@@ -239,17 +251,8 @@
                 --beam-R-X: 0vw;   --beam-R-Y: 23vh;  
             }
 
-            .content-wrapper {
-                transform: translateY(-12vh); /* Trzyma logo wysoko na telefonie */
-            }
-
-            .coming-soon-container {
-                margin-top: 25vh; /* ZMIANA: Ogromne, przymusowe zsunięcie tekstów na dół */
-                margin-bottom: 12vh; /* ZMIANA: Ogromna przerwa pod COMING SOON */
-            }
-
             .footer {
-                display: none; 
+                display: none; /* Ukrycie stopki na telefonie */
             }
             
             .subtle-link {
@@ -275,6 +278,8 @@
 
     <div class="content-wrapper">
         <img src="logowektor.svg" alt="3ULT LOGO">
+        
+        <div class="dev-phase-note">* website in development</div>
         
         <div class="coming-soon-container gothic-text">
             <span>COMING</span>
