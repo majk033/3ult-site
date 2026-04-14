@@ -253,7 +253,7 @@
         body.reaching .hand-left { transform: translateX(-85%) translateY(7vh); }
         body.reaching .hand-center { transform: translateX(-50%) translateY(9vh) scale(1.1); }
         body.reaching .hand-right { transform: translateX(-15%) translateY(7vh); }
-   /* --- POPRAWKA DLA EKRANÓW LAPTOPÓW --- */
+  /* --- POPRAWKA DLA EKRANÓW LAPTOPÓW --- */
         @media screen and (max-width: 1440px) and (min-width: 769px), screen and (max-height: 900px) and (min-width: 769px) {
             body {
                 zoom: 0.85;
@@ -267,21 +267,22 @@
                 max-height: 85vh; 
             }
 
-            /* --- NOWE: Obniżenie wideo na laptopach --- */
             .product-container {
-                /* Oryginalnie było -5vh, dajemy na plus (np. 6vh), żeby zepchnąć je w dół */
                 transform: translateY(6vh); 
             }
             .product-container:hover {
-                /* Musimy też zaktualizować hover, żeby wideo zachowało płynne powiększenie, ale nie skakało do góry */
                 transform: translateY(6vh) scale(1.02); 
             }
 
-            /* --- Ręce zostają dokładnie tam, gdzie były w poprzedniej poprawce --- */
             .hand-left { transform: translateX(-85%) translateY(18vh); }
             .hand-center { transform: translateX(-50%) translateY(20vh) scale(1.05); }
             .hand-right { transform: translateX(-15%) translateY(18vh); }
-        }
+
+            /* --- NOWE: Odsunięcie tekstów w prawo i w dół po kliknięciu --- */
+            body.show-details .details-side {
+                padding-left: 12vw; /* Odsuwa cały blok z tekstem mocniej w prawo (standardowo było 5vw) */
+                padding-top: 8vh;   /* Robi bezpieczny margines od góry, żeby po rozwinięciu opcji tytuł nie wszedł na logo */
+            }
         /* --- TELEFONY (MOBILE) --- */
         @media (max-width: 768px) {
             .main-container { flex-direction: column; height: auto; margin-top: 15vh; }
