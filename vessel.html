@@ -253,7 +253,10 @@
         body.reaching .hand-left { transform: translateX(-85%) translateY(7vh); }
         body.reaching .hand-center { transform: translateX(-50%) translateY(9vh) scale(1.1); }
         body.reaching .hand-right { transform: translateX(-15%) translateY(7vh); }
-  /* --- POPRAWKA DLA EKRANÓW LAPTOPÓW --- */
+
+        /* ========================================================= */
+        /* --- POPRAWKA DLA EKRANÓW LAPTOPÓW --- */
+        /* ========================================================= */
         @media screen and (max-width: 1440px) and (min-width: 769px), screen and (max-height: 900px) and (min-width: 769px) {
             body {
                 zoom: 0.85;
@@ -278,12 +281,15 @@
             .hand-center { transform: translateX(-50%) translateY(20vh) scale(1.05); }
             .hand-right { transform: translateX(-15%) translateY(18vh); }
 
-            /* --- NOWE: Odsunięcie tekstów w prawo i w dół po kliknięciu --- */
             body.show-details .details-side {
-                padding-left: 12vw; /* Odsuwa cały blok z tekstem mocniej w prawo (standardowo było 5vw) */
-                padding-top: 8vh;   /* Robi bezpieczny margines od góry, żeby po rozwinięciu opcji tytuł nie wszedł na logo */
+                padding-left: 12vw;
+                padding-top: 8vh;
             }
-        /* --- TELEFONY (MOBILE) --- */
+        }
+
+        /* ========================================================= */
+        /* --- TELEFONY (MOBILE) --- (nietknięte z oryginału) --- */
+        /* ========================================================= */
         @media (max-width: 768px) {
             .main-container { flex-direction: column; height: auto; margin-top: 15vh; }
             .product-side { flex: none; width: 100%; }
@@ -307,7 +313,6 @@
             .subtle-link { display: none; }
             
             .nav-arrow { font-size: 16px; padding: 6px; }
-            /* ZMIANA: Szerszy rozstaw strzałek (telefon) */
             #slide-prev { left: -45px; }
             #slide-next { right: -45px; }
 
@@ -562,7 +567,7 @@
                 availabilityWrapper.classList.add('active');
                 availabilityBtn.textContent = 'hide size availability';
             }
-        }); 
+        });
 
         product.addEventListener('mouseenter', () => { if (window.innerWidth > 768) document.body.classList.add('reaching'); });
         product.addEventListener('mouseleave', () => { if (window.innerWidth > 768) document.body.classList.remove('reaching'); });
