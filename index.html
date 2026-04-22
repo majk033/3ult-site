@@ -84,14 +84,12 @@
         }
 
         /* --- UKRYTY NAPIS O FAZIE ROZWOJOWEJ --- */
-        /* Zajmuje miejsce, ale jest niewidoczny */
         .dev-phase-note {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 10px;
             letter-spacing: 2px;
             margin-bottom: 5vh;
             text-transform: lowercase;
-            
             visibility: hidden; 
             opacity: 0;
             pointer-events: none;
@@ -99,12 +97,14 @@
 
         .coming-soon-container {
             color: #990000; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; 
-            display: flex; gap: 15px; margin-bottom: 1vh;
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 1vh;
+            white-space: nowrap; 
         }
 
         .part-of-it {
             color: #000000; font-size: 26px; letter-spacing: 2px; text-transform: lowercase;
             text-align: center; margin-bottom: 8vh; 
+            white-space: nowrap; 
         }
 
         .countdown {
@@ -251,8 +251,17 @@
                 --beam-R-X: 0vw;   --beam-R-Y: 23vh;  
             }
 
+            .coming-soon-container {
+                font-size: 6.5vw; /* Zwiększona wielkość by lepiej pasować do linku */
+                letter-spacing: 1px; /* Zmniejszony margines między literami by zmieścić się w linii */
+            }
+
+            .part-of-it {
+                font-size: 5vw; /* Proporcjonalnie większa czcionka do drugiego napisu */
+            }
+
             .footer {
-                display: none; /* Ukrycie stopki na telefonie */
+                display: none; 
             }
             
             .subtle-link {
@@ -281,12 +290,13 @@
         
         <div class="dev-phase-note">* website in development</div>
         
-        <div class="coming-soon-container gothic-text">
-            <span>COMING</span>
-            <span>SOON...</span>
+        <div id="content-to-center" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <div class="coming-soon-container gothic-text">
+                <span>COMING</span>
+                <span>SOON...</span>
+            </div>
+            <div class="part-of-it gothic-text">be part of it.</div>
         </div>
-
-        <div class="part-of-it gothic-text">be part of it.</div>
         
         <div id="countdown" class="countdown"></div>
         
@@ -299,7 +309,7 @@
     <div class="footer">3ULT /// 2026 /// MAY</div>
 
     <script>
-        const countDownDate = new Date("May 03, 2026 13:00:00").getTime();
+        const countDownDate = new Date("May 03, 2025 13:00:00").getTime();
         const dripsContainer = document.getElementById("paint-drips-container");
         let intervalId;
 
@@ -353,13 +363,46 @@
 
             if (distance < 0) {
                 clearInterval(intervalId);
-                continueSpawning = false; 
-                if (dripsContainer.parentNode) dripsContainer.parentNode.removeChild(dripsContainer);
-                document.getElementById("countdown").innerHTML = "<span class='gothic-text' style='font-size: 32px;'>DROP JEST DOSTĘPNY</span>";
+               
+                
+                document.getElementById("countdown").style.visibility = "hidden";
+
+                // --- LOGIKA KLONOWANIA NA ŚRODEK ---
+                if (!document.getElementById('centered-clone')) {
+                    const originalContent = document.getElementById('content-to-center');
+                    
+                    const clone = originalContent.cloneNode(true);
+                    clone.id = 'centered-clone';
+                    clone.style.position = 'fixed';
+                    clone.style.top = '50%';
+                    clone.style.left = '50%';
+                    clone.style.transform = 'translate(-50%, -50%)';
+                    
+                    // Zmiana Z-Index, by tekst był chowany przez maskę świetlną (z-index 100 ma animacja)
+                    clone.style.zIndex = '50'; 
+                    
+                    const clonePartOfIt = clone.querySelector('.part-of-it');
+                    if (clonePartOfIt) clonePartOfIt.style.marginBottom = '0';
+
+                    const cloneComingSoon = clone.querySelector('.coming-soon-container');
+                    if (cloneComingSoon) {
+                        // Zmiana na wielką literę "First"
+                        cloneComingSoon.innerHTML = "<span>First vessel is available now!</span>";
+                        // Usunięcie wymuszenia CSS, żeby zachować dokładną pisownię z linijki wyżej
+                        cloneComingSoon.style.textTransform = "none";
+                    }
+
+                    document.body.appendChild(clone);
+                    originalContent.style.visibility = 'hidden';
+                }
+
+                const linkVessel = document.querySelector('.next-vessel-link');
+                if(linkVessel) {
+                    linkVessel.innerText = "check vessel";
+                }
             }
         }
 
-        // --- SKRYPT DLA PRZYCISKU NA TELEFON ---
         const nextVesselLink = document.querySelector('.next-vessel-link');
         nextVesselLink.addEventListener('click', function(e) {
             if (window.innerWidth <= 768 || 'ontouchstart' in window) {
@@ -377,7 +420,6 @@
                 const spotlight = document.querySelector('.spotlight-wrapper');
                 if (spotlight) spotlight.style.display = 'none';
             }
-            // ---------------------------------
 
             spawnLoop(); updateCountdown(); intervalId = setInterval(updateCountdown, 1000);
         });
