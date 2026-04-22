@@ -334,6 +334,30 @@
             body.show-details .hand-center { transform: translateX(-50%) translateY(2vh) scale(1.1) !important; }
             body.show-details .hand-right { transform: translateX(-20%) translateY(0vh) !important; }
         }
+/* --- NAPIS POD KOSZULKĄ --- */
+        .click-hint {
+            text-align: center;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            color: #888;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            margin-top: 20px;
+            transition: color 0.3s ease, text-shadow 0.3s ease, opacity 0.4s ease;
+            pointer-events: none; /* Dzięki temu napis nie blokuje kliknięcia */
+        }
+
+        /* Zmiana koloru po najechaniu na koszulkę */
+        .product-container:hover .click-hint {
+            color: #990000;
+            text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
+        }
+
+        /* Ukrycie napisu po otwarciu detali */
+        body.show-details .click-hint {
+            opacity: 0;
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
@@ -353,13 +377,16 @@
                         <div class="trans-dot"></div>
                     </div>
 
-                    <div class="slider-wrapper">
+                   <div class="slider-wrapper">
                         <img src="1.jpg" class="slide-img active">
                         <img src="3.jpg" class="slide-img">
                         <img src="4.jpg" class="slide-img">
-                        <img src="7.jpg" class="slide-img"> <img src="6.jpg" class="slide-img">
+                        <img src="7.jpg" class="slide-img"> 
+                        <img src="6.jpg" class="slide-img">
                     </div>
                 </div>
+
+                <div class="click-hint">[ click to explore & buy ]</div>
 
                 <button class="slider-nav nav-close" id="slider-close">[ return ]</button>
                 <button class="slider-nav nav-arrow" id="slide-prev">[ &lt; ]</button>
@@ -381,7 +408,7 @@
 
             <div class="action-buttons">
                 <button class="action-btn" id="toggle-sizechart">show sizechart</button>
-                <button class="action-btn" id="toggle-availability">check size availability</button>
+                <button class="action-btn" id="toggle-availability">Buy / check size availability</button>
             </div>
 
             <div class="collapsible-wrapper" id="sizechart-wrapper">
@@ -494,7 +521,7 @@
             sizechartWrapper.classList.remove('active');
             availabilityWrapper.classList.remove('active');
             sizechartBtn.textContent = 'show sizechart';
-            availabilityBtn.textContent = 'check size availability';
+            availabilityBtn.textContent = 'Buy / check size availability';
         }
 
         product.addEventListener('click', (e) => {
