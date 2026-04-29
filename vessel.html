@@ -288,7 +288,7 @@
         }
 
         /* ========================================================= */
-        /* --- TELEFONY (MOBILE) --- (nietknięte z oryginału) --- */
+        /* --- TELEFONY (MOBILE) --- */
         /* ========================================================= */
         @media (max-width: 768px) {
             .main-container { flex-direction: column; height: auto; margin-top: 15vh; }
@@ -301,7 +301,8 @@
             
             body.show-details .product-container { transform: translateY(3vh); }
 
-            .details-side { padding-left: 0; align-items: center; max-width: 90vw; padding-bottom: 15vh; margin-top: 5vh; }
+            /* ZMIANA: Zdjęcie blokady max-height dla telefonów, aby wyświetlić całą listę rozmiarów */
+            .details-side { padding-left: 0; align-items: center; max-width: 90vw; padding-bottom: 15vh; margin-top: 5vh; max-height: none; overflow: visible; }
             body.show-details .details-side { padding-left: 0; }
             
             .product-title { text-align: center; font-size: 28px; white-space: normal; }
