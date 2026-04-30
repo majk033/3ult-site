@@ -22,12 +22,14 @@
             --light-size: 400px;
             --light-offset: -200px;
             --blur-max: 30px;
-            --step1-y: -24vh; 
-            --step2-y: -7vh;  
-            --step3-y: 9vh;   
-            --beam-C-Y: -7vh;  
-            --beam-L-X: -32vw; --beam-L-Y: -7vh;
-            --beam-R-X: 32vw;  --beam-R-Y: -7vh;
+            /* Na komputerze: rozszczepienie POZIOME (w osi X), środek to Y: 0 */
+            --beam-C-Y: 0vh;  
+            --beam-L-X: -32vw; --beam-L-Y: 0vh;
+            --beam-R-X: 32vw;  --beam-R-Y: 0vh;
+        }
+
+        html {
+            background-color: #faf0e6; 
         }
 
         body {
@@ -39,6 +41,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            height: 100dvh; 
             margin: 0;
             overflow: hidden; 
         }
@@ -84,7 +87,6 @@
             max-width: 300px; width: 70%; height: auto; margin-bottom: 1vh; min-height: 80px; 
         }
 
-        /* --- UKRYTY NAPIS O FAZIE ROZWOJOWEJ --- */
         .dev-phase-note {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 10px;
@@ -160,7 +162,6 @@
             transition: bottom 0.3s ease;
         }
 
-        /* --- DOLNE LINKI (ABOUT / TERMS) --- */
         .subtle-link {
             position: fixed;
             bottom: 20px;
@@ -182,15 +183,15 @@
             text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
         }
 
-        /* --- MASKA ŚWIATŁA --- */
+        /* --- MASKA ŚWIATŁA (DYNAMICZNE ROZSZCZEPIENIE 2s) --- */
         .spotlight-wrapper {
             position: fixed; inset: 0; z-index: 100; pointer-events: none; 
             mix-blend-mode: multiply; 
-            animation: removeDarkness 6s forwards; 
+            animation: removeDarkness 2s forwards; 
         }
         .lights-container {
             width: 100%; height: 100%; background-color: #000000; 
-            animation: lightsFlicker 6s forwards; 
+            animation: lightsFlicker 2s forwards; 
         }
         .light {
             position: absolute; top: 50%; left: 50%; width: var(--light-size); height: var(--light-size);
@@ -202,41 +203,46 @@
         
         @keyframes shapeWobble { to { border-radius: 60% 40% 30% 70% / 60% 50% 70% 30%; } }
         
-        .center-beam { animation: beamCenter 5.5s ease-in-out forwards, diffuseLight 6s ease-in-out forwards; }
-        .left-beam { animation: beamLeft 5.5s ease-in-out forwards, diffuseLight 6s ease-in-out forwards; }
-        .right-beam { animation: beamRight 5.5s ease-in-out forwards, diffuseLight 6s ease-in-out forwards; }
+        .center-beam { animation: beamCenter 2s ease-in-out forwards, diffuseLight 2s ease-in-out forwards; }
+        .left-beam { animation: beamLeft 2s ease-in-out forwards, diffuseLight 2s ease-in-out forwards; }
+        .right-beam { animation: beamRight 2s ease-in-out forwards, diffuseLight 2s ease-in-out forwards; }
 
         @keyframes beamCenter {
-            0%   { transform: translate(0, var(--step1-y)); opacity: 0; } 
-            2%   { transform: translate(0, var(--step1-y)); opacity: 1; }
-            15%  { transform: translate(0, var(--step1-y)); }              
-            25%  { transform: translate(0, var(--step2-y)); }              
-            35%  { transform: translate(0, var(--step2-y)); }              
-            45%  { transform: translate(0, var(--step3-y)); }                
-            60%  { transform: translate(0, var(--step3-y)); }                
-            75%  { transform: translate(0, var(--step2-y)); }
-            81%  { transform: translate(0, var(--step2-y)); }
-            84%  { transform: translate(0, var(--step2-y)); opacity: 1;}
-            90%, 100% { transform: translate(0, var(--beam-C-Y)); opacity: 1;} 
+            0%, 10% { transform: translate(0, 0); opacity: 0; } 
+            15%, 25% { transform: translate(0, 0); opacity: 1; }
+            40%, 100% { transform: translate(0, var(--beam-C-Y)); opacity: 1; }
         }
         @keyframes beamLeft {
-            0%, 81% { transform: translate(0, var(--step2-y)); opacity: 0; } 
-            82%  { transform: translate(0, var(--step2-y)); opacity: 1; } 
-            84%  { transform: translate(0, var(--step2-y)); }                
-            90%, 100% { transform: translate(var(--beam-L-X), var(--beam-L-Y)); opacity: 1;} 
+            0%, 25% { transform: translate(0, 0); opacity: 0; } 
+            26% { transform: translate(0, 0); opacity: 1; } 
+            40%, 100% { transform: translate(var(--beam-L-X), var(--beam-L-Y)); opacity: 1;} 
         }
         @keyframes beamRight {
-            0%, 81% { transform: translate(0, var(--step2-y)); opacity: 0; } 
-            82%  { transform: translate(0, var(--step2-y)); opacity: 1; } 
-            84%  { transform: translate(0, var(--step2-y)); }                
-            90%, 100% { transform: translate(var(--beam-R-X), var(--beam-R-Y)); opacity: 1;}  
+            0%, 25% { transform: translate(0, 0); opacity: 0; } 
+            26% { transform: translate(0, 0); opacity: 1; } 
+            40%, 100% { transform: translate(var(--beam-R-X), var(--beam-R-Y)); opacity: 1;}  
         }
-        @keyframes diffuseLight { 0%, 86% { filter: blur(2px); } 90%, 100% { filter: blur(var(--blur-max)); } }
+        
+        @keyframes diffuseLight { 
+            0%, 50% { filter: blur(2px); } 
+            100% { filter: blur(var(--blur-max)); } 
+        }
+        
+        /* DOKŁADNIE 3 WYRAŹNE MRUGNIĘCIA PRZED ROZJAŚNIENIEM EKRANU */
         @keyframes lightsFlicker {
-            0%, 93% { opacity: 1; } 94% { opacity: 0.1; } 95% { opacity: 1; } 96% { opacity: 0.1; } 
-            97% { opacity: 1; } 98% { opacity: 0.1; } 99%, 100% { opacity: 1; }
+            0%, 65% { opacity: 1; } 
+            66%, 70% { opacity: 0.1; } /* Mrugnięcie 1 */
+            71%, 75% { opacity: 1; } 
+            76%, 80% { opacity: 0.1; } /* Mrugnięcie 2 */
+            81%, 85% { opacity: 1; } 
+            86%, 90% { opacity: 0.1; } /* Mrugnięcie 3 */
+            91%, 100% { opacity: 1; }
         }
-        @keyframes removeDarkness { 0%, 99% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        
+        @keyframes removeDarkness { 
+            0%, 92% { opacity: 1; } 
+            100% { opacity: 0; visibility: hidden; } 
+        }
 
         /* --- MEDIA QUERIES (MOBILE) --- */
         @media (max-width: 768px) {
@@ -244,21 +250,19 @@
                 --light-size: 260px; 
                 --light-offset: -130px;
                 --blur-max: 20px;
-                --step1-y: -24vh;
-                --step2-y: -7vh; 
-                --step3-y: 9vh;  
-                --beam-C-Y: -7vh;  
-                --beam-L-X: 0vw;   --beam-L-Y: -37vh;
-                --beam-R-X: 0vw;   --beam-R-Y: 23vh;  
+                /* Na telefonie: rozszczepienie PIONOWE (w osi Y), środek to X: 0 */
+                --beam-C-Y: 0vh;  
+                --beam-L-X: 0vw;   --beam-L-Y: -35vh;
+                --beam-R-X: 0vw;   --beam-R-Y: 35vh;  
             }
 
             .coming-soon-container {
-                font-size: 6.5vw; /* Zwiększona wielkość by lepiej pasować do linku */
-                letter-spacing: 1px; /* Zmniejszony margines między literami by zmieścić się w linii */
+                font-size: 6.5vw; 
+                letter-spacing: 1px; 
             }
 
             .part-of-it {
-                font-size: 5vw; /* Proporcjonalnie większa czcionka do drugiego napisu */
+                font-size: 5vw; 
             }
 
             .footer {
@@ -365,10 +369,8 @@
             if (distance < 0) {
                 clearInterval(intervalId);
                
-                
                 document.getElementById("countdown").style.visibility = "hidden";
 
-                // --- LOGIKA KLONOWANIA NA ŚRODEK ---
                 if (!document.getElementById('centered-clone')) {
                     const originalContent = document.getElementById('content-to-center');
                     
@@ -379,7 +381,6 @@
                     clone.style.left = '50%';
                     clone.style.transform = 'translate(-50%, -50%)';
                     
-                    // Zmiana Z-Index, by tekst był chowany przez maskę świetlną (z-index 100 ma animacja)
                     clone.style.zIndex = '50'; 
                     
                     const clonePartOfIt = clone.querySelector('.part-of-it');
@@ -387,9 +388,7 @@
 
                     const cloneComingSoon = clone.querySelector('.coming-soon-container');
                     if (cloneComingSoon) {
-                        // Zmiana na wielką literę "First"
                         cloneComingSoon.innerHTML = "<span>First vessel is available now!</span>";
-                        // Usunięcie wymuszenia CSS, żeby zachować dokładną pisownię z linijki wyżej
                         cloneComingSoon.style.textTransform = "none";
                     }
 
