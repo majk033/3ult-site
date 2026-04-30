@@ -301,7 +301,6 @@
             
             body.show-details .product-container { transform: translateY(3vh); }
 
-            /* ZMIANA: Zdjęcie blokady max-height dla telefonów, aby wyświetlić całą listę rozmiarów */
             .details-side { padding-left: 0; align-items: center; max-width: 90vw; padding-bottom: 15vh; margin-top: 5vh; max-height: none; overflow: visible; }
             body.show-details .details-side { padding-left: 0; }
             
@@ -335,7 +334,8 @@
             body.show-details .hand-center { transform: translateX(-50%) translateY(2vh) scale(1.1) !important; }
             body.show-details .hand-right { transform: translateX(-20%) translateY(0vh) !important; }
         }
-/* --- NAPIS POD KOSZULKĄ --- */
+        
+        /* --- NAPIS POD KOSZULKĄ --- */
         .click-hint {
             text-align: center;
             font-family: 'Segoe UI', sans-serif;
@@ -345,19 +345,25 @@
             text-transform: lowercase;
             margin-top: 20px;
             transition: color 0.3s ease, text-shadow 0.3s ease, opacity 0.4s ease;
-            pointer-events: none; /* Dzięki temu napis nie blokuje kliknięcia */
+            pointer-events: none; 
         }
 
-        /* Zmiana koloru po najechaniu na koszulkę */
         .product-container:hover .click-hint {
             color: #990000;
             text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
         }
 
-        /* Ukrycie napisu po otwarciu detali */
         body.show-details .click-hint {
             opacity: 0;
             visibility: hidden;
+        }
+
+        /* --- ZWIJANY OPIS KOSZULKI (NOWE) --- */
+        #desc-wrapper {
+            max-width: 700px;
+        }
+        #desc-wrapper .product-description {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -399,15 +405,20 @@
         <div class="details-side">
             <div class="product-title">BE YRSLF BOXY TEE</div>
             
-            <div class="product-description">
-                <div class="desc-item"><span class="desc-label">Fabric:</span><span class="desc-content">100% premium heavyweight cotton.</span></div>
-                <div class="desc-item"><span class="desc-label">Weight:</span><span class="desc-content">240 GSM for a structured, substantial drape.</span></div>
-                <div class="desc-item"><span class="desc-label">Finish:</span><span class="desc-content">High-definition graphics realized via industry-leading DTG technology.</span></div>
-                <div class="desc-item"><span class="desc-label">Fit:</span><span class="desc-content">Boxy cut with dropped shoulders.</span></div>
-                <div class="desc-item"><span class="desc-label">Details:</span><span class="desc-content">Individually hand-painted and sewn-in labels, paired with DTF printed care tags.</span></div>
+            <!-- NOWE: Opis zamknięty w rozwijanym kontenerze -->
+            <div class="collapsible-wrapper active" id="desc-wrapper">
+                <div class="product-description">
+                    <div class="desc-item"><span class="desc-label">Fabric:</span><span class="desc-content">100% premium heavyweight cotton.</span></div>
+                    <div class="desc-item"><span class="desc-label">Weight:</span><span class="desc-content">240 GSM for a structured, substantial drape.</span></div>
+                    <div class="desc-item"><span class="desc-label">Finish:</span><span class="desc-content">High-definition graphics realized via industry-leading DTG technology.</span></div>
+                    <div class="desc-item"><span class="desc-label">Fit:</span><span class="desc-content">Boxy cut with dropped shoulders.</span></div>
+                    <div class="desc-item"><span class="desc-label">Details:</span><span class="desc-content">Individually hand-painted and sewn-in labels, paired with DTF printed care tags.</span></div>
+                </div>
             </div>
 
             <div class="action-buttons">
+                <!-- NOWY PRZYCISK: do chowania/pokazywania opisu -->
+                <button class="action-btn" id="toggle-description">hide description</button>
                 <button class="action-btn" id="toggle-sizechart">show sizechart</button>
                 <button class="action-btn" id="toggle-availability">Buy / check size availability</button>
             </div>
@@ -511,16 +522,22 @@
         });
 
         const product = document.getElementById('product-trigger');
+        const descBtn = document.getElementById('toggle-description'); // NOWE
         const sizechartBtn = document.getElementById('toggle-sizechart');
         const availabilityBtn = document.getElementById('toggle-availability');
+        
+        const descWrapper = document.getElementById('desc-wrapper'); // NOWE
         const sizechartWrapper = document.getElementById('sizechart-wrapper');
         const availabilityWrapper = document.getElementById('availability-wrapper');
         const slides = document.querySelectorAll('.slide-img');
         let currentSlide = 0;
 
         function closeAllTabs() {
+            descWrapper.classList.remove('active'); // NOWE
             sizechartWrapper.classList.remove('active');
             availabilityWrapper.classList.remove('active');
+            
+            descBtn.textContent = 'show description'; // NOWE
             sizechartBtn.textContent = 'show sizechart';
             availabilityBtn.textContent = 'Buy / check size availability';
         }
@@ -555,6 +572,10 @@
                 document.body.classList.remove('show-details');
                 closeAllTabs();
 
+                // NOWE: resetuje opis do bycia otwartym, żeby po ponownym powrocie użytkownik od razu go widział
+                descWrapper.classList.add('active');
+                descBtn.textContent = 'hide description';
+
                 if (window.innerWidth <= 768) {
                     document.body.classList.remove('reaching'); 
                 }
@@ -577,6 +598,16 @@
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide - 1 + slides.length) % slides.length;
             slides[currentSlide].classList.add('active');
+        });
+
+        // NOWE: Logika klikania w opis
+        descBtn.addEventListener('click', () => {
+            const isActive = descWrapper.classList.contains('active');
+            closeAllTabs(); 
+            if (!isActive) {
+                descWrapper.classList.add('active');
+                descBtn.textContent = 'hide description';
+            }
         });
 
         sizechartBtn.addEventListener('click', () => {
