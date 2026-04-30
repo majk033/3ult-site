@@ -34,7 +34,6 @@
         }
 
         html {
-            /* STARTOWO CZARNE DLA PASKÓW PRZEGLĄDARKI */
             background-color: #000000; 
             width: 100%;
             height: 100%;
@@ -46,7 +45,6 @@
         }
 
         body {
-            /* STARTOWO CZARNE DLA PASKÓW PRZEGLĄDARKI */
             background-color: #000000;
             color: #000000;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -210,45 +208,35 @@
             text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
         }
 
-        /* --- BLOKADA ANIMACJI DO ZAŁADOWANIA --- */
-        .spotlight-wrapper, .lights-container, .light, .center-beam, .left-beam, .right-beam {
-            animation-play-state: paused !important;
-        }
-
-        body.anim-ready .spotlight-wrapper,
-        body.anim-ready .lights-container,
-        body.anim-ready .light,
-        body.anim-ready .center-beam,
-        body.anim-ready .left-beam,
-        body.anim-ready .right-beam {
-            animation-play-state: running !important;
-        }
-
-        /* --- MASKA ŚWIATŁA (zmieniono na "both" by aplikować frame 0% na starcie) --- */
+        /* --- BAZOWA MASKA ŚWIATŁA (STARTUJE ZGASZONA, BEZ ANIMACJI) --- */
         .spotlight-wrapper {
             position: fixed; 
             top: -20vh; bottom: -20vh; left: -20vw; right: -20vw; 
             z-index: 100; pointer-events: none; 
             mix-blend-mode: multiply; 
-            animation: removeDarkness 2s both; 
+            opacity: 1; /* Ciemność startowa */
         }
         .lights-container {
             width: 100%; height: 100%; background-color: #000000; 
-            animation: lightsFlicker 2s both; 
         }
         .light {
             position: absolute; top: 50%; left: 50%; width: var(--light-size); height: var(--light-size);
             margin-top: var(--light-offset); margin-left: var(--light-offset);
             border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; 
             background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 45%, rgba(0,0,0,1) 65%);
-            mix-blend-mode: screen; animation: shapeWobble 1s infinite linear alternate-reverse both;
+            mix-blend-mode: screen; 
+            opacity: 0; /* Światła startowo niewidoczne */
         }
+
+        /* --- AKTYWACJA ANIMACJI Z GWARANCJĄ STARTU OD 0ms --- */
+        body.anim-ready .spotlight-wrapper { animation: removeDarkness 2s both; }
+        body.anim-ready .lights-container { animation: lightsFlicker 2s both; }
+        body.anim-ready .light { animation: shapeWobble 1s infinite linear alternate-reverse both; }
+        body.anim-ready .center-beam { animation: beamCenter 2s ease-in-out both, diffuseLight 2s ease-in-out both; }
+        body.anim-ready .left-beam { animation: beamLeft 2s ease-in-out both, diffuseLight 2s ease-in-out both; }
+        body.anim-ready .right-beam { animation: beamRight 2s ease-in-out both, diffuseLight 2s ease-in-out both; }
         
         @keyframes shapeWobble { to { border-radius: 60% 40% 30% 70% / 60% 50% 70% 30%; } }
-        
-        .center-beam { animation: beamCenter 2s ease-in-out both, diffuseLight 2s ease-in-out both; }
-        .left-beam { animation: beamLeft 2s ease-in-out both, diffuseLight 2s ease-in-out both; }
-        .right-beam { animation: beamRight 2s ease-in-out both, diffuseLight 2s ease-in-out both; }
 
         @keyframes beamCenter {
             0%, 10% { transform: translate(0, 0); opacity: 0; } 
@@ -458,39 +446,38 @@
             }
         });
 
-        // 1. Zdarzenia natychmiastowe (niezależne od sieci)
+        // 1. Zdarzenia natychmiastowe (odliczanie ładuje się od razu)
         window.addEventListener('DOMContentLoaded', () => {
-            if (window.location.search.includes('skipAnim=true')) {
-                const spotlight = document.querySelector('.spotlight-wrapper');
-                if (spotlight) spotlight.style.display = 'none';
-                
-                const metaTheme = document.getElementById('theme-color-meta');
-                if(metaTheme) metaTheme.setAttribute('content', '#faf0e6');
-                document.documentElement.style.backgroundColor = '#faf0e6';
-                document.body.style.backgroundColor = '#faf0e6';
-            }
-
             updateCountdown(); 
             intervalId = setInterval(updateCountdown, 1000);
         });
 
-        // 2. Zdarzenia czekające na PEŁNE załadowanie wszystkich plików z serwera (czcionki, grafiki itp.)
+        // 2. Zdarzenie 'load' - czeka aż pobierze się wszystko w 100% (fonty, obrazki itp.)
         window.addEventListener('load', () => {
-            // Nadanie tej klasy ożywia CSS, zdejmując 'paused' ze wszystkich animacji
-            document.body.classList.add('anim-ready');
-            
-            // Kropki zaczynają kapać dopiero gdy włącza się cała reszta
-            spawnLoop();
+            const metaTheme = document.getElementById('theme-color-meta');
 
-            if (!window.location.search.includes('skipAnim=true')) {
-                const metaTheme = document.getElementById('theme-color-meta');
+            if (window.location.search.includes('skipAnim=true')) {
+                const spotlight = document.querySelector('.spotlight-wrapper');
+                if (spotlight) spotlight.style.display = 'none';
                 
-                // Zmiana koloru odbywa się idealnie w tempo (po 1.84s), żeby zgrać się z mrugnięciem światła
-                setTimeout(() => {
-                    if(metaTheme) metaTheme.setAttribute('content', '#faf0e6');
-                    document.documentElement.style.backgroundColor = '#faf0e6';
-                    document.body.style.backgroundColor = '#faf0e6';
-                }, 1840); 
+                if(metaTheme) metaTheme.setAttribute('content', '#faf0e6');
+                document.documentElement.style.backgroundColor = '#faf0e6';
+                document.body.style.backgroundColor = '#faf0e6';
+                
+                spawnLoop();
+            } else {
+                // Dodajemy klasę, co "budzi" animacje z uśpienia dokładnie w tym momencie
+                requestAnimationFrame(() => {
+                    document.body.classList.add('anim-ready');
+                    spawnLoop(); 
+                    
+                    // Odliczamy 1.84s od tego momentu, by zmienić kolory pasków
+                    setTimeout(() => {
+                        if(metaTheme) metaTheme.setAttribute('content', '#faf0e6');
+                        document.documentElement.style.backgroundColor = '#faf0e6';
+                        document.body.style.backgroundColor = '#faf0e6';
+                    }, 1840); 
+                });
             }
         });
     </script>
