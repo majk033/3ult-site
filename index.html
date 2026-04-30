@@ -42,7 +42,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            transition: background-color 0.4s ease; /* Płynne przejście koloru paska */
+            transition: background-color 0.4s ease; 
         }
 
         body {
@@ -210,31 +210,45 @@
             text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
         }
 
-        /* --- MASKA ŚWIATŁA (DYNAMICZNE ROZSZCZEPIENIE 2s) --- */
+        /* --- BLOKADA ANIMACJI DO ZAŁADOWANIA --- */
+        .spotlight-wrapper, .lights-container, .light, .center-beam, .left-beam, .right-beam {
+            animation-play-state: paused !important;
+        }
+
+        body.anim-ready .spotlight-wrapper,
+        body.anim-ready .lights-container,
+        body.anim-ready .light,
+        body.anim-ready .center-beam,
+        body.anim-ready .left-beam,
+        body.anim-ready .right-beam {
+            animation-play-state: running !important;
+        }
+
+        /* --- MASKA ŚWIATŁA (zmieniono na "both" by aplikować frame 0% na starcie) --- */
         .spotlight-wrapper {
             position: fixed; 
             top: -20vh; bottom: -20vh; left: -20vw; right: -20vw; 
             z-index: 100; pointer-events: none; 
             mix-blend-mode: multiply; 
-            animation: removeDarkness 2s forwards; 
+            animation: removeDarkness 2s both; 
         }
         .lights-container {
             width: 100%; height: 100%; background-color: #000000; 
-            animation: lightsFlicker 2s forwards; 
+            animation: lightsFlicker 2s both; 
         }
         .light {
             position: absolute; top: 50%; left: 50%; width: var(--light-size); height: var(--light-size);
             margin-top: var(--light-offset); margin-left: var(--light-offset);
             border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; 
             background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 45%, rgba(0,0,0,1) 65%);
-            mix-blend-mode: screen; animation: shapeWobble 1s infinite linear alternate-reverse;
+            mix-blend-mode: screen; animation: shapeWobble 1s infinite linear alternate-reverse both;
         }
         
         @keyframes shapeWobble { to { border-radius: 60% 40% 30% 70% / 60% 50% 70% 30%; } }
         
-        .center-beam { animation: beamCenter 2s ease-in-out forwards, diffuseLight 2s ease-in-out forwards; }
-        .left-beam { animation: beamLeft 2s ease-in-out forwards, diffuseLight 2s ease-in-out forwards; }
-        .right-beam { animation: beamRight 2s ease-in-out forwards, diffuseLight 2s ease-in-out forwards; }
+        .center-beam { animation: beamCenter 2s ease-in-out both, diffuseLight 2s ease-in-out both; }
+        .left-beam { animation: beamLeft 2s ease-in-out both, diffuseLight 2s ease-in-out both; }
+        .right-beam { animation: beamRight 2s ease-in-out both, diffuseLight 2s ease-in-out both; }
 
         @keyframes beamCenter {
             0%, 10% { transform: translate(0, 0); opacity: 0; } 
@@ -257,7 +271,6 @@
             100% { filter: blur(var(--blur-max)); } 
         }
         
-        /* DOKŁADNIE 3 WYRAŹNE MRUGNIĘCIA PRZED ROZJAŚNIENIEM EKRANU */
         @keyframes lightsFlicker {
             0%, 65% { opacity: 1; } 
             66%, 70% { opacity: 0.1; } 
@@ -279,7 +292,6 @@
                 --light-size: 260px; 
                 --light-offset: -130px;
                 --blur-max: 20px;
-                /* Na telefonie: rozszczepienie PIONOWE (w osi Y), środek to X: 0 */
                 --beam-C-Y: 0vh;  
                 --beam-L-X: 0vw;   --beam-L-Y: -35vh;
                 --beam-R-X: 0vw;   --beam-R-Y: 35vh;  
@@ -310,7 +322,6 @@
 </head>
 <body>
 
-    <!-- Sztuczne kremowe tło ładujące się pod animacją -->
     <div class="cream-bg"></div>
 
     <div class="paint-drips-container" id="paint-drips-container"></div>
@@ -447,27 +458,40 @@
             }
         });
 
+        // 1. Zdarzenia natychmiastowe (niezależne od sieci)
         window.addEventListener('DOMContentLoaded', () => {
-            const metaTheme = document.getElementById('theme-color-meta');
-
             if (window.location.search.includes('skipAnim=true')) {
                 const spotlight = document.querySelector('.spotlight-wrapper');
                 if (spotlight) spotlight.style.display = 'none';
                 
-                // Jeśli pomijamy animację, od razu przełączamy paski i tło na kremowe
+                const metaTheme = document.getElementById('theme-color-meta');
                 if(metaTheme) metaTheme.setAttribute('content', '#faf0e6');
                 document.documentElement.style.backgroundColor = '#faf0e6';
                 document.body.style.backgroundColor = '#faf0e6';
-            } else {
-                // Gdy animacja dociera do 92% (1840ms z 2 sekund) podmieniamy kolor pasków z czarnego na kremowy
+            }
+
+            updateCountdown(); 
+            intervalId = setInterval(updateCountdown, 1000);
+        });
+
+        // 2. Zdarzenia czekające na PEŁNE załadowanie wszystkich plików z serwera (czcionki, grafiki itp.)
+        window.addEventListener('load', () => {
+            // Nadanie tej klasy ożywia CSS, zdejmując 'paused' ze wszystkich animacji
+            document.body.classList.add('anim-ready');
+            
+            // Kropki zaczynają kapać dopiero gdy włącza się cała reszta
+            spawnLoop();
+
+            if (!window.location.search.includes('skipAnim=true')) {
+                const metaTheme = document.getElementById('theme-color-meta');
+                
+                // Zmiana koloru odbywa się idealnie w tempo (po 1.84s), żeby zgrać się z mrugnięciem światła
                 setTimeout(() => {
                     if(metaTheme) metaTheme.setAttribute('content', '#faf0e6');
                     document.documentElement.style.backgroundColor = '#faf0e6';
                     document.body.style.backgroundColor = '#faf0e6';
                 }, 1840); 
             }
-
-            spawnLoop(); updateCountdown(); intervalId = setInterval(updateCountdown, 1000);
         });
     </script>
 </body>
