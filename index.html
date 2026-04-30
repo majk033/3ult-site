@@ -12,8 +12,8 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <!-- Koloruje paski interfejsu przeglądarki na telefonie (góra/dół) -->
-    <meta name="theme-color" content="#faf0e6">
+    <!-- Startowy kolor paska przeglądarki to czarny (zostanie zmieniony w JS) -->
+    <meta name="theme-color" content="#000000" id="theme-color-meta">
     <title>3ULT // COMING SOON...</title>
     
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@
             background-color: #faf0e6; 
             width: 100vw;
             height: 100vh;
-            height: 100dvh; /* Dynamiczny viewport */
+            height: 100dvh; 
             margin: 0;
             padding: 0;
         }
@@ -53,7 +53,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden; 
-            overscroll-behavior: none; /* Blokuje systemowy efekt sprężyny na telefonach */
+            overscroll-behavior: none; 
         }
 
         .paint-drips-container {
@@ -196,7 +196,6 @@
         /* --- MASKA ŚWIATŁA (DYNAMICZNE ROZSZCZEPIENIE 2s) --- */
         .spotlight-wrapper {
             position: fixed; 
-            /* Zwiększamy obrys, żeby przy paskach adresowych przeglądarki maska nie miała twardych odcięć */
             top: -20vh; bottom: -20vh; left: -20vw; right: -20vw; 
             z-index: 100; pointer-events: none; 
             mix-blend-mode: multiply; 
@@ -244,11 +243,11 @@
         /* DOKŁADNIE 3 WYRAŹNE MRUGNIĘCIA PRZED ROZJAŚNIENIEM EKRANU */
         @keyframes lightsFlicker {
             0%, 65% { opacity: 1; } 
-            66%, 70% { opacity: 0.1; } /* Mrugnięcie 1 */
+            66%, 70% { opacity: 0.1; } 
             71%, 75% { opacity: 1; } 
-            76%, 80% { opacity: 0.1; } /* Mrugnięcie 2 */
+            76%, 80% { opacity: 0.1; } 
             81%, 85% { opacity: 1; } 
-            86%, 90% { opacity: 0.1; } /* Mrugnięcie 3 */
+            86%, 90% { opacity: 0.1; } 
             91%, 100% { opacity: 1; }
         }
         
@@ -429,9 +428,18 @@
         });
 
         window.addEventListener('DOMContentLoaded', () => {
+            const metaTheme = document.getElementById('theme-color-meta');
+
             if (window.location.search.includes('skipAnim=true')) {
                 const spotlight = document.querySelector('.spotlight-wrapper');
                 if (spotlight) spotlight.style.display = 'none';
+                if(metaTheme) metaTheme.setAttribute('content', '#faf0e6');
+            } else {
+                // Synchronizujemy zmianę koloru pasków systemowych (theme-color) 
+                // z momentem, w którym animacja zaczyna rozjaśniać ekran (92% z 2s = ~1840ms)
+                setTimeout(() => {
+                    if(metaTheme) metaTheme.setAttribute('content', '#faf0e6');
+                }, 1840); 
             }
 
             spawnLoop(); updateCountdown(); intervalId = setInterval(updateCountdown, 1000);
