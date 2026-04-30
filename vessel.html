@@ -12,7 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3ULT // NEXT VESSEL</title>
     
+    <!-- OPTYMALIZACJA 1: Wcześniejsze łączenie z serwerami Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- OPTYMALIZACJA 2: Nakazujemy przeglądarce natychmiastowe pobieranie najważniejszych plików -->
+    <link rel="preload" as="video" href="3vid.mp4">
+    <link rel="preload" as="image" href="1.jpg">
+    <link rel="preload" as="image" href="hand-left.png">
+    <link rel="preload" as="image" href="hand-center.png">
+    <link rel="preload" as="image" href="hand-right.png">
     
     <style>
         /* --- BAZA STRONY --- */
@@ -89,6 +99,8 @@
             border-radius: 2px;
             -webkit-mask-image: -webkit-radial-gradient(white, black); 
             outline: none;
+            /* Usunięto czarne tło wideo na czas ładowania (opcjonalnie, zabezpieczenie) */
+            background-color: transparent;
         }
 
         .product-mockup {
@@ -210,7 +222,6 @@
         }
         .nav-arrow:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.8); }
         
-        /* ZMIANA: Szerszy rozstaw strzałek (komputer) */
         #slide-prev { left: -80px; }
         #slide-next { right: -80px; }
         
@@ -358,13 +369,14 @@
             visibility: hidden;
         }
 
-        /* --- ZWIJANY OPIS KOSZULKI (NOWE) --- */
+        /* --- ZWIJANY OPIS KOSZULKI --- */
         #desc-wrapper {
             max-width: 700px;
         }
         #desc-wrapper .product-description {
             margin-bottom: 0;
         }
+        .text-red { color: #990000; }
     </style>
 </head>
 <body>
@@ -376,7 +388,8 @@
             <div class="product-container" id="product-trigger">
                 
                 <div class="media-mask">
-                    <video src="3vid.mp4" class="product-mockup" autoplay loop muted playsinline></video>
+                    <!-- OPTYMALIZACJA 3: Dodałem poster="1.jpg" - koszulka wyświetla się od razu zanim załaduje się MP4 -->
+                    <video src="3vid.mp4" class="product-mockup" autoplay loop muted playsinline poster="1.jpg"></video>
                     
                     <div class="transition-overlay">
                         <div class="trans-dot"></div>
@@ -385,11 +398,13 @@
                     </div>
 
                    <div class="slider-wrapper">
+                        <!-- Pierwsze zdjęcie ładuje się normalnie, bo wyświetla się jako pierwsze w sliderze -->
                         <img src="1.jpg" class="slide-img active">
-                        <img src="3.jpg" class="slide-img">
-                        <img src="4.jpg" class="slide-img">
-                        <img src="7.jpg" class="slide-img"> 
-                        <img src="6.jpg" class="slide-img">
+                        <!-- OPTYMALIZACJA 4: loading="lazy" - te zdjęcia będą pobrane dopiero po priorytetowym załadowaniu reszty strony -->
+                        <img src="3.jpg" class="slide-img" loading="lazy">
+                        <img src="4.jpg" class="slide-img" loading="lazy">
+                        <img src="7.jpg" class="slide-img" loading="lazy"> 
+                        <img src="6.jpg" class="slide-img" loading="lazy">
                     </div>
                 </div>
 
@@ -405,7 +420,6 @@
         <div class="details-side">
             <div class="product-title">BE YRSLF BOXY TEE</div>
             
-            <!-- NOWE: Opis zamknięty w rozwijanym kontenerze -->
             <div class="collapsible-wrapper active" id="desc-wrapper">
                 <div class="product-description">
                     <div class="desc-item"><span class="desc-label">Fabric:</span><span class="desc-content">100% premium heavyweight cotton.</span></div>
@@ -417,14 +431,14 @@
             </div>
 
             <div class="action-buttons">
-                <!-- NOWY PRZYCISK: do chowania/pokazywania opisu -->
                 <button class="action-btn" id="toggle-description">hide description</button>
                 <button class="action-btn" id="toggle-sizechart">show sizechart</button>
-                <button class="action-btn" id="toggle-availability">Buy / check size availability</button>
+                <button class="action-btn" id="toggle-availability"><span class="text-red">buy</span> / check size availability</button>
             </div>
 
             <div class="collapsible-wrapper" id="sizechart-wrapper">
-                <img src="sizechart.png" alt="Size Chart" class="size-chart-image">
+                <!-- loading="lazy" dla sizechartu -->
+                <img src="sizechart.png" alt="Size Chart" class="size-chart-image" loading="lazy">
             </div>
 
             <div class="collapsible-wrapper" id="availability-wrapper">
@@ -522,24 +536,24 @@
         });
 
         const product = document.getElementById('product-trigger');
-        const descBtn = document.getElementById('toggle-description'); // NOWE
+        const descBtn = document.getElementById('toggle-description');
         const sizechartBtn = document.getElementById('toggle-sizechart');
         const availabilityBtn = document.getElementById('toggle-availability');
         
-        const descWrapper = document.getElementById('desc-wrapper'); // NOWE
+        const descWrapper = document.getElementById('desc-wrapper');
         const sizechartWrapper = document.getElementById('sizechart-wrapper');
         const availabilityWrapper = document.getElementById('availability-wrapper');
         const slides = document.querySelectorAll('.slide-img');
         let currentSlide = 0;
 
         function closeAllTabs() {
-            descWrapper.classList.remove('active'); // NOWE
+            descWrapper.classList.remove('active');
             sizechartWrapper.classList.remove('active');
             availabilityWrapper.classList.remove('active');
             
-            descBtn.textContent = 'show description'; // NOWE
+            descBtn.textContent = 'show description';
             sizechartBtn.textContent = 'show sizechart';
-            availabilityBtn.textContent = 'Buy / check size availability';
+            availabilityBtn.innerHTML = '<span class="text-red">buy</span> / check size availability';
         }
 
         product.addEventListener('click', (e) => {
@@ -572,7 +586,6 @@
                 document.body.classList.remove('show-details');
                 closeAllTabs();
 
-                // NOWE: resetuje opis do bycia otwartym, żeby po ponownym powrocie użytkownik od razu go widział
                 descWrapper.classList.add('active');
                 descBtn.textContent = 'hide description';
 
@@ -600,7 +613,6 @@
             slides[currentSlide].classList.add('active');
         });
 
-        // NOWE: Logika klikania w opis
         descBtn.addEventListener('click', () => {
             const isActive = descWrapper.classList.contains('active');
             closeAllTabs(); 
@@ -616,6 +628,9 @@
             if (!isActive) {
                 sizechartWrapper.classList.add('active');
                 sizechartBtn.textContent = 'hide sizechart';
+                setTimeout(() => {
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                }, 300);
             }
         });
 
@@ -624,7 +639,10 @@
             closeAllTabs(); 
             if (!isActive) {
                 availabilityWrapper.classList.add('active');
-                availabilityBtn.textContent = 'hide size availability';
+                availabilityBtn.innerHTML = 'hide size availability';
+                setTimeout(() => {
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                }, 300);
             }
         });
 
