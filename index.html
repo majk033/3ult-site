@@ -191,7 +191,7 @@
         .subtle-link {
             position: fixed;
             bottom: 20px;
-            z-index: 50; /* Zmienione na 50, aby znajdowały się pod maską świetlną (z-index: 100) */
+            z-index: 50; 
             color: #888; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 11px;
@@ -399,10 +399,14 @@
                 "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60)) / 1000)) + "</span><span class='countdown-label'>secs</span></div>";
 
             if (distance < 0) {
-                clearInterval(intervalId);
-               
+                // Odliczanie już minęło, więc ukrywamy sam licznik cyfrowy
                 document.getElementById("countdown").style.visibility = "hidden";
 
+                // Ustawiamy czas końca limitowanego preorderu - 10 maja 2026 r., 17:00 czasu polskiego (GMT+0200)
+                const preorderEndDate = new Date("May 10, 2026 17:00:00 GMT+0200").getTime();
+                const isPreorderActive = now < preorderEndDate;
+
+                // Tworzymy klon napisu na środek (wykonuje się to tylko raz)
                 if (!document.getElementById('centered-clone')) {
                     const originalContent = document.getElementById('content-to-center');
                     
@@ -418,19 +422,35 @@
                     const clonePartOfIt = clone.querySelector('.part-of-it');
                     if (clonePartOfIt) clonePartOfIt.style.marginBottom = '0';
 
-                    const cloneComingSoon = clone.querySelector('.coming-soon-container');
-                    if (cloneComingSoon) {
-                        cloneComingSoon.innerHTML = "<span>First vessel is available now!</span>";
-                        cloneComingSoon.style.textTransform = "none";
-                    }
-
                     document.body.appendChild(clone);
                     originalContent.style.visibility = 'hidden';
                 }
 
+                // Chwytamy wyśrodkowany element i link
+                const cloneComingSoon = document.getElementById('centered-clone').querySelector('.coming-soon-container');
                 const linkVessel = document.querySelector('.next-vessel-link');
-                if(linkVessel) {
-                    linkVessel.innerText = "check vessel";
+
+                // Dynamiczna podmiana tekstu/linków w zależności od czasu
+                if (isPreorderActive) {
+                    if (cloneComingSoon) {
+                        cloneComingSoon.innerHTML = "<span>limited preorder is live!</span>";
+                        cloneComingSoon.style.textTransform = "none";
+                    }
+                    if (linkVessel && linkVessel.innerText !== "preorder now") {
+                        linkVessel.innerText = "preorder now";
+                        linkVessel.href = "https://buy.stripe.com/fZubIU6Bs5JybIU2TTfnO07";
+                    }
+                } else {
+                    if (cloneComingSoon) {
+                        cloneComingSoon.innerHTML = "<span>First vessel is available now!</span>";
+                        cloneComingSoon.style.textTransform = "none";
+                    }
+                    if (linkVessel && linkVessel.innerText !== "check vessel") {
+                        linkVessel.innerText = "check vessel";
+                        linkVessel.href = "vessel.html";
+                    }
+                    // Skoro preorder się skończył, nie musimy dalej odświeżać sprawdzeń
+                    clearInterval(intervalId);
                 }
             }
         }
