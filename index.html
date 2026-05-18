@@ -442,10 +442,10 @@
                     }
                 } else {
                     if (cloneComingSoon) {
-                        cloneComingSoon.innerHTML = "<span>First vessel is available now!</span>";
+                        cloneComingSoon.innerHTML = "<span> Sold out... wait for more</span>";
                         cloneComingSoon.style.textTransform = "none";
                     }
-                    if (linkVessel && linkVessel.innerText !== "check vessel") {
+                    if (linkVessel && linkVessel.innerText !== "current vessel") {
                         linkVessel.innerText = "check vessel";
                         linkVessel.href = "vessel.html";
                     }
