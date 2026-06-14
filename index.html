@@ -13,13 +13,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
-    <!-- Blokuje natywny czarny kolor tła w telefonach z trybem ciemnym -->
     <meta name="color-scheme" content="light">
-    <!-- Startowy kolor paska przeglądarki to czarny (zostanie zmieniony w JS) -->
- <meta name="theme-color" content="#000000" id="theme-color-meta">
+    <meta name="theme-color" content="#000000" id="theme-color-meta">
     
       <title>3ULT IS NOW !</title>
-    <meta name="description" content="First vessel is available now! Check the vessel and be part of iT - 3ULT.">
+    <meta name="description" content="Vessel 2 is available now! Check the vessel and be part of iT - 3ULT.">
     
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
     
@@ -176,6 +174,31 @@
             color: #990000; 
             text-decoration-color: #990000; 
             text-shadow: 0 0 15px rgba(153, 0, 0, 0.5); 
+        }
+
+        /* --- NOWY PRZYCISK: PREVIOUS VESSEL --- */
+        .prev-vessel-link {
+            display: inline-block;
+            background-color: transparent; 
+            color: #666666; /* Szary, mniej zauważalny kolor */
+            font-family: 'UnifrakturCook', cursive;
+            font-weight: normal;
+            font-size: 14px; /* Zdecydowanie mniejsza czcionka */
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+            margin-top: 2vh; /* Niewielki odstęp od głównego linku */
+            transition: color 0.4s ease-in-out, text-shadow 0.4s ease-in-out, text-decoration-color 0.4s ease-in-out; 
+            position: relative;
+            z-index: 105; 
+        }
+
+        .prev-vessel-link:hover, .prev-vessel-link.active-shadow {
+            color: #990000; 
+            text-decoration-color: #990000; 
+            text-shadow: 0 0 10px rgba(153, 0, 0, 0.4); 
         }
 
         .footer {
@@ -337,7 +360,8 @@
         
         <div id="countdown" class="countdown"></div>
         
-        <a href="vessel.html" class="next-vessel-link">next vessel</a>
+        <a href="vessel2.html" class="next-vessel-link">next vessel</a>
+        <a href="vessel.html" class="prev-vessel-link">previous vessel</a>
     </div>
 
     <a href="about.html" class="subtle-link link-left">about...</a>
@@ -346,7 +370,7 @@
     <div class="footer">3ULT /// 2026 /// JUNE</div>
 
     <script>
-        const countDownDate = new Date("May 03, 2026 13:00:00").getTime();
+        const countDownDate = new Date("June 19, 2026 13:00:00").getTime();
         const dripsContainer = document.getElementById("paint-drips-container");
         let intervalId;
 
@@ -442,12 +466,12 @@
                     }
                 } else {
                     if (cloneComingSoon) {
-                        cloneComingSoon.innerHTML = "<span> Sold out... wait for more</span>";
+                        cloneComingSoon.innerHTML = "<span>vessel 2 closer than ever.</span>";
                         cloneComingSoon.style.textTransform = "none";
                     }
                     if (linkVessel && linkVessel.innerText !== "current vessel") {
                         linkVessel.innerText = "current vessel";
-                        linkVessel.href = "vessel.html";
+                        linkVessel.href = "vessel2.html";
                     }
                     // Skoro preorder się skończył, nie musimy dalej odświeżać sprawdzeń
                     clearInterval(intervalId);
@@ -466,6 +490,21 @@
                 }, 800);
             }
         });
+
+        // Obsługa urządzeń mobilnych i dotykowych dla nowego linku
+        const prevVesselLink = document.querySelector('.prev-vessel-link');
+        if (prevVesselLink) {
+            prevVesselLink.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 || 'ontouchstart' in window) {
+                    e.preventDefault(); 
+                    this.classList.add('active-shadow'); 
+                    
+                    setTimeout(() => {
+                        window.location.href = this.href;
+                    }, 800);
+                }
+            });
+        }
 
         // 1. Zdarzenia natychmiastowe (odliczanie ładuje się od razu)
         window.addEventListener('DOMContentLoaded', () => {
