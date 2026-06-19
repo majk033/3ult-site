@@ -352,8 +352,8 @@
         
         <div id="content-to-center" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
             <div class="coming-soon-container gothic-text">
-                <span>COMING</span>
-                <span>SOON...</span>
+                <span>VESSEL 2</span>
+                <span>closer than ever</span>
             </div>
             <div class="part-of-it gothic-text">be part of it.</div>
         </div>
@@ -426,10 +426,6 @@
                 // Odliczanie już minęło, więc ukrywamy sam licznik cyfrowy
                 document.getElementById("countdown").style.visibility = "hidden";
 
-                // Ustawiamy czas końca limitowanego preorderu - 10 maja 2026 r., 17:00 czasu polskiego (GMT+0200)
-                const preorderEndDate = new Date("May 10, 2026 17:00:00 GMT+0200").getTime();
-                const isPreorderActive = now < preorderEndDate;
-
                 // Tworzymy klon napisu na środek (wykonuje się to tylko raz)
                 if (!document.getElementById('centered-clone')) {
                     const originalContent = document.getElementById('content-to-center');
@@ -450,32 +446,17 @@
                     originalContent.style.visibility = 'hidden';
                 }
 
-                // Chwytamy wyśrodkowany element i link
+                // Chwytamy wyśrodkowany element
                 const cloneComingSoon = document.getElementById('centered-clone').querySelector('.coming-soon-container');
-                const linkVessel = document.querySelector('.next-vessel-link');
 
-                // Dynamiczna podmiana tekstu/linków w zależności od czasu
-                if (isPreorderActive) {
-                    if (cloneComingSoon) {
-                        cloneComingSoon.innerHTML = "<span>limited preorder is live!</span>";
-                        cloneComingSoon.style.textTransform = "none";
-                    }
-                    if (linkVessel && linkVessel.innerText !== "preorder now") {
-                        linkVessel.innerText = "preorder now";
-                        linkVessel.href = "https://buy.stripe.com/fZubIU6Bs5JybIU2TTfnO07";
-                    }
-                } else {
-                    if (cloneComingSoon) {
-                        cloneComingSoon.innerHTML = "<span>vessel 2 closer than ever.</span>";
-                        cloneComingSoon.style.textTransform = "none";
-                    }
-                    if (linkVessel && linkVessel.innerText !== "current vessel") {
-                        linkVessel.innerText = "current vessel";
-                        linkVessel.href = "vessel2.html";
-                    }
-                    // Skoro preorder się skończył, nie musimy dalej odświeżać sprawdzeń
-                    clearInterval(intervalId);
+                // Zmiana napisu po zakończeniu odliczania
+                if (cloneComingSoon) {
+                    cloneComingSoon.innerHTML = "<span>Vessel 2 is available!</span>";
+                    cloneComingSoon.style.textTransform = "none";
                 }
+                
+                // Koniec odliczania, zatrzymujemy interwał
+                clearInterval(intervalId);
             }
         }
 
