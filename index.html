@@ -123,7 +123,7 @@
         }
 
         .coming-soon-container {
-            color: #990000; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; 
+            color: #990000; font-size: 32px; letter-spacing: 4px; text-transform: lowercase; 
             display: flex; justify-content: center; gap: 15px; margin-bottom: 1vh;
             white-space: nowrap; 
         }
@@ -352,16 +352,16 @@
         
         <div id="content-to-center" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
             <div class="coming-soon-container gothic-text">
-                <span>VESSEL 2</span>
-                <span>closer than ever</span>
+                <span>restock</span>
+                <span>is close...</span>
             </div>
             <div class="part-of-it gothic-text">We'll be back soon.</div>
         </div>
         
         <div id="countdown" class="countdown"></div>
         
-        <a href="vessel2.html" class="next-vessel-link">next vessel</a>
-        <a href="vessel.html" class="prev-vessel-link">previous vessel</a>
+        <a href="vessel.html" class="next-vessel-link">restock</a>
+        <a href="vessel2.html" class="prev-vessel-link">vessel 2</a>
     </div>
 
     <a href="about.html" class="subtle-link link-left">about...</a>
@@ -370,7 +370,7 @@
     <div class="footer">3ULT /// 2026 /// JUNE</div>
 
     <script>
-        const countDownDate = new Date("June 19, 2026 18:00:00").getTime();
+        const countDownDate = new Date("July 15, 2026 18:00:00").getTime();
         const dripsContainer = document.getElementById("paint-drips-container");
         let intervalId;
 
@@ -440,7 +440,10 @@
                     clone.style.zIndex = '50'; 
                     
                     const clonePartOfIt = clone.querySelector('.part-of-it');
-                    if (clonePartOfIt) clonePartOfIt.style.marginBottom = '0';
+                    if (clonePartOfIt) {
+                        clonePartOfIt.style.marginBottom = '0';
+                        clonePartOfIt.innerHTML = "be part of it";
+                    }
 
                     document.body.appendChild(clone);
                     originalContent.style.visibility = 'hidden';
@@ -451,8 +454,8 @@
 
                 // Zmiana napisu po zakończeniu odliczania
                 if (cloneComingSoon) {
-                    cloneComingSoon.innerHTML = "<span>Vessel 2 is sold out!</span>";
-                    cloneComingSoon.style.textTransform = "none";
+                    cloneComingSoon.innerHTML = "<span>VESSEL 1 IS LIVE!</span>";
+                    cloneComingSoon.style.textTransform = "uppercase";
                 }
                 
                 // Koniec odliczania, zatrzymujemy interwał
