@@ -9,37 +9,55 @@
   gtag('config', 'G-DMF60PRB1Y');
 </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3ULT // Product Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>3ULT // BE YRSLF DETAILS</title>
     
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- BAZA STRONY --- */
+        :root {
+            --accent-color: #990000;
+            --accent-shadow: rgba(153, 0, 0, 0.4);
+        }
+
         body {
-            background-color: #faf0e6; color: #000000; margin: 0; padding: 0; min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            overflow: hidden; font-family: 'Segoe UI', sans-serif;
+            background-color: #faf0e6; 
+            color: #000000; margin: 0; padding: 0; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; 
+            overflow-x: hidden; overflow-y: auto; font-family: 'Segoe UI', sans-serif;
         }
 
-        .top-logo { position: absolute; top: 5vh; width: 120px; height: auto; z-index: 100; cursor: pointer; transition: filter 0.3s ease; }
-        .top-logo:hover, .top-logo.active-shadow { filter: drop-shadow(0 0 8px rgba(153, 0, 0, 0.5)); }
+        .top-logo { position: absolute; top: 5vh; width: 120px; height: auto; z-index: 100; cursor: pointer; transition: opacity 0.2s ease, filter 0.5s ease; }
+        .top-logo:hover { filter: drop-shadow(0 0 8px var(--accent-shadow)); }
 
-        .main-container { display: flex; align-items: center; justify-content: center; width: 95vw; height: 85vh; transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        .product-side { flex: 1; display: flex; justify-content: center; align-items: center; z-index: 30; transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .main-container { 
+            display: flex; align-items: center; justify-content: center; 
+            width: 90vw; max-width: 1400px; 
+            gap: 12vw; 
+            height: 80vh; 
+            margin-top: 8vh; 
+        }
         
-        .product-container { position: relative; transition: transform 0.6s ease; transform: translateY(-5vh); outline: none; overflow: visible; border-radius: 2px; }
-        .product-container:focus { outline: none; }
-
-     .media-mask {
-            position: relative; width: 35vw; max-width: 450px; min-width: 280px; min-height: 350px; 
-            aspect-ratio: 1 / 1; /* Zmienione na idealny kwadrat, tak jak w oryginale */
-            overflow: hidden; border-radius: 2px; -webkit-mask-image: -webkit-radial-gradient(white, black); outline: none;
+        .product-side { 
+            flex: 1; display: flex; 
+            justify-content: center; 
+            align-items: center; z-index: 30; 
         }
-
-        /* --- PRAWA STRONA (DETALE) --- */
-        .details-side { flex: 0; opacity: 0; visibility: hidden; display: flex; flex-direction: column; align-items: flex-start; padding-left: 0; transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); max-width: 0; max-height: 80vh; overflow-y: auto; scrollbar-width: none; }
+        
+        .details-side { 
+            flex: 1; display: flex; flex-direction: column; 
+            justify-content: center; 
+            align-items: flex-start; height: 100%; max-height: 80vh; overflow-y: auto; scrollbar-width: none; 
+        }
         .details-side::-webkit-scrollbar { display: none; }
+        
+        .product-container { position: relative; outline: none; overflow: visible; border-radius: 2px; }
+
+        .media-mask {
+            position: relative; width: 35vw; max-width: 450px; min-width: 280px;
+            aspect-ratio: 1 / 1; overflow: hidden; border-radius: 2px; -webkit-mask-image: -webkit-radial-gradient(white, black); outline: none;
+        }
 
         .product-title { font-family: 'UnifrakturCook', cursive; font-size: 32px; color: #000000; margin-bottom: 1.5vh; letter-spacing: 3px; text-transform: uppercase; white-space: nowrap; }
         .product-description { color: #000000; font-size: 14px; line-height: 1.8; letter-spacing: 1px; max-width: 700px; min-width: 300px; text-align: left; margin-bottom: 3vh; }
@@ -49,138 +67,101 @@
 
         .action-buttons { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5vh; margin-bottom: 3vh; width: 100%; }
         .action-btn { background: none; border: none; color: #000000; font-family: 'UnifrakturCook', cursive; font-size: 22px; letter-spacing: 2px; text-transform: lowercase; cursor: pointer; padding: 0; transition: color 0.3s ease, text-shadow 0.3s ease; white-space: nowrap; }
-        .action-btn:hover, .action-btn.active-shadow { color: #990000; text-shadow: 0 0 10px rgba(153, 0, 0, 0.4); }
+        .action-btn:hover, .action-btn.active-shadow { color: var(--accent-color); text-shadow: 0 0 10px var(--accent-shadow); }
 
         .collapsible-wrapper { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease; width: 100%; max-width: 400px; }
         .collapsible-wrapper.active { max-height: 1000px; opacity: 1; margin-bottom: 3vh; }
         .size-chart-image { width: 100%; height: auto; border: none; display: block; }
 
-        /* --- STYL CZEŚCI Z CENĄ --- */
         .price-display { font-family: 'UnifrakturCook', cursive; font-size: 26px; color: #000000; margin-top: 5px; margin-bottom: 15px; letter-spacing: 2px; border-bottom: 1px solid #dcd3c9; padding-bottom: 10px; width: 100%; }
         .price-sub { font-family: 'Segoe UI', sans-serif; font-size: 11px; color: #888; letter-spacing: 1px; text-transform: lowercase; margin-left: 8px; }
 
-        /* --- LISTA DOSTĘPNOŚCI --- */
         .stock-list { display: flex; flex-direction: column; gap: 15px; width: 100%; padding-top: 5px; }
         .stock-item { display: flex; flex-direction: column; gap: 5px; }
         .stock-info { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
         .stock-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .stock-size { text-transform: uppercase; }
         
-        .request-btn { font-size: 10px; color: #990000; font-weight: bold; text-decoration: none; text-transform: lowercase; letter-spacing: 2px; transition: color 0.3s ease, text-shadow 0.3s ease; white-space: nowrap; }
-        .request-btn:hover, .request-btn.active-shadow { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.5); }
-        .locked-btn { font-size: 10px; color: #990000; text-transform: lowercase; letter-spacing: 1.5px; font-weight: 700; cursor: default; display: flex; align-items: center; gap: 5px; }
+        .request-btn { font-size: 10px; color: var(--accent-color); font-weight: bold; text-decoration: none; text-transform: lowercase; letter-spacing: 2px; transition: color 0.3s ease, text-shadow 0.3s ease; white-space: nowrap; }
+        .request-btn:hover { color: var(--accent-color); text-shadow: 0 0 8px var(--accent-shadow); filter: brightness(1.2); }
+        .locked-btn { font-size: 10px; color: var(--accent-color); text-transform: lowercase; letter-spacing: 1.5px; font-weight: 700; cursor: default; display: flex; align-items: center; gap: 5px; }
         
         .stock-bar-bg { width: 100%; height: 2px; background-color: #dcd3c9; position: relative; }
         .stock-bar-fill { height: 100%; background-color: #000000; position: absolute; left: 0; top: 0; transition: width 1s ease; }
-        .stock-bar-fill.low-stock { background-color: #990000; box-shadow: 0 0 8px rgba(153, 0, 0, 0.6); }
+        .stock-bar-fill.low-stock { background-color: var(--accent-color); box-shadow: 0 0 8px var(--accent-shadow); }
 
-        /* --- DOLNE LINKI --- */
         .subtle-link { position: fixed; bottom: 3vh; z-index: 105; color: #888; font-family: 'Segoe UI', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: lowercase; text-decoration: none; transition: color 0.4s ease, text-shadow 0.4s ease; }
         .link-left { left: 5vw; }
         .link-right { right: 5vw; }
-        .subtle-link:hover, .subtle-link.active-shadow { color: #990000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.4); }
+        .subtle-link:hover { color: var(--accent-color); text-shadow: 0 0 8px var(--accent-shadow); }
 
-        /* --- STAN PO KLIKNIĘCIU (DOMYŚLNY DLA DETAILS) --- */
-        body.show-details { overflow-y: auto; }
-        body.show-details .details-side { flex: 1.5; opacity: 1; visibility: visible; max-width: 800px; padding-left: 5vw; }
-
-        /* --- SLIDER I ZDJĘCIA --- */
-        .slider-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; pointer-events: none; }
-        .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; transform: scale(1.04); border-radius: 2px; outline: none; border: none; }
+        .slider-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: auto; }
+        .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease, filter 0.8s ease; transform: scale(1.04); border-radius: 2px; outline: none; border: none; }
         .slide-img.active { opacity: 1; }
 
-        .slider-nav { 
-            position: absolute; background: transparent; border: none; font-family: 'Segoe UI', sans-serif; font-weight: 700; cursor: pointer; z-index: 40; 
-            transition: color 0.3s, text-shadow 0.3s, opacity 0.4s ease, visibility 0.4s; 
-            opacity: 0; visibility: hidden; pointer-events: none;
-        }
-        body.show-details .slider-nav { opacity: 1; visibility: visible; pointer-events: auto; }
+        .slider-nav { position: absolute; background: transparent; border: none; font-family: 'Segoe UI', sans-serif; font-weight: 700; cursor: pointer; z-index: 40; transition: color 0.3s, text-shadow 0.3s; pointer-events: auto; }
+        .nav-arrow { top: 50%; transform: translateY(-50%); font-size: 24px; padding: 20px; color: var(--accent-color); font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); }
+        .nav-arrow:hover { color: var(--accent-color); text-shadow: 0 0 10px var(--accent-shadow); filter: brightness(1.2); }
         
-        .nav-arrow { top: 50%; transform: translateY(-50%); font-size: 24px; padding: 20px; color: #990000; font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); }
-        .nav-arrow:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.8); }
+        .slide-prev { left: -80px; }
+        .slide-next { right: -80px; }
         
-        #slide-prev { left: -80px; }
-        #slide-next { right: -80px; }
-        
-        .nav-close { 
-            top: -30px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: lowercase; padding: 10px; 
-            color: #990000; font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); white-space: nowrap;
-        }
-        .nav-close:hover { color: #ff0000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.8); }
+        .nav-close { top: -30px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: lowercase; padding: 10px; color: var(--accent-color); font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); white-space: nowrap; }
+        .nav-close:hover { color: var(--accent-color); text-shadow: 0 0 10px var(--accent-shadow); filter: brightness(1.2); }
 
-        body.show-details .slider-wrapper { opacity: 1; visibility: visible; pointer-events: auto; }
-
-        /* --- KURTYNA PRZEJŚCIA --- */
         .transition-overlay { position: absolute; inset: 0; background-color: #faf0e6; z-index: 50; display: flex; justify-content: center; align-items: center; gap: 15px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; border-radius: 2px; }
         body.is-transitioning .transition-overlay { opacity: 1; visibility: visible; }
 
-        .trans-dot { width: 14px; height: 14px; background-color: #990000; border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; box-shadow: inset 0 0 3px rgba(0,0,0,0.4); opacity: 0; transform: scale(0.5); }
+        .trans-dot { width: 14px; height: 14px; background-color: var(--accent-color); border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; box-shadow: inset 0 0 3px rgba(0,0,0,0.4); opacity: 0; transform: scale(0.5); }
         body.is-transitioning .trans-dot { animation: dotPulse 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         body.is-transitioning .trans-dot:nth-child(1) { animation-delay: 0.1s; }
         body.is-transitioning .trans-dot:nth-child(2) { animation-delay: 0.25s; }
         body.is-transitioning .trans-dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes dotPulse { 0% { opacity: 0; transform: scale(0.5) translateY(10px); } 50% { opacity: 1; transform: scale(1.3) translateY(0); box-shadow: 0 0 15px rgba(153, 0, 0, 0.6); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes dotPulse { 0% { opacity: 0; transform: scale(0.5) translateY(10px); } 50% { opacity: 1; transform: scale(1.3) translateY(0); box-shadow: 0 0 15px var(--accent-shadow); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
 
-        /* --- RĘCE --- */
-        .hands-container { position: fixed; inset: 0; pointer-events: none; z-index: 10; overflow: hidden; }
-        .hand { position: absolute; width: 42vw; max-width: 480px; min-width: 260px; height: auto; filter: grayscale(100%) contrast(1.5) brightness(0.7); transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease; bottom: -5vh; opacity: 0.9; }
-        .hand-left { left: 50%; transform: translateX(-85%) translateY(12vh); }
-        .hand-center { left: 50%; transform: translateX(-50%) translateY(14vh) scale(1.05); }
-        .hand-right { left: 50%; transform: translateX(-15%) translateY(12vh); }
-        
-        /* Dla details: ręce domyślnie wysunięte/ukryte zgodnie z logiką CSS */
+        .is-sold-out .slide-img { filter: none; }
+        .sold-out-text { display: none; }
 
-        /* --- RESPONSIVE --- */
         @media screen and (max-width: 1440px) and (min-width: 769px), screen and (max-height: 900px) and (min-width: 769px) {
             body { zoom: 0.85; }
-            .main-container { height: 95vh; }
-            .details-side { max-height: 85vh; }
-            .product-container { transform: translateY(6vh); }
-            body.show-details .details-side { padding-left: 12vw; padding-top: 8vh; }
         }
 
         @media (max-width: 768px) {
-            .main-container { flex-direction: column; height: auto; margin-top: 15vh; }
-            .product-side { flex: none; width: 100%; }
-            .media-mask { width: 70vw; min-height: 250px; }
-            .product-container { transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
-            body.show-details .product-container { transform: translateY(3vh); }
-            .details-side { padding-left: 0; align-items: center; max-width: 90vw; padding-bottom: 15vh; margin-top: 5vh; max-height: none; overflow: visible; }
-            body.show-details .details-side { padding-left: 0; }
+            body { justify-content: flex-start; }
+            
+            .main-container { flex-direction: column; height: auto; margin-top: 22vh; justify-content: flex-start; gap: 0; width: 100vw; }
+            .product-side { flex: none; width: 100%; display: flex; justify-content: center; align-items: center; }
+            .media-mask { width: 80vw; aspect-ratio: 1 / 1; }
+            
+            .product-container { margin-bottom: 35px; }
+            
+            .details-side { padding-left: 0; align-items: center; justify-content: flex-start; height: auto; max-width: 90vw; padding-bottom: 10vh; margin-top: 10px; max-height: none; overflow: visible; }
+            
             .product-title { text-align: center; font-size: 28px; white-space: normal; }
             .collapsible-wrapper { max-width: 90vw; }
             .product-description { max-width: 90vw; font-size: 13px; text-align: left; }
             .desc-label { width: 65px; }
             .action-buttons { align-items: center; }
             .subtle-link { display: none; }
-            .nav-arrow { font-size: 16px; padding: 6px; }
-            #slide-prev { left: -45px; }
-            #slide-next { right: -45px; }
-            .hand { width: 55vw; bottom: 0; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease, visibility 0.5s; }
-            body.show-details .hand { opacity: 0 !important; visibility: hidden; pointer-events: none; }
-            body.show-details .hand-left { transform: translateX(-80%) translateY(0vh) !important; }
-            body.show-details .hand-center { transform: translateX(-50%) translateY(2vh) scale(1.1) !important; }
-            body.show-details .hand-right { transform: translateX(-20%) translateY(0vh) !important; }
+
+            .nav-arrow { font-size: 18px; padding: 10px; }
+            .slide-prev { left: -10vw; }
+            .slide-next { right: -10vw; }
+            .nav-close { top: auto; bottom: -30px; font-size: 13px; padding: 5px; }
         }
-        
-        #desc-wrapper { max-width: 700px; }
-        #desc-wrapper .product-description { margin-bottom: 0; }
     </style>
 </head>
-<body class="show-details"> <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo" id="main-logo">
+<body class="show-details">
+
+    <img src="logowektor.svg" alt="3ULT LOGO" class="top-logo" id="main-logo">
 
     <div class="main-container">
         <div class="product-side">
-            <div class="product-container" id="product-trigger" style="cursor: default;">
-                
-           <div class="media-mask">
+            <div class="product-container">
+                <div class="media-mask">
                     <div class="transition-overlay">
-                        <div class="trans-dot"></div>
-                        <div class="trans-dot"></div>
-                        <div class="trans-dot"></div>
+                        <div class="trans-dot"></div><div class="trans-dot"></div><div class="trans-dot"></div>
                     </div>
-
-                    <!-- Załadowana wyłącznie karuzela zdjęć -->
                     <div class="slider-wrapper">
                         <img src="1.jpg" class="slide-img active">
                         <img src="3.jpg" class="slide-img">
@@ -189,18 +170,15 @@
                         <img src="6.jpg" class="slide-img">
                     </div>
                 </div>
-
-                <button class="slider-nav nav-close" id="slider-close">[ return ]</button>
-                <button class="slider-nav nav-arrow" id="slide-prev">[ &lt; ]</button>
-                <button class="slider-nav nav-arrow" id="slide-next">[ &gt; ]</button>
-
+                <button class="slider-nav nav-close" id="btn-return">[ return ]</button>
+                <button class="slider-nav nav-arrow slide-prev" id="btn-prev">[ &lt; ]</button>
+                <button class="slider-nav nav-arrow slide-next" id="btn-next">[ &gt; ]</button>
             </div>
         </div>
 
         <div class="details-side">
             <div class="product-title">BE YRSLF BOXY TEE</div>
-            
-            <div class="collapsible-wrapper active" id="desc-wrapper">
+            <div class="collapsible-wrapper active desc-wrapper">
                 <div class="product-description">
                     <div class="desc-item"><span class="desc-label">Fabric:</span><span class="desc-content">100% premium heavyweight cotton.</span></div>
                     <div class="desc-item"><span class="desc-label">Weight:</span><span class="desc-content">240 GSM for a structured, substantial drape.</span></div>
@@ -209,20 +187,17 @@
                     <div class="desc-item"><span class="desc-label">Details:</span><span class="desc-content">Individually hand-painted and sewn-in labels, paired with DTF printed care tags.</span></div>
                 </div>
             </div>
-
             <div class="action-buttons">
-                <button class="action-btn" id="toggle-description">hide description</button>
-                <button class="action-btn" id="toggle-sizechart">show sizechart</button>
-                <button class="action-btn" id="toggle-availability">Buy / check size availability</button>
+                <button class="action-btn toggle-description">hide description</button>
+                <button class="action-btn toggle-sizechart">show sizechart</button>
+                <button class="action-btn toggle-availability">Buy / check size availability</button>
             </div>
-
-            <div class="collapsible-wrapper" id="sizechart-wrapper">
+            <div class="collapsible-wrapper sizechart-wrapper">
                 <img src="sizechart.png" alt="Size Chart" class="size-chart-image">
             </div>
-
-            <div class="collapsible-wrapper" id="availability-wrapper">
+            <div class="collapsible-wrapper availability-wrapper">
                 <div class="price-display">120 PLN <span class="price-sub">+ dostawa</span></div>
-                <div class="stock-list" id="stock-container"></div>
+                <div class="stock-list stock-container"></div>
             </div>
         </div>
     </div>
@@ -230,60 +205,45 @@
     <a href="about.html" class="subtle-link link-left">about...</a>
     <a href="terms.html" class="subtle-link link-right">terms & privacy</a>
 
-    <div class="hands-container">
-        <img src="hand-left.png" alt="hand" class="hand hand-left">
-        <img src="hand-center.png" alt="hand" class="hand hand-center">
-        <img src="hand-right.png" alt="hand" class="hand hand-right">
-    </div>
-
     <script>
-        // DATA DROPu
         const dropDate = new Date("2026-07-15T18:00:00").getTime();
-
-        // STOCK (S:4, M:6, L:6, XL:4, XXL:0)
-        const inventoryData = [
+        const inventory = [
             { size: "S",   total: 4, current: 0, link: "https://buy.stripe.com/9B6bIU3pg5Jy5kwbqpfnO05" },
             { size: "M",   total: 6, current: 0, link: "https://buy.stripe.com/4gM8wI7Fw8VKbIU3XXfnO04" },
             { size: "L",   total: 6, current: 0, link: "https://buy.stripe.com/7sY7sE9NEb3SbIU0LLfnO03" },
             { size: "XL",  total: 4, current: 1, link: "https://buy.stripe.com/6oU28k7Fw8VKdR2gKJfnO02" },
-            { size: "XXL", total: 100, current: 0, link: "https://buy.stripe.com/fZu28ke3Ugoc28kcutfnO01" } // Pozostawione na 0
+            { size: "XXL", total: 100, current: 0, link: "https://buy.stripe.com/fZu28ke3Ugoc28kcutfnO01" }
         ];
 
         function renderInventory() {
             const now = new Date().getTime();
             const isDropActive = now >= dropDate;
-            const container = document.getElementById('stock-container');
+            const container = document.querySelector('.stock-container');
             let html = '';
 
-            inventoryData.forEach(item => {
+            inventory.forEach(item => {
                 let percentage = (item.total > 0) ? (item.current / item.total) * 100 : 0;
                 let lowStockClass = (percentage <= 40 && percentage > 0) ? 'low-stock' : '';
                 let actionBtnHTML = '';
                 
-                // Nowa logika sprawdzająca: najpierw czy jest zablokowane (brak towaru), 
-                // następnie czy wciąż czekamy, a na końcu opcja kupna.
-                if (item.current === 0) {
-                    actionBtnHTML = `<span style="font-size:10px; color:#666;">[ sold out ]</span>`;
-                } else if (!isDropActive) {
+                if (!isDropActive) {
                     actionBtnHTML = `<span class="locked-btn">[ be patient... ]</span>`;
-                } else {
+                } else if (item.current > 0) {
                     actionBtnHTML = `<a href="${item.link}" target="_blank" class="request-btn subtle-nav-item">[ buy ]</a>`;
+                } else {
+                    actionBtnHTML = `<span style="font-size:10px; color:#666;">[ sold out ]</span>`;
                 }
 
                 html += `
                     <div class="stock-item">
                         <div class="stock-info">
-                            <div class="stock-left">
-                                <span class="stock-size">Size ${item.size}</span>
-                                ${actionBtnHTML}
-                            </div>
+                            <div class="stock-left"><span class="stock-size">Size ${item.size}</span> ${actionBtnHTML}</div>
                             <span class="stock-percent">${Math.round(percentage)}%</span>
                         </div>
                         <div class="stock-bar-bg">
                             <div class="stock-bar-fill ${lowStockClass}" style="width: ${percentage}%;"></div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
             container.innerHTML = html;
         }
@@ -291,352 +251,98 @@
         setInterval(renderInventory, 1000);
         renderInventory();
 
-        document.getElementById('main-logo').addEventListener('click', function(e) {
-            window.location.href = 'index.html?skipAnim=true';
+        const slideImages = document.querySelectorAll('.slide-img');
+        let currentImg = 0;
+
+        document.getElementById('btn-next').addEventListener('click', (e) => {
+            slideImages[currentImg].classList.remove('active');
+            currentImg = (currentImg + 1) % slideImages.length;
+            slideImages[currentImg].classList.add('active');
         });
 
-        // Obsługa slidera
-        const slides = document.querySelectorAll('.slide-img');
-        let currentSlide = 0;
-
-        document.getElementById('slide-next').addEventListener('click', (e) => {
-            e.stopPropagation();
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+        document.getElementById('btn-prev').addEventListener('click', (e) => {
+            slideImages[currentImg].classList.remove('active');
+            currentImg = (currentImg - 1 + slideImages.length) % slideImages.length;
+            slideImages[currentImg].classList.add('active');
         });
 
-        document.getElementById('slide-prev').addEventListener('click', (e) => {
-            e.stopPropagation();
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-        });
-
-        // Powrót do pliku vessel.html
-        document.getElementById('slider-close').addEventListener('click', (e) => {
-            e.stopPropagation();
+        /* --- ZAKTUALIZOWANE PRZEKIEROWANIA --- */
+        document.getElementById('btn-return').addEventListener('click', () => {
             document.body.classList.add('is-transitioning');
-            
-            setTimeout(() => {
-                window.location.href = 'vessel.html';
-            }, 500);
+            setTimeout(() => { window.location.href = 'updated1.html'; }, 500); // Wróć do galerii
+        });
+        document.getElementById('main-logo').addEventListener('click', () => {
+             window.location.href = 'index.html?skipAnim=true'; // Wróć na stronę główną
         });
 
-        // Rozwijanie zakładek
-        const descBtn = document.getElementById('toggle-description');
-        const sizechartBtn = document.getElementById('toggle-sizechart');
-        const availabilityBtn = document.getElementById('toggle-availability');
+        const descBtn = document.querySelector('.toggle-description');
+        const sizeBtn = document.querySelector('.toggle-sizechart');
+        const availBtn = document.querySelector('.toggle-availability');
         
-        const descWrapper = document.getElementById('desc-wrapper');
-        const sizechartWrapper = document.getElementById('sizechart-wrapper');
-        const availabilityWrapper = document.getElementById('availability-wrapper');
+        const descWrap = document.querySelector('.desc-wrapper');
+        const sizeWrap = document.querySelector('.sizechart-wrapper');
+        const availWrap = document.querySelector('.availability-wrapper');
 
         function closeAllTabs() {
-            descWrapper.classList.remove('active');
-            sizechartWrapper.classList.remove('active');
-            availabilityWrapper.classList.remove('active');
-            
-            descBtn.textContent = 'show description';
-            sizechartBtn.textContent = 'show sizechart';
-            availabilityBtn.textContent = 'Buy / check size availability';
+            descWrap.classList.remove('active'); sizeWrap.classList.remove('active'); availWrap.classList.remove('active');
+            descBtn.textContent = 'show description'; sizeBtn.textContent = 'show sizechart'; availBtn.textContent = 'Buy / check size availability';
         }
 
-        descBtn.addEventListener('click', () => {
-            const isActive = descWrapper.classList.contains('active');
-            closeAllTabs(); 
-            if (!isActive) {
-                descWrapper.classList.add('active');
-                descBtn.textContent = 'hide description';
-            }
-        });
-
-        sizechartBtn.addEventListener('click', () => {
-            const isActive = sizechartWrapper.classList.contains('active');
-            closeAllTabs(); 
-            if (!isActive) {
-                sizechartWrapper.classList.add('active');
-                sizechartBtn.textContent = 'hide sizechart';
-            }
-        });
-
-        availabilityBtn.addEventListener('click', () => {
-            const isActive = availabilityWrapper.classList.contains('active');
-            closeAllTabs(); 
-            if (!isActive) {
-                availabilityWrapper.classList.add('active');
-                availabilityBtn.textContent = 'hide size availability';
-            }
-        });
+        descBtn.addEventListener('click', () => { const isActive = descWrap.classList.contains('active'); closeAllTabs(); if (!isActive) { descWrap.classList.add('active'); descBtn.textContent = 'hide description'; }});
+        sizeBtn.addEventListener('click', () => { const isActive = sizeWrap.classList.contains('active'); closeAllTabs(); if (!isActive) { sizeWrap.classList.add('active'); sizeBtn.textContent = 'hide sizechart'; }});
+        availBtn.addEventListener('click', () => { const isActive = availWrap.classList.contains('active'); closeAllTabs(); if (!isActive) { availWrap.classList.add('active'); availBtn.textContent = 'hide size availability'; }});
     </script>
-  <style>
-    /* Kontener suwaka przypięty w prawym górnym rogu */
-    #lang-toggle-wrapper {
-        position: fixed;
-        top: 5vh;
-        right: 5vw;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: lowercase;
-        color: #888;
-        user-select: none;
-    }
-    
-    #lang-toggle-wrapper span {
-        transition: color 0.3s ease, text-shadow 0.3s ease;
-        cursor: pointer;
-    }
 
-    #lang-toggle-wrapper span.active {
-        color: var(--accent-color, #990000);
-        text-shadow: 0 0 8px var(--accent-shadow, rgba(153, 0, 0, 0.4));
-    }
-    
-    /* Wygląd suwaka (switch) */
-    .lang-switch {
-        position: relative;
-        display: inline-block;
-        width: 34px;
-        height: 18px;
-    }
-
-    .lang-switch input { 
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .lang-slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: transparent;
-        transition: .4s;
-        border-radius: 18px;
-        border: 1.5px solid #888;
-    }
-
-    .lang-slider:before {
-        position: absolute;
-        content: "";
-        height: 10px;
-        width: 10px;
-        left: 3px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: #888;
-        transition: .4s;
-        border-radius: 50%;
-    }
-
-    input:checked + .lang-slider {
-        border-color: var(--accent-color, #990000);
-    }
-
-    input:checked + .lang-slider:before {
-        transform: translate(15px, -50%);
-        background-color: var(--accent-color, #990000);
-        box-shadow: 0 0 5px var(--accent-color, #990000);
-    }
-
-    /* Dopasowanie mobilne */
-    @media (max-width: 768px) {
-        #lang-toggle-wrapper {
-            top: 3.5vh; 
-            right: 5vw;
-            font-size: 10px;
-            gap: 6px;
-        }
-    }
-</style>
-
-<script>
-(function() {
-    // 1. Wymuszenie stałego, wyłącznie czerwonego akcentu kolorystycznego
-    const accentColor = '#990000';
-    const accentShadow = 'rgba(153, 0, 0, 0.4)';
-    
-    document.documentElement.style.setProperty('--accent-color', accentColor);
-    document.documentElement.style.setProperty('--accent-shadow', accentShadow);
-
-    // 2. Dodanie widgetu na stronę
-    const toggleHTML = `
-        <div id="lang-toggle-wrapper">
-            <span id="lang-en" class="active">en</span>
-            <label class="lang-switch">
-                <input type="checkbox" id="lang-checkbox">
-                <span class="lang-slider"></span>
-            </label>
-            <span id="lang-pl">pl</span>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', toggleHTML);
-
-    const checkbox = document.getElementById('lang-checkbox');
-    const enLabel = document.getElementById('lang-en');
-    const plLabel = document.getElementById('lang-pl');
-
-    // 3. Pełen słownik tłumaczeń wszystkich tekstów
-    const dict = [
-        { en: "About...", pl: "O nas..." },
-        { en: "I have been working on graphics since 2018. Over the years, I have been quietly gaining experience, testing various printing houses and different materials to see what truly holds up. It was a long process of trial and error, but it allowed me to understand exactly what I want to represent.", pl: "Zajmuję się grafiką od 2018 roku. Przez te lata po cichu zdobywałem doświadczenie, testując różne drukarnie i materiały, by sprawdzić, co naprawdę się sprawdza. Był to długi proces prób i błędów, ale pozwolił mi zrozumieć, co dokładnie chcę reprezentować." },
-        { en: "Now, I am taking 3ULT seriously. I am dedicating all my free time to this project because it is where I find my true fulfillment. This brand exists as a way to express myself and to draw attention to dark, detailed graphics that are the result of hours of refinement.", pl: "Teraz traktuję 3ULT poważnie. Poświęcam temu projektowi cały mój wolny czas, ponieważ to tutaj znajduję prawdziwe spełnienie. Ta marka istnieje jako sposób na wyrażenie siebie i zwrócenie uwagi na mroczne, szczegółowe grafiki, które są wynikiem godzin dopracowywania." },
-        { en: "The logo—three dots placed side by side—is a symbol that has followed me throughout my life. To me, the number three represents balance. This detail is integrated into everything I do: from the hand-sewn tags on every garment to the subtle elements woven into the graphics themselves.", pl: "Logo — trzy kropki umieszczone obok siebie — to symbol, który towarzyszy mi przez całe życie. Dla mnie liczba trzy oznacza równowagę. Ten szczegół jest wpleciony we wszystko, co robię: od ręcznie przyszywanych metek na każdym ubraniu, po subtelne elementy ukryte w samych grafikach." },
-        { en: "THANK YOU FOR BEING PART OF IT — 3ULT", pl: "DZIĘKUJĘ, ŻE JESTEŚ CZĘŚCIĄ TEGO — 3ULT" },
-        { en: "[ socials ]", pl: "[ społeczności ]" },
-        { en: "[ go back ]", pl: "[ powrót ]" },
-        { en: "Fabric:", pl: "Mater.:" },
-        { en: "100% premium heavyweight cotton.", pl: "100% bawełna premium o wysokiej gramaturze." },
-        { en: "100% premium cotton.", pl: "100% bawełna premium." },
-        { en: "Weight:", pl: "Gram.:" },
-        { en: "240 GSM for a structured, substantial drape.", pl: "240 g/m² zapewniające strukturalne i solidne układanie się materiału." },
-        { en: "200 GSM - high quality, fluid drape fabric.", pl: "200 g/m² - wysokiej jakości, lejący się materiał." },
-        { en: "Finish:", pl: "Wykoń.:" },
-        { en: "High-definition graphics realized via industry-leading DTG technology.", pl: "Grafiki w wysokiej rozdzielczości zrealizowane przy użyciu wiodącej w branży technologii DTG." },
-        { en: "Screen-printed graphic using specially formulated ink that retains its color for a long time.", pl: "Grafika wykonana sitodrukiem przy użyciu specjalnie opracowanej farby, która długo zachowuje swój kolor." },
-        { en: "Fit:", pl: "Krój:" },
-        { en: "Boxy cut with dropped shoulders.", pl: "Pudełkowy krój z obniżoną linią ramion." },
-        { en: "Ultra Boxy cut with dropped shoulders.", pl: "Krój Ultra Boxy z obniżoną linią ramion." },
-        { en: "Details:", pl: "Detale:" },
-        { en: "Individually hand-painted and sewn-in labels, paired with DTF printed care tags.", pl: "Indywidualnie ręcznie malowane i wszywane metki, w połączeniu z drukowanymi w technologii DTF metkami pielęgnacyjnymi." },
-        { en: "Individually hand-painted and sewn-in labels, paired with iconic DTF printed care tags and distressed material.", pl: "Indywidualnie ręcznie malowane i wszywane metki, w połączeniu z kultowymi drukowanymi w technologii DTF metkami pielęgnacyjnymi i postarzanym materiałem." },
-        { en: "hide description", pl: "ukryj opis" },
-        { en: "show description", pl: "pokaz opis" },
-        { en: "show sizechart", pl: "pokaz tabele rozmiarow" },
-        { en: "hide sizechart", pl: "ukryj tabele rozmiarow" },
-        { en: "Buy / check size availability", pl: "Kup / sprawdz dostepnosc rozmiarow" },
-        { en: "hide size availability", pl: "ukryj dostepnosc rozmiarow" },
-        { en: "[ return ]", pl: "[ powrót ]" },
-        { en: "[ sold out ]", pl: "[ wyprzedane ]" },
-        { en: "[ be patient... ]", pl: "[ bądź cierpliwy... ]" },
-        { en: "[ buy ]", pl: "[ kup ]" },
-        { en: "about...", pl: "o nas..." },
-        { en: "terms & privacy", pl: "regulamin" },
-        { en: "* website in development", pl: "* strona w budowie" },
-        { en: "is breathing again...", pl: "znów oddycha..." },
-        { en: "We'll be back soon.", pl: "Wkrótce wrócimy." },
-        { en: "be part of it", pl: "bądź częścią tego" },
-        { en: "VESSEL 1 IS LIVE!", pl: "VESSEL 1 JEST DOSTĘPNY!" },
-        { en: "days", pl: "dni" },
-        { en: "hours", pl: "godz" },
-        { en: "mins", pl: "min" },
-        { en: "secs", pl: "sek" },
-        { en: "[ click to explore & buy ]", pl: "[ kliknij by odkryć i kupić ]" },
-        { en: "3ULT /// 2026 /// JUNE", pl: "3ULT /// 2026 /// CZERWIEC" }
-    ];
-
-    // 4. Silnik bezinwazyjnej zamiany (nie psuje żadnych Twoich div'ów i tagów span)
-    function translateNode(node, lang) {
-        if (node.nodeType === 3) {
-            let text = node.nodeValue.trim();
-            if (!text) return;
-            
-            let entry = dict.find(d => d.en === text || d.pl === text);
-            if (entry) {
-                node.nodeValue = node.nodeValue.replace(text, lang === 'pl' ? entry.pl : entry.en);
-            } else {
-                // Logika dla dynamicznych rozmiarów (np. Size S / Rozmiar S)
-                if (text.startsWith("Size ")) {
-                    if (lang === 'pl') node.nodeValue = node.nodeValue.replace("Size ", "Rozmiar ");
-                } else if (text.startsWith("Rozmiar ")) {
-                    if (lang === 'en') node.nodeValue = node.nodeValue.replace("Rozmiar ", "Size ");
-                }
-            }
-        } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
-            for (let i = 0; i < node.childNodes.length; i++) {
-                translateNode(node.childNodes[i], lang);
+    <!-- SYSTEM TŁUMACZEŃ WIDGET -->
+    <style>
+        #lang-toggle-wrapper { position: fixed; top: 5vh; right: 5vw; z-index: 9999; display: flex; align-items: center; gap: 8px; font-family: 'Segoe UI', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: lowercase; color: #888; user-select: none; }
+        #lang-toggle-wrapper span { transition: color 0.3s ease, text-shadow 0.3s ease; cursor: pointer; }
+        #lang-toggle-wrapper span.active { color: var(--accent-color); text-shadow: 0 0 8px var(--accent-shadow); }
+        .lang-switch { position: relative; display: inline-block; width: 34px; height: 18px; }
+        .lang-switch input { opacity: 0; width: 0; height: 0; }
+        .lang-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: transparent; transition: .4s; border-radius: 18px; border: 1.5px solid #888; }
+        .lang-slider:before { position: absolute; content: ""; height: 10px; width: 10px; left: 3px; top: 50%; transform: translateY(-50%); background-color: #888; transition: .4s; border-radius: 50%; }
+        input:checked + .lang-slider { border-color: var(--accent-color); }
+        input:checked + .lang-slider:before { transform: translate(15px, -50%); background-color: var(--accent-color); box-shadow: 0 0 5px var(--accent-color); }
+        @media (max-width: 768px) { #lang-toggle-wrapper { top: 3.5vh; font-size: 10px; gap: 6px; } }
+    </style>
+    <script>
+    (function() {
+        const toggleHTML = `<div id="lang-toggle-wrapper"><span id="lang-en" class="active">en</span><label class="lang-switch"><input type="checkbox" id="lang-checkbox"><span class="lang-slider"></span></label><span id="lang-pl">pl</span></div>`;
+        document.body.insertAdjacentHTML('beforeend', toggleHTML);
+        const checkbox = document.getElementById('lang-checkbox'), enLabel = document.getElementById('lang-en'), plLabel = document.getElementById('lang-pl');
+        const dict = [ { en: "Fabric:", pl: "Mater.:" }, { en: "100% premium heavyweight cotton.", pl: "100% bawełna premium o wysokiej gramaturze." }, { en: "100% premium cotton.", pl: "100% bawełna premium." }, { en: "Weight:", pl: "Gram.:" }, { en: "240 GSM for a structured, substantial drape.", pl: "240 g/m² zapewniające strukturalne i solidne układanie się materiału." }, { en: "200 GSM - high quality, fluid drape fabric.", pl: "200 g/m² - wysokiej jakości, lejący się materiał." }, { en: "Finish:", pl: "Wykoń.:" }, { en: "High-definition graphics realized via industry-leading DTG technology.", pl: "Grafiki w wysokiej rozdzielczości zrealizowane przy użyciu technologii DTG." }, { en: "Screen-printed graphic using specially formulated ink that retains its color for a long time.", pl: "Grafika wykonana sitodrukiem przy użyciu dedykowanej farby, zachowującej długo swój kolor." }, { en: "Fit:", pl: "Krój:" }, { en: "Boxy cut with dropped shoulders.", pl: "Pudełkowy krój z obniżoną linią ramion." }, { en: "Ultra Boxy cut with dropped shoulders.", pl: "Krój Ultra Boxy z obniżoną linią ramion." }, { en: "Details:", pl: "Detale:" }, { en: "Individually hand-painted and sewn-in labels, paired with DTF printed care tags.", pl: "Indywidualnie ręcznie malowane i wszywane metki, w połączeniu z drukowanymi w technologii DTF metkami pielęgnacyjnymi." }, { en: "Individually hand-painted and sewn-in labels, paired with iconic DTF printed care tags and distressed material.", pl: "Indywidualnie ręcznie malowane i wszywane metki, kultowe metki pielęgnacyjne DTF i postarzany materiał." }, { en: "hide description", pl: "ukryj opis" }, { en: "show description", pl: "pokaz opis" }, { en: "show sizechart", pl: "pokaz tabele rozmiarow" }, { en: "hide sizechart", pl: "ukryj tabele rozmiarow" }, { en: "Buy / check size availability", pl: "Kup / sprawdz dostepnosc rozmiarow" }, { en: "hide size availability", pl: "ukryj dostepnosc rozmiarow" }, { en: "[ return ]", pl: "[ powrót ]" }, { en: "[ sold out ]", pl: "[ wyprzedane ]" }, { en: "[ be patient... ]", pl: "[ bądź cierpliwy... ]" }, { en: "[ buy ]", pl: "[ kup ]" }, { en: "about...", pl: "o nas..." }, { en: "terms & privacy", pl: "regulamin" } ];
+        function translateNode(node, lang) {
+            if (node.nodeType === 3) {
+                let text = node.nodeValue.trim();
+                if (!text) return;
+                let entry = dict.find(d => d.en === text || d.pl === text);
+                if (entry) { node.nodeValue = node.nodeValue.replace(text, lang === 'pl' ? entry.pl : entry.en); } 
+                else if (text.startsWith("Size ")) { if (lang === 'pl') node.nodeValue = node.nodeValue.replace("Size ", "Rozmiar "); } 
+                else if (text.startsWith("Rozmiar ")) { if (lang === 'en') node.nodeValue = node.nodeValue.replace("Rozmiar ", "Size "); }
+            } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+                for (let i = 0; i < node.childNodes.length; i++) translateNode(node.childNodes[i], lang);
             }
         }
-    }
-
-    // 5. Rozprowadzanie nowego języka po całej stronie
-    function applyLanguage(lang) {
-        if (lang === 'pl') {
-            checkbox.checked = true;
-            enLabel.classList.remove('active');
-            plLabel.classList.add('active');
-        } else {
-            checkbox.checked = false;
-            plLabel.classList.remove('active');
-            enLabel.classList.add('active');
+        function applyLanguage(lang) {
+            if (lang === 'pl') { checkbox.checked = true; enLabel.classList.remove('active'); plLabel.classList.add('active'); } else { checkbox.checked = false; plLabel.classList.remove('active'); enLabel.classList.add('active'); }
+            translateNode(document.body, lang);
+            const descBtn = document.querySelector('.toggle-description'), sizechartBtn = document.querySelector('.toggle-sizechart'), availabilityBtn = document.querySelector('.toggle-availability');
+            if (descBtn) descBtn.textContent = document.querySelector('.desc-wrapper').classList.contains('active') ? (lang === 'pl' ? 'ukryj opis' : 'hide description') : (lang === 'pl' ? 'pokaż opis' : 'show description');
+            if (sizechartBtn) sizechartBtn.textContent = document.querySelector('.sizechart-wrapper').classList.contains('active') ? (lang === 'pl' ? 'ukryj tabelę rozmiarów' : 'hide sizechart') : (lang === 'pl' ? 'pokaż tabelę rozmiarów' : 'show sizechart');
+            if (availabilityBtn) availabilityBtn.textContent = document.querySelector('.availability-wrapper').classList.contains('active') ? (lang === 'pl' ? 'ukryj dostępność rozmiarów' : 'hide size availability') : (lang === 'pl' ? 'Kup / sprawdź dostępność rozmiarów' : 'Buy / check size availability');
         }
-        
-        translateNode(document.body, lang);
-        
-        // Aktualizacja buttonów rozwijających zawartość (odkryte / zakryte opcje zależące od stanu w CSS)
-        const descBtn = document.getElementById('toggle-description');
-        const sizechartBtn = document.getElementById('toggle-sizechart');
-        const availabilityBtn = document.getElementById('toggle-availability');
-        
-        if (descBtn) {
-            const descWrapper = document.getElementById('desc-wrapper');
-            if (descWrapper && descWrapper.classList.contains('active')) {
-                descBtn.textContent = lang === 'pl' ? 'ukryj opis' : 'hide description';
-            } else {
-                descBtn.textContent = lang === 'pl' ? 'pokaż opis' : 'show description';
-            }
-        }
-        
-        if (sizechartBtn) {
-            const sizeWrapper = document.getElementById('sizechart-wrapper');
-            if (sizeWrapper && sizeWrapper.classList.contains('active')) {
-                sizechartBtn.textContent = lang === 'pl' ? 'ukryj tabelę rozmiarów' : 'hide sizechart';
-            } else {
-                sizechartBtn.textContent = lang === 'pl' ? 'pokaż tabelę rozmiarów' : 'show sizechart';
-            }
-        }
-        
-        if (availabilityBtn) {
-            const avWrapper = document.getElementById('availability-wrapper');
-            if (avWrapper && avWrapper.classList.contains('active')) {
-                availabilityBtn.textContent = lang === 'pl' ? 'ukryj dostępność rozmiarów' : 'hide size availability';
-            } else {
-                availabilityBtn.textContent = lang === 'pl' ? 'Kup / sprawdź dostępność rozmiarów' : 'Buy / check size availability';
-            }
-        }
-    }
-
-    // 6. Nasłuchiwanie manualnego kliknięcia na tekst
-    checkbox.addEventListener('change', (e) => {
-        const lang = e.target.checked ? 'pl' : 'en';
-        localStorage.setItem('3ult_lang', lang);
-        applyLanguage(lang);
-    });
-
-    enLabel.addEventListener('click', () => { checkbox.checked = false; checkbox.dispatchEvent(new Event('change')); });
-    plLabel.addEventListener('click', () => { checkbox.checked = true; checkbox.dispatchEvent(new Event('change')); });
-
-    // 7. Ładowanie uprzednio wybranego języka po przejściu z innej podstrony
-    const savedLang = localStorage.getItem('3ult_lang') || 'en';
-    setTimeout(() => { applyLanguage(savedLang); }, 50);
-
-    // 8. Obserwator do tłumaczenia Twoich zmieniających się elementów co 1 sekundę (odliczanie, pasek inventory)
-    const observer = new MutationObserver((mutations) => {
-        const currentLang = checkbox.checked ? 'pl' : 'en';
-        if (currentLang === 'en') return; 
-        
-        mutations.forEach(mutation => {
-            if (mutation.addedNodes.length) {
-                mutation.addedNodes.forEach(node => {
-                    if (node.nodeType === 1 && node.id !== 'lang-toggle-wrapper') {
-                       translateNode(node, currentLang);
-                    }
-                });
-            }
+        checkbox.addEventListener('change', (e) => { const lang = e.target.checked ? 'pl' : 'en'; localStorage.setItem('3ult_lang', lang); applyLanguage(lang); });
+        enLabel.addEventListener('click', () => { checkbox.checked = false; checkbox.dispatchEvent(new Event('change')); });
+        plLabel.addEventListener('click', () => { checkbox.checked = true; checkbox.dispatchEvent(new Event('change')); });
+        setTimeout(() => { applyLanguage(localStorage.getItem('3ult_lang') || 'en'); }, 50);
+        const observer = new MutationObserver((mutations) => {
+            const currentLang = checkbox.checked ? 'pl' : 'en';
+            if (currentLang === 'en') return; 
+            mutations.forEach(mutation => { if (mutation.addedNodes.length) mutation.addedNodes.forEach(node => { if (node.nodeType === 1 && node.id !== 'lang-toggle-wrapper') translateNode(node, currentLang); }); });
         });
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-
-})();
-</script>
+        observer.observe(document.body, { childList: true, subtree: true });
+    })();
+    </script>
 </body>
 </html>

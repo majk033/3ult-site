@@ -96,21 +96,37 @@
             100% { transform: scale(0.9) translateY(0); opacity: 0; } 
         }
 
+        /* --- LOGO GŁÓWNE --- */
+        .main-logo-large {
+            position: absolute;
+            top: 2vh; 
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 300px; 
+            width: 60vw; 
+            height: auto; 
+            z-index: 10;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+        }
+        
+        .main-logo-large:hover {
+            filter: drop-shadow(0 0 10px rgba(153, 0, 0, 0.4));
+        }
+
+        /* --- GŁÓWNY KONTENER TEKSTÓW --- */
         .content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             width: 100%;
-            transform: translateY(-8vh);
-            z-index: 50; 
+            height: 100vh;
+            z-index: 10; 
         }
 
         .gothic-text { font-family: 'UnifrakturCook', cursive; font-weight: 700; }
         
-        img {
-            max-width: 300px; width: 70%; height: auto; margin-bottom: 1vh; min-height: 80px; 
-        }
-
         .dev-phase-note {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 10px;
@@ -130,7 +146,7 @@
 
         .part-of-it {
             color: #000000; font-size: 26px; letter-spacing: 2px; text-transform: lowercase;
-            text-align: center; margin-bottom: 8vh; 
+            text-align: center; margin-bottom: 0; 
             white-space: nowrap; 
         }
 
@@ -152,53 +168,39 @@
             letter-spacing: 2px; text-transform: uppercase; color: #666; margin-top: 5px;
         }
 
-        .next-vessel-link {
-            display: inline-block;
-            background-color: transparent; 
+        /* --- PRZYCISK: OBWÓDKA W KSZTAŁCIE 3 KROPEK --- */
+        .explore-btn {
+            position: absolute;
+            bottom: 18vh;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             color: #000000; 
             font-family: 'UnifrakturCook', cursive;
             font-weight: 700;
             font-size: 24px;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: lowercase;
-            text-decoration: underline;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 8px;
-            margin-top: 7vh; 
-            transition: color 0.4s ease-in-out, text-shadow 0.4s ease-in-out, text-decoration-color 0.4s ease-in-out; 
-            position: relative;
-            z-index: 105; 
+            text-decoration: none;
+            
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="-10 -10 320 120" xmlns="http://www.w3.org/2000/svg"><path d="M 48 9 C 75 7, 88 28, 101 29 C 112 30, 122 8, 149 8 C 177 8, 188 28, 201 29 C 212 30, 223 9, 251 9 C 302 9, 304 91, 251 91 C 223 91, 212 70, 201 71 C 188 72, 177 92, 149 92 C 122 92, 112 70, 101 71 C 88 72, 75 92, 48 92 C -3 92, -3 11, 48 9 Z" stroke="%23990000" stroke-width="2.5" fill="none"/></svg>');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            
+            width: 320px;
+            height: 90px;
+            transition: all 0.4s ease-in-out; 
+            z-index: 10; 
+            cursor: pointer;
         }
 
-        .next-vessel-link:hover, .next-vessel-link.active-shadow {
+        .explore-btn:hover {
             color: #990000; 
-            text-decoration-color: #990000; 
-            text-shadow: 0 0 15px rgba(153, 0, 0, 0.5); 
-        }
-
-        /* --- NOWY PRZYCISK: PREVIOUS VESSEL --- */
-        .prev-vessel-link {
-            display: inline-block;
-            background-color: transparent; 
-            color: #666666; /* Szary, mniej zauważalny kolor */
-            font-family: 'UnifrakturCook', cursive;
-            font-weight: normal;
-            font-size: 14px; /* Zdecydowanie mniejsza czcionka */
-            letter-spacing: 2px;
-            text-transform: lowercase;
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 4px;
-            margin-top: 2vh; /* Niewielki odstęp od głównego linku */
-            transition: color 0.4s ease-in-out, text-shadow 0.4s ease-in-out, text-decoration-color 0.4s ease-in-out; 
-            position: relative;
-            z-index: 105; 
-        }
-
-        .prev-vessel-link:hover, .prev-vessel-link.active-shadow {
-            color: #990000; 
-            text-decoration-color: #990000; 
-            text-shadow: 0 0 10px rgba(153, 0, 0, 0.4); 
+            text-shadow: 0 0 12px rgba(153, 0, 0, 0.5); 
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="-10 -10 320 120" xmlns="http://www.w3.org/2000/svg"><path d="M 48 9 C 75 7, 88 28, 101 29 C 112 30, 122 8, 149 8 C 177 8, 188 28, 201 29 C 212 30, 223 9, 251 9 C 302 9, 304 91, 251 91 C 223 91, 212 70, 201 71 C 188 72, 177 92, 149 92 C 122 92, 112 70, 101 71 C 88 72, 75 92, 48 92 C -3 92, -3 11, 48 9 Z" stroke="%23990000" stroke-width="4.5" fill="none"/></svg>');
+            transform: translateX(-50%) scale(1.05); 
         }
 
         .footer {
@@ -214,7 +216,7 @@
         .subtle-link {
             position: fixed;
             bottom: 20px;
-            z-index: 50; 
+            z-index: 10; 
             color: #888; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 11px;
@@ -232,13 +234,14 @@
             text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
         }
 
-        /* --- BAZOWA MASKA ŚWIATŁA (STARTUJE ZGASZONA, BEZ ANIMACJI) --- */
+        /* --- BAZOWA MASKA ŚWIATŁA (Z-INDEX 500 ABY PRZYKRYĆ WSZYSTKO) --- */
         .spotlight-wrapper {
             position: fixed; 
             top: -20vh; bottom: -20vh; left: -20vw; right: -20vw; 
-            z-index: 100; pointer-events: none; 
+            z-index: 500; /* Zapewnia, że absolutnie nic nie wystaje ponad animację */
+            pointer-events: none; 
             mix-blend-mode: multiply; 
-            opacity: 1; /* Ciemność startowa */
+            opacity: 1;
         }
         .lights-container {
             width: 100%; height: 100%; background-color: #000000; 
@@ -249,10 +252,10 @@
             border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; 
             background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 45%, rgba(0,0,0,1) 65%);
             mix-blend-mode: screen; 
-            opacity: 0; /* Światła startowo niewidoczne */
+            opacity: 0; 
         }
 
-        /* --- AKTYWACJA ANIMACJI Z GWARANCJĄ STARTU OD 0ms --- */
+        /* --- AKTYWACJA ANIMACJI --- */
         body.anim-ready .spotlight-wrapper { animation: removeDarkness 2s both; }
         body.anim-ready .lights-container { animation: lightsFlicker 2s both; }
         body.anim-ready .light { animation: shapeWobble 1s infinite linear alternate-reverse both; }
@@ -309,24 +312,19 @@
                 --beam-R-X: 0vw;   --beam-R-Y: 35vh;  
             }
 
-            .coming-soon-container {
-                font-size: 6.5vw; 
-                letter-spacing: 1px; 
-            }
-
-            .part-of-it {
-                font-size: 5vw; 
-            }
-
-            .footer {
-                display: none; 
-            }
+            .main-logo-large { top: 4vh; width: 80vw; }
+            .coming-soon-container { font-size: 6.5vw; letter-spacing: 1px; }
+            .part-of-it { font-size: 5vw; }
+            .footer { display: none; }
             
-            .subtle-link {
-                bottom: 15px; 
-                font-size: 10px;
-                letter-spacing: 1px;
+            .explore-btn {
+                width: 280px;
+                height: 78px;
+                font-size: 20px;
+                bottom: 15vh;
             }
+
+            .subtle-link { bottom: 15px; font-size: 10px; letter-spacing: 1px; }
             .link-left { left: 5vw; }
             .link-right { right: 5vw; }
         }
@@ -345,9 +343,11 @@
         </div>
     </div>
 
+    <!-- LOGO GŁÓWNE -->
+    <img src="logowektor.svg" alt="3ULT LOGO" class="main-logo-large">
+
+    <!-- KONTENER GŁÓWNY Z TEKSTAMI -->
     <div class="content-wrapper">
-        <img src="logowektor.svg" alt="3ULT LOGO">
-        
         <div class="dev-phase-note">* website in development</div>
         
         <div id="content-to-center" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
@@ -359,15 +359,14 @@
         </div>
         
         <div id="countdown" class="countdown"></div>
-        
-        <a href="vessel.html" class="next-vessel-link">vessel 1</a>
-        <a href="vessel2.html" class="prev-vessel-link">vessel 2</a>
     </div>
+
+    <a href="updated1.html" class="explore-btn">explore vessels</a>
 
     <a href="about.html" class="subtle-link link-left">about...</a>
     <a href="terms.html" class="subtle-link link-right">terms & privacy</a>
 
-    <div class="footer">3ULT /// 2026 /// JUNE</div>
+    <div class="footer">3ULT /// 2026</div>
 
     <script>
         const countDownDate = new Date("July 15, 2026 18:00:00").getTime();
@@ -416,87 +415,54 @@
 
             const formatTime = (time) => time < 10 ? "0" + time : time;
             
-            document.getElementById("countdown").innerHTML = 
-                "<div><span class='countdown-number'>" + formatTime(Math.floor(distance / (1000 * 60 * 60 * 24))) + "</span><span class='countdown-label'>days</span></div>" + 
-                "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))) + "</span><span class='countdown-label'>hours</span></div>" + 
-                "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))) + "</span><span class='countdown-label'>mins</span></div>" + 
-                "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60)) / 1000)) + "</span><span class='countdown-label'>secs</span></div>";
+            const countdownEl = document.getElementById("countdown");
+            
+            if (countdownEl) {
+                countdownEl.innerHTML = 
+                    "<div><span class='countdown-number'>" + formatTime(Math.floor(distance / (1000 * 60 * 60 * 24))) + "</span><span class='countdown-label'>days</span></div>" + 
+                    "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))) + "</span><span class='countdown-label'>hours</span></div>" + 
+                    "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))) + "</span><span class='countdown-label'>mins</span></div>" + 
+                    "<div><span class='countdown-number'>" + formatTime(Math.floor((distance % (1000 * 60)) / 1000)) + "</span><span class='countdown-label'>secs</span></div>";
+            }
 
             if (distance < 0) {
-                // Odliczanie już minęło, więc ukrywamy sam licznik cyfrowy
-                document.getElementById("countdown").style.visibility = "hidden";
+                if (countdownEl) countdownEl.style.display = "none";
 
-                // Tworzymy klon napisu na środek (wykonuje się to tylko raz)
-                if (!document.getElementById('centered-clone')) {
-                    const originalContent = document.getElementById('content-to-center');
-                    
-                    const clone = originalContent.cloneNode(true);
-                    clone.id = 'centered-clone';
-                    clone.style.position = 'fixed';
-                    clone.style.top = '50%';
-                    clone.style.left = '50%';
-                    clone.style.transform = 'translate(-50%, -50%)';
-                    
-                    clone.style.zIndex = '50'; 
-                    
-                    const clonePartOfIt = clone.querySelector('.part-of-it');
-                    if (clonePartOfIt) {
-                        clonePartOfIt.style.marginBottom = '0';
-                        clonePartOfIt.innerHTML = "be part of it";
-                    }
-
-                    document.body.appendChild(clone);
-                    originalContent.style.visibility = 'hidden';
-                }
-
-                // Chwytamy wyśrodkowany element
-                const cloneComingSoon = document.getElementById('centered-clone').querySelector('.coming-soon-container');
-
-                // Zmiana napisu po zakończeniu odliczania
-                if (cloneComingSoon) {
-                    cloneComingSoon.innerHTML = "<span>VESSEL 1 IS LIVE!</span>";
-                    cloneComingSoon.style.textTransform = "uppercase";
+                const originalContent = document.getElementById('content-to-center');
+                
+                const comingSoon = originalContent.querySelector('.coming-soon-container');
+                if (comingSoon) {
+                    comingSoon.innerHTML = "<span>VESSEL 1 IS LIVE!</span>";
+                    comingSoon.style.textTransform = "uppercase";
                 }
                 
-                // Koniec odliczania, zatrzymujemy interwał
+                const partOfIt = originalContent.querySelector('.part-of-it');
+                if (partOfIt) {
+                    partOfIt.innerHTML = "be part of it";
+                }
+                
                 clearInterval(intervalId);
             }
         }
 
-        const nextVesselLink = document.querySelector('.next-vessel-link');
-        nextVesselLink.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768 || 'ontouchstart' in window) {
-                e.preventDefault(); 
-                this.classList.add('active-shadow'); 
-                
-                setTimeout(() => {
-                    window.location.href = this.href;
-                }, 800);
-            }
-        });
-
-        // Obsługa urządzeń mobilnych i dotykowych dla nowego linku
-        const prevVesselLink = document.querySelector('.prev-vessel-link');
-        if (prevVesselLink) {
-            prevVesselLink.addEventListener('click', function(e) {
+        const exploreBtn = document.querySelector('.explore-btn');
+        if (exploreBtn) {
+            exploreBtn.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768 || 'ontouchstart' in window) {
                     e.preventDefault(); 
-                    this.classList.add('active-shadow'); 
                     
                     setTimeout(() => {
                         window.location.href = this.href;
-                    }, 800);
+                    }, 500);
                 }
             });
         }
 
-        // 1. Zdarzenia natychmiastowe (odliczanie ładuje się od razu)
         window.addEventListener('DOMContentLoaded', () => {
             updateCountdown(); 
             intervalId = setInterval(updateCountdown, 1000);
         });
 
-        // 2. Zdarzenie 'load' - czeka aż pobierze się wszystko w 100% (fonty, obrazki itp.)
         window.addEventListener('load', () => {
             const metaTheme = document.getElementById('theme-color-meta');
 
@@ -508,30 +474,35 @@
                 document.documentElement.style.backgroundColor = '#faf0e6';
                 document.body.style.backgroundColor = '#faf0e6';
                 
+                const langWrap = document.getElementById('lang-toggle-wrapper');
+                if (langWrap) langWrap.style.opacity = '1';
+                
                 spawnLoop();
             } else {
-                // Dodajemy klasę, co "budzi" animacje z uśpienia dokładnie w tym momencie
                 requestAnimationFrame(() => {
                     document.body.classList.add('anim-ready');
                     spawnLoop(); 
                     
-                    // Odliczamy 1.84s od tego momentu, by zmienić kolory pasków
                     setTimeout(() => {
                         if(metaTheme) metaTheme.setAttribute('content', '#faf0e6');
                         document.documentElement.style.backgroundColor = '#faf0e6';
                         document.body.style.backgroundColor = '#faf0e6';
+                        
+                        const langWrap = document.getElementById('lang-toggle-wrapper');
+                        if (langWrap) langWrap.style.opacity = '1';
                     }, 1840); 
                 });
             }
         });
     </script>
   <style>
-    /* Kontener suwaka przypięty w prawym górnym rogu */
     #lang-toggle-wrapper {
         position: fixed;
         top: 5vh;
         right: 5vw;
-        z-index: 9999;
+        z-index: 200; /* Znajduje się pod animacją startową (500) */
+        opacity: 0; /* Ukryty na czas ciemności i animacji */
+        transition: opacity 0.5s ease;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -554,7 +525,6 @@
         text-shadow: 0 0 8px var(--accent-shadow, rgba(153, 0, 0, 0.4));
     }
     
-    /* Wygląd suwaka (switch) */
     .lang-switch {
         position: relative;
         display: inline-block;
@@ -604,7 +574,6 @@
         box-shadow: 0 0 5px var(--accent-color, #990000);
     }
 
-    /* Dopasowanie mobilne */
     @media (max-width: 768px) {
         #lang-toggle-wrapper {
             top: 3.5vh; 
@@ -617,14 +586,12 @@
 
 <script>
 (function() {
-    // 1. Wymuszenie stałego, wyłącznie czerwonego akcentu kolorystycznego
     const accentColor = '#990000';
     const accentShadow = 'rgba(153, 0, 0, 0.4)';
     
     document.documentElement.style.setProperty('--accent-color', accentColor);
     document.documentElement.style.setProperty('--accent-shadow', accentShadow);
 
-    // 2. Dodanie widgetu na stronę
     const toggleHTML = `
         <div id="lang-toggle-wrapper">
             <span id="lang-en" class="active">en</span>
@@ -641,7 +608,6 @@
     const enLabel = document.getElementById('lang-en');
     const plLabel = document.getElementById('lang-pl');
 
-    // 3. Pełen słownik tłumaczeń wszystkich tekstów
     const dict = [
         { en: "About...", pl: "O nas..." },
         { en: "I have been working on graphics since 2018. Over the years, I have been quietly gaining experience, testing various printing houses and different materials to see what truly holds up. It was a long process of trial and error, but it allowed me to understand exactly what I want to represent.", pl: "Zajmuję się grafiką od 2018 roku. Przez te lata po cichu zdobywałem doświadczenie, testując różne drukarnie i materiały, by sprawdzić, co naprawdę się sprawdza. Był to długi proces prób i błędów, ale pozwolił mi zrozumieć, co dokładnie chcę reprezentować." },
@@ -650,31 +616,6 @@
         { en: "THANK YOU FOR BEING PART OF IT — 3ULT", pl: "DZIĘKUJĘ, ŻE JESTEŚ CZĘŚCIĄ TEGO — 3ULT" },
         { en: "[ socials ]", pl: "[ społeczności ]" },
         { en: "[ go back ]", pl: "[ powrót ]" },
-        { en: "Fabric:", pl: "Materiał:" },
-        { en: "100% premium heavyweight cotton.", pl: "100% bawełna premium o wysokiej gramaturze." },
-        { en: "100% premium cotton.", pl: "100% bawełna premium." },
-        { en: "Weight:", pl: "Gramatura:" },
-        { en: "240 GSM for a structured, substantial drape.", pl: "240 g/m² zapewniające strukturalne i solidne układanie się materiału." },
-        { en: "200 GSM - high quality, fluid drape fabric.", pl: "200 g/m² - wysokiej jakości, lejący się materiał." },
-        { en: "Finish:", pl: "Wykończenie:" },
-        { en: "High-definition graphics realized via industry-leading DTG technology.", pl: "Grafiki w wysokiej rozdzielczości zrealizowane przy użyciu wiodącej w branży technologii DTG." },
-        { en: "Screen-printed graphic using specially formulated ink that retains its color for a long time.", pl: "Grafika wykonana sitodrukiem przy użyciu specjalnie opracowanej farby, która długo zachowuje swój kolor." },
-        { en: "Fit:", pl: "Krój:" },
-        { en: "Boxy cut with dropped shoulders.", pl: "Pudełkowy krój z obniżoną linią ramion." },
-        { en: "Ultra Boxy cut with dropped shoulders.", pl: "Krój Ultra Boxy z obniżoną linią ramion." },
-        { en: "Details:", pl: "Detale:" },
-        { en: "Individually hand-painted and sewn-in labels, paired with DTF printed care tags.", pl: "Indywidualnie ręcznie malowane i wszywane metki, w połączeniu z drukowanymi w technologii DTF metkami pielęgnacyjnymi." },
-        { en: "Individually hand-painted and sewn-in labels, paired with iconic DTF printed care tags and distressed material.", pl: "Indywidualnie ręcznie malowane i wszywane metki, w połączeniu z kultowymi drukowanymi w technologii DTF metkami pielęgnacyjnymi i postarzanym materiałem." },
-        { en: "hide description", pl: "ukryj opis" },
-        { en: "show description", pl: "pokaż opis" },
-        { en: "show sizechart", pl: "pokaż tabelę rozmiarów" },
-        { en: "hide sizechart", pl: "ukryj tabelę rozmiarów" },
-        { en: "Buy / check size availability", pl: "Kup / sprawdź dostępność rozmiarów" },
-        { en: "hide size availability", pl: "ukryj dostępność rozmiarów" },
-        { en: "[ return ]", pl: "[ powrót ]" },
-        { en: "[ sold out ]", pl: "[ wyprzedane ]" },
-        { en: "[ be patient... ]", pl: "[ bądź cierpliwy... ]" },
-        { en: "[ buy ]", pl: "[ kup ]" },
         { en: "about...", pl: "o nas..." },
         { en: "terms & privacy", pl: "regulamin" },
         { en: "* website in development", pl: "* strona w budowie" },
@@ -686,11 +627,10 @@
         { en: "hours", pl: "godz" },
         { en: "mins", pl: "min" },
         { en: "secs", pl: "sek" },
-        { en: "[ click to explore & buy ]", pl: "[ kliknij by odkryć i kupić ]" },
-        { en: "3ULT /// 2026 /// JUNE", pl: "3ULT /// 2026 /// CZERWIEC" }
+        { en: "3ULT /// 2026", pl: "3ULT /// 2026" },
+        { en: "explore vessels", pl: "odkryj vessels" }
     ];
 
-    // 4. Silnik bezinwazyjnej zamiany (nie psuje żadnych Twoich div'ów i tagów span)
     function translateNode(node, lang) {
         if (node.nodeType === 3) {
             let text = node.nodeValue.trim();
@@ -699,13 +639,6 @@
             let entry = dict.find(d => d.en === text || d.pl === text);
             if (entry) {
                 node.nodeValue = node.nodeValue.replace(text, lang === 'pl' ? entry.pl : entry.en);
-            } else {
-                // Logika dla dynamicznych rozmiarów (np. Size S / Rozmiar S)
-                if (text.startsWith("Size ")) {
-                    if (lang === 'pl') node.nodeValue = node.nodeValue.replace("Size ", "Rozmiar ");
-                } else if (text.startsWith("Rozmiar ")) {
-                    if (lang === 'en') node.nodeValue = node.nodeValue.replace("Rozmiar ", "Size ");
-                }
             }
         } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
             for (let i = 0; i < node.childNodes.length; i++) {
@@ -714,7 +647,6 @@
         }
     }
 
-    // 5. Rozprowadzanie nowego języka po całej stronie
     function applyLanguage(lang) {
         if (lang === 'pl') {
             checkbox.checked = true;
@@ -727,41 +659,8 @@
         }
         
         translateNode(document.body, lang);
-        
-        // Aktualizacja buttonów rozwijających zawartość (odkryte / zakryte opcje zależące od stanu w CSS)
-        const descBtn = document.getElementById('toggle-description');
-        const sizechartBtn = document.getElementById('toggle-sizechart');
-        const availabilityBtn = document.getElementById('toggle-availability');
-        
-        if (descBtn) {
-            const descWrapper = document.getElementById('desc-wrapper');
-            if (descWrapper && descWrapper.classList.contains('active')) {
-                descBtn.textContent = lang === 'pl' ? 'ukryj opis' : 'hide description';
-            } else {
-                descBtn.textContent = lang === 'pl' ? 'pokaż opis' : 'show description';
-            }
-        }
-        
-        if (sizechartBtn) {
-            const sizeWrapper = document.getElementById('sizechart-wrapper');
-            if (sizeWrapper && sizeWrapper.classList.contains('active')) {
-                sizechartBtn.textContent = lang === 'pl' ? 'ukryj tabelę rozmiarów' : 'hide sizechart';
-            } else {
-                sizechartBtn.textContent = lang === 'pl' ? 'pokaż tabelę rozmiarów' : 'show sizechart';
-            }
-        }
-        
-        if (availabilityBtn) {
-            const avWrapper = document.getElementById('availability-wrapper');
-            if (avWrapper && avWrapper.classList.contains('active')) {
-                availabilityBtn.textContent = lang === 'pl' ? 'ukryj dostępność rozmiarów' : 'hide size availability';
-            } else {
-                availabilityBtn.textContent = lang === 'pl' ? 'Kup / sprawdź dostępność rozmiarów' : 'Buy / check size availability';
-            }
-        }
     }
 
-    // 6. Nasłuchiwanie manualnego kliknięcia na tekst
     checkbox.addEventListener('change', (e) => {
         const lang = e.target.checked ? 'pl' : 'en';
         localStorage.setItem('3ult_lang', lang);
@@ -771,11 +670,9 @@
     enLabel.addEventListener('click', () => { checkbox.checked = false; checkbox.dispatchEvent(new Event('change')); });
     plLabel.addEventListener('click', () => { checkbox.checked = true; checkbox.dispatchEvent(new Event('change')); });
 
-    // 7. Ładowanie uprzednio wybranego języka po przejściu z innej podstrony
     const savedLang = localStorage.getItem('3ult_lang') || 'en';
     setTimeout(() => { applyLanguage(savedLang); }, 50);
 
-    // 8. Obserwator do tłumaczenia Twoich zmieniających się elementów co 1 sekundę (odliczanie, pasek inventory)
     const observer = new MutationObserver((mutations) => {
         const currentLang = checkbox.checked ? 'pl' : 'en';
         if (currentLang === 'en') return; 
