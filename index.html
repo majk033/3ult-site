@@ -7,7 +7,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-DMF60PRB1Y');
 </script>
     <meta charset="UTF-8">
@@ -17,7 +16,7 @@
     <meta name="theme-color" content="#000000" id="theme-color-meta">
     
       <title>3ULT IS NOW !</title>
-    <meta name="description" content="Vessel 2 is available now! Check the vessel and be part of iT - 3ULT.">
+    <meta name="description" content="Vessel 3 is available now! Check the vessel and be part of iT - 3ULT.">
     
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
     
@@ -238,7 +237,7 @@
         .spotlight-wrapper {
             position: fixed; 
             top: -20vh; bottom: -20vh; left: -20vw; right: -20vw; 
-            z-index: 500; /* Zapewnia, że absolutnie nic nie wystaje ponad animację */
+            z-index: 500; 
             pointer-events: none; 
             mix-blend-mode: multiply; 
             opacity: 1;
@@ -350,12 +349,12 @@
     <div class="content-wrapper">
         <div class="dev-phase-note">* website in development</div>
         
-        <div id="content-to-center" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+      <div id="content-to-center" style="display: flex; flex-direction: column; align-items: center; width: 100%; transform: translateY(-60px);">
             <div class="coming-soon-container gothic-text">
-                <span>vessel 1</span>
-                <span>is breathing again...</span>
+                <span>vessel 3</span>
+                <span>is coming...</span>
             </div>
-            <div class="part-of-it gothic-text">We'll be back soon.</div>
+            <div class="part-of-it gothic-text">be part of it.</div>
         </div>
         
         <div id="countdown" class="countdown"></div>
@@ -369,7 +368,8 @@
     <div class="footer">3ULT /// 2026</div>
 
     <script>
-        const countDownDate = new Date("July 15, 2026 18:00:00").getTime();
+        // Zaktualizowana data odliczania do 13 września 2026, 18:00
+        const countDownDate = new Date("September 13, 2026 18:00:00").getTime();
         const dripsContainer = document.getElementById("paint-drips-container");
         let intervalId;
 
@@ -432,7 +432,7 @@
                 
                 const comingSoon = originalContent.querySelector('.coming-soon-container');
                 if (comingSoon) {
-                    comingSoon.innerHTML = "<span>VESSEL 1 IS LIVE!</span>";
+                    comingSoon.innerHTML = "<span>VESSEL 3 IS LIVE!</span>";
                     comingSoon.style.textTransform = "uppercase";
                 }
                 
@@ -500,8 +500,8 @@
         position: fixed;
         top: 5vh;
         right: 5vw;
-        z-index: 200; /* Znajduje się pod animacją startową (500) */
-        opacity: 0; /* Ukryty na czas ciemności i animacji */
+        z-index: 200; 
+        opacity: 0; 
         transition: opacity 0.5s ease;
         display: flex;
         align-items: center;
@@ -619,10 +619,10 @@
         { en: "about...", pl: "o nas..." },
         { en: "terms & privacy", pl: "regulamin" },
         { en: "* website in development", pl: "* strona w budowie" },
-        { en: "is breathing again...", pl: "znów oddycha..." },
-        { en: "We'll be back soon.", pl: "Wkrótce wrócimy." },
+        { en: "is coming...", pl: "nadchodzi..." },
+        { en: "vessel 3", pl: "vessel 3" },
         { en: "be part of it", pl: "bądź częścią tego" },
-        { en: "VESSEL 1 IS LIVE!", pl: "VESSEL 1 JEST DOSTĘPNY!" },
+        { en: "VESSEL 3 IS LIVE!", pl: "VESSEL 3 JEST DOSTĘPNY!" },
         { en: "days", pl: "dni" },
         { en: "hours", pl: "godz" },
         { en: "mins", pl: "min" },
