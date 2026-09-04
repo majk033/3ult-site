@@ -54,6 +54,8 @@
         
         .product-container { position: relative; outline: none; overflow: visible; border-radius: 2px; }
 
+        .tape-overlay { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); width: 150px; z-index: 60; pointer-events: none; }
+
         .media-mask {
             position: relative; width: 35vw; max-width: 450px; min-width: 280px;
             aspect-ratio: 1 / 1; overflow: hidden; border-radius: 2px; -webkit-mask-image: -webkit-radial-gradient(white, black); outline: none;
@@ -106,7 +108,7 @@
         .slide-prev { left: -80px; }
         .slide-next { right: -80px; }
         
-        .nav-close { top: -30px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: lowercase; padding: 10px; color: var(--accent-color); font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); white-space: nowrap; }
+        .nav-close { bottom: -30px; top: auto; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: lowercase; padding: 10px; color: var(--accent-color); font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); white-space: nowrap; }
         .nav-close:hover { color: var(--accent-color); text-shadow: 0 0 10px var(--accent-shadow); filter: brightness(1.2); }
 
         .transition-overlay { position: absolute; inset: 0; background-color: #faf0e6; z-index: 50; display: flex; justify-content: center; align-items: center; gap: 15px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; border-radius: 2px; }
@@ -158,6 +160,7 @@
     <div class="main-container">
         <div class="product-side">
             <div class="product-container">
+                <img src="tasma.png" class="tape-overlay" alt="tape">
                 <div class="media-mask">
                     <div class="transition-overlay">
                         <div class="trans-dot"></div><div class="trans-dot"></div><div class="trans-dot"></div>
@@ -294,7 +297,6 @@
         availBtn.addEventListener('click', () => { const isActive = availWrap.classList.contains('active'); closeAllTabs(); if (!isActive) { availWrap.classList.add('active'); availBtn.textContent = 'hide size availability'; }});
     </script>
 
-    <!-- SYSTEM TŁUMACZEŃ WIDGET -->
     <style>
         #lang-toggle-wrapper { position: fixed; top: 5vh; right: 5vw; z-index: 9999; display: flex; align-items: center; gap: 8px; font-family: 'Segoe UI', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: lowercase; color: #888; user-select: none; }
         #lang-toggle-wrapper span { transition: color 0.3s ease, text-shadow 0.3s ease; cursor: pointer; }
