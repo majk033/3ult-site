@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DMF60PRB1Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DMF60PRB1Y');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>3ULT PUNKSTAR DETAILS</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --accent-color: #333333;
+            --accent-shadow: rgba(51, 51, 51, 0.4);
+        }
+
+        body {
+            background-color: #faf0e6; 
+            color: #000000; margin: 0; padding: 0; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; 
+            overflow-x: hidden; overflow-y: auto; font-family: 'Segoe UI', sans-serif;
+        }
+
+        .top-logo { position: absolute; top: 5vh; width: 120px; height: auto; z-index: 100; cursor: pointer; transition: opacity 0.2s ease, filter 0.5s ease; }
+        .top-logo:hover { filter: drop-shadow(0 0 8px var(--accent-shadow)); }
+
+        .main-container { 
+            display: flex; align-items: center; justify-content: center; 
+            width: 90vw; max-width: 1400px; 
+            gap: 12vw; 
+            height: 80vh; 
+            margin-top: 8vh; 
+        }
+        
+        .product-side { 
+            flex: 1; display: flex; 
+            justify-content: center; 
+            align-items: center; z-index: 30; 
+        }
+        
+        .details-side { 
+            flex: 1; display: flex; flex-direction: column; 
+            justify-content: center; 
+            align-items: flex-start; height: 100%; max-height: 80vh; overflow-y: auto; scrollbar-width: none; 
+        }
+        .details-side::-webkit-scrollbar { display: none; }
+        
+        .product-container { position: relative; outline: none; overflow: visible; border-radius: 2px; }
+
+        .tape-overlay { position: absolute; top: -85px; left: 50%; transform: translateX(-50%); width: 150px; z-index: 60; pointer-events: none; }
+
+        .media-mask {
+            position: relative; width: 35vw; max-width: 450px; min-width: 280px;
+            aspect-ratio: 1 / 1; overflow: hidden; border-radius: 2px; -webkit-mask-image: -webkit-radial-gradient(white, black); outline: none;
+        }
+
+        .product-title { font-family: 'UnifrakturCook', cursive; font-size: 32px; color: #000000; margin-bottom: 1.5vh; letter-spacing: 3px; text-transform: uppercase; white-space: nowrap; }
+        .product-description { color: #000000; font-size: 14px; line-height: 1.8; letter-spacing: 1px; max-width: 700px; min-width: 300px; text-align: left; margin-bottom: 3vh; }
+        .desc-item { display: flex; margin-bottom: 8px; }
+        .desc-label { font-weight: 700; text-transform: uppercase; font-size: 12px; display: inline-block; width: 75px; flex-shrink: 0; }
+        .desc-content { flex: 1; }
+        
+        .subtle-note { font-size: 11px; color: #888; margin-top: 15px; border-top: 1px solid #dcd3c9; padding-top: 10px; line-height: 1.5; letter-spacing: 0.5px; }
+
+        .action-buttons { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5vh; margin-bottom: 3vh; width: 100%; }
+        .action-btn { background: none; border: none; color: #000000; font-family: 'UnifrakturCook', cursive; font-size: 22px; letter-spacing: 2px; text-transform: lowercase; cursor: pointer; padding: 0; transition: color 0.3s ease, text-shadow 0.3s ease; white-space: nowrap; }
+        .action-btn:hover, .action-btn.active-shadow { color: var(--accent-color); text-shadow: 0 0 10px var(--accent-shadow); }
+
+        .collapsible-wrapper { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease; width: 100%; max-width: 400px; }
+        .collapsible-wrapper.active { max-height: 1000px; opacity: 1; margin-bottom: 3vh; }
+        .size-chart-image { width: 100%; height: auto; border: none; display: block; }
+
+        .price-display { font-family: 'UnifrakturCook', cursive; font-size: 26px; color: #000000; margin-top: 5px; margin-bottom: 15px; letter-spacing: 2px; border-bottom: 1px solid #dcd3c9; padding-bottom: 10px; width: 100%; }
+        .price-sub { font-family: 'Segoe UI', sans-serif; font-size: 11px; color: #888; letter-spacing: 1px; text-transform: lowercase; margin-left: 8px; }
+
+        .stock-list { display: flex; flex-direction: column; gap: 15px; width: 100%; padding-top: 5px; }
+        .stock-item { display: flex; flex-direction: column; gap: 5px; }
+        .stock-info { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+        .stock-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .stock-size { text-transform: uppercase; }
+        
+        /* Zaktualizowane kolory dla elementów listy stockowej (#990000) */
+        .request-btn { font-size: 10px; color: #990000; font-weight: bold; text-decoration: none; text-transform: lowercase; letter-spacing: 2px; transition: color 0.3s ease, text-shadow 0.3s ease; white-space: nowrap; }
+        .request-btn:hover { color: #990000; text-shadow: 0 0 8px rgba(153, 0, 0, 0.4); filter: brightness(1.2); }
+        .locked-btn { font-size: 10px; color: #990000; text-transform: lowercase; letter-spacing: 1.5px; font-weight: 700; cursor: default; display: flex; align-items: center; gap: 5px; }
+        
+        .stock-bar-bg { width: 100%; height: 2px; background-color: #dcd3c9; position: relative; }
+        .stock-bar-fill { height: 100%; background-color: #990000; position: absolute; left: 0; top: 0; transition: width 1s ease; }
+        .stock-bar-fill.low-stock { background-color: #990000; box-shadow: 0 0 8px rgba(153, 0, 0, 0.4); }
+
+        .subtle-link { position: fixed; bottom: 3vh; z-index: 105; color: #888; font-family: 'Segoe UI', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: lowercase; text-decoration: none; transition: color 0.4s ease, text-shadow 0.4s ease; }
+        .link-left { left: 5vw; }
+        .link-right { right: 5vw; }
+        .subtle-link:hover { color: var(--accent-color); text-shadow: 0 0 8px var(--accent-shadow); }
+
+        .slider-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: auto; }
+        .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease, filter 0.8s ease; transform: scale(1.04); border-radius: 2px; outline: none; border: none; }
+        .slide-img.active { opacity: 1; }
+
+        .slider-nav { position: absolute; background: transparent; border: none; font-family: 'Segoe UI', sans-serif; font-weight: 700; cursor: pointer; z-index: 40; transition: color 0.3s, text-shadow 0.3s; pointer-events: auto; }
+        .nav-arrow { top: 50%; transform: translateY(-50%); font-size: 24px; padding: 20px; color: var(--accent-color); font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); }
+        .nav-arrow:hover { color: var(--accent-color); text-shadow: 0 0 10px var(--accent-shadow); filter: brightness(1.2); }
+        
+        .slide-prev { left: -80px; }
+        .slide-next { right: -80px; }
+        
+        .nav-close { bottom: -30px; top: auto; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: lowercase; padding: 10px; color: var(--accent-color); font-weight: 900; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4); white-space: nowrap; }
+        .nav-close:hover { color: var(--accent-color); text-shadow: 0 0 10px var(--accent-shadow); filter: brightness(1.2); }
+
+        .transition-overlay { position: absolute; inset: 0; background-color: #faf0e6; z-index: 50; display: flex; justify-content: center; align-items: center; gap: 15px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; border-radius: 2px; }
+        body.is-transitioning .transition-overlay { opacity: 1; visibility: visible; }
+
+        .trans-dot { width: 14px; height: 14px; background-color: var(--accent-color); border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; box-shadow: inset 0 0 3px rgba(0,0,0,0.4); opacity: 0; transform: scale(0.5); }
+        body.is-transitioning .trans-dot { animation: dotPulse 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        body.is-transitioning .trans-dot:nth-child(1) { animation-delay: 0.1s; }
+        body.is-transitioning .trans-dot:nth-child(2) { animation-delay: 0.25s; }
+        body.is-transitioning .trans-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dotPulse { 0% { opacity: 0; transform: scale(0.5) translateY(10px); } 50% { opacity: 1; transform: scale(1.3) translateY(0); box-shadow: 0 0 15px var(--accent-shadow); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+
+        .is-sold-out .slide-img { filter: none; }
+        .sold-out-text { display: none; }
+
+        @media screen and (max-width: 1440px) and (min-width: 769px), screen and (max-height: 900px) and (min-width: 769px) {
+            body { zoom: 0.85; }
+        }
+
+        @media (max-width: 768px) {
+            body { justify-content: flex-start; }
+            
+            .main-container { flex-direction: column; height: auto; margin-top: 22vh; justify-content: flex-start; gap: 0; width: 100vw; }
+            .product-side { flex: none; width: 100%; display: flex; justify-content: center; align-items: center; }
+            .media-mask { width: 80vw; aspect-ratio: 1 / 1; }
+            
+            .product-container { margin-bottom: 35px; }
+            
+            .details-side { padding-left: 0; align-items: center; justify-content: flex-start; height: auto; max-width: 90vw; padding-bottom: 10vh; margin-top: 10px; max-height: none; overflow: visible; }
+            
+            .product-title { text-align: center; font-size: 28px; white-space: normal; }
+            .collapsible-wrapper { max-width: 90vw; }
+            .product-description { max-width: 90vw; font-size: 13px; text-align: left; }
+            .desc-label { width: 65px; }
+            .action-buttons { align-items: center; }
+            .subtle-link { display: none; }
+
+            .nav-arrow { font-size: 18px; padding: 10px; }
+            .slide-prev { left: -10vw; }
+            .slide-next { right: -10vw; }
+            .nav-close { top: auto; bottom: -30px; font-size: 13px; padding: 5px; }
+        }
+    </style>
+</head>
+<body class="show-details">
+
+    <img src="logo punk 2.png" alt="3ULT LOGO" class="top-logo" id="main-logo">
+
+    <div class="main-container">
+        <div class="product-side">
+            <div class="product-container">
+                <img src="tasma.png" class="tape-overlay" alt="tape">
+                <div class="media-mask">
+                    <div class="transition-overlay">
+                        <div class="trans-dot"></div><div class="trans-dot"></div><div class="trans-dot"></div>
+                    </div>
+                    <div class="slider-wrapper">
+                        <img src="13.png" class="slide-img active">
+                        <img src="23.png" class="slide-img">
+                        <img src="33.png" class="slide-img">
+                        <img src="43.png" class="slide-img">
+                        <img src="53.png" class="slide-img">
+                        <img src="63.png" class="slide-img">
+                        <img src="73.png" class="slide-img">
+                        <img src="83.png" class="slide-img">
+                    </div>
+                </div>
+                <button class="slider-nav nav-close" id="btn-return">[ return ]</button>
+                <button class="slider-nav nav-arrow slide-prev" id="btn-prev">[ &lt; ]</button>
+                <button class="slider-nav nav-arrow slide-next" id="btn-next">[ &gt; ]</button>
+            </div>
+        </div>
+
+        <div class="details-side">
+            <div class="product-title">PUNKSTAR TEE</div>
+            <div class="collapsible-wrapper active desc-wrapper">
+                <div class="product-description">
+                    <div class="desc-item"><span class="desc-label">Fabric:</span><span class="desc-content">100% ecological cotton 200gsm.</span></div>
+                    <div class="desc-item"><span class="desc-label">Fit:</span><span class="desc-content">Ultra boxy fit.</span></div>
+                    <div class="desc-item"><span class="desc-label">Finish:</span><span class="desc-content">Specially cracked screen print with partial puffy print.</span></div>
+                    <div class="desc-item"><span class="desc-label">Details:</span><span class="desc-content">Distressed material, satin neck label with visible dark red stitching, classic DTF caretag ironed inside. Each t-shirt is numbered.</span></div>
+                    
+                    <div class="subtle-note">Note: The shade of the puffy print may vary slightly between shirts due to the nature of the print. The distressing on each shirt is unique.</div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="action-btn toggle-description">hide description</button>
+                <button class="action-btn toggle-sizechart">show sizechart</button>
+                <button class="action-btn toggle-availability">Buy / check size availability</button>
+            </div>
+            <div class="collapsible-wrapper sizechart-wrapper">
+                <img src="3sch.png" alt="Size Chart" class="size-chart-image">
+            </div>
+            <div class="collapsible-wrapper availability-wrapper">
+                <div class="price-display">130 PLN <span class="price-sub">+ dostawa</span></div>
+                <div class="stock-list stock-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <a href="about.html" class="subtle-link link-left">about...</a>
+    <a href="terms.html" class="subtle-link link-right">terms & privacy</a>
+
+    <script>
+        // Ustawiona data odblokowania: 13 września 2026, godzina 18:00
+        const dropDate = new Date("2026-09-13T18:00:00").getTime();
+        
+        // Zaktualizowane stany magazynowe i miejsca na linki
+        const inventory = [
+            { size: "XS",  total: 6, current: 6, link: "[https://buy.stripe.com/bJefZa9NE3BqaEQ2TTfnO0j]" },
+            { size: "S",   total: 6, current: 6, link: "[https://buy.stripe.com/28EaEQ2lc9ZO4gsgKJfnO0k]" },
+            { size: "M",   total: 16, current: 16, link: "[https://buy.stripe.com/fZu00cf7Yeg44gsgKJfnO0l]" },
+            { size: "L",   total: 14, current: 14, link: "[https://buy.stripe.com/28E8wI9NEc7WfZa8edfnO0m]" },
+            { size: "XL",  total: 6, current: 6, link: "[https://buy.stripe.com/fZu00c7Fw7RG9AM2TTfnO0n]" },
+            { size: "XXL", total: 2, current: 2, link: "[https://buy.stripe.com/5kQ28kgc2eg49AM665fnO0o]" }
+        ];
+
+        function renderInventory() {
+            const now = new Date().getTime();
+            const isDropActive = now >= dropDate;
+            const container = document.querySelector('.stock-container');
+            let html = '';
+
+            inventory.forEach(item => {
+                let percentage = (item.total > 0) ? (item.current / item.total) * 100 : 0;
+                let lowStockClass = (percentage <= 40 && percentage > 0) ? 'low-stock' : '';
+                let actionBtnHTML = '';
+                
+                if (!isDropActive) {
+                    actionBtnHTML = `<span class="locked-btn">[ be patient... ]</span>`;
+                } else if (item.current > 0) {
+                    actionBtnHTML = `<a href="${item.link}" target="_blank" class="request-btn subtle-nav-item">[ buy ]</a>`;
+                } else {
+                    actionBtnHTML = `<span style="font-size:10px; color:#666;">[ sold out ]</span>`;
+                }
+
+                html += `
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-left"><span class="stock-size">Size ${item.size}</span> ${actionBtnHTML}</div>
+                            <span class="stock-percent">${Math.round(percentage)}%</span>
+                        </div>
+                        <div class="stock-bar-bg">
+                            <div class="stock-bar-fill ${lowStockClass}" style="width: ${percentage}%;"></div>
+                        </div>
+                    </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        setInterval(renderInventory, 1000);
+        renderInventory();
+
+        const slideImages = document.querySelectorAll('.slide-img');
+        let currentImg = 0;
+
+        document.getElementById('btn-next').addEventListener('click', (e) => {
+            slideImages[currentImg].classList.remove('active');
+            currentImg = (currentImg + 1) % slideImages.length;
+            slideImages[currentImg].classList.add('active');
+        });
+
+        document.getElementById('btn-prev').addEventListener('click', (e) => {
+            slideImages[currentImg].classList.remove('active');
+            currentImg = (currentImg - 1 + slideImages.length) % slideImages.length;
+            slideImages[currentImg].classList.add('active');
+        });
+
+        // Przekierowanie przycisku return do updated1.html
+        document.getElementById('btn-return').addEventListener('click', () => {
+            document.body.classList.add('is-transitioning');
+            setTimeout(() => { window.location.href = 'updated1.html'; }, 500); 
+        });
+        
+        document.getElementById('main-logo').addEventListener('click', () => {
+             window.location.href = 'index.html?skipAnim=true'; 
+        });
+
+        const descBtn = document.querySelector('.toggle-description');
+        const sizeBtn = document.querySelector('.toggle-sizechart');
+        const availBtn = document.querySelector('.toggle-availability');
+        
+        const descWrap = document.querySelector('.desc-wrapper');
+        const sizeWrap = document.querySelector('.sizechart-wrapper');
+        const availWrap = document.querySelector('.availability-wrapper');
+
+        function closeAllTabs() {
+            descWrap.classList.remove('active'); sizeWrap.classList.remove('active'); availWrap.classList.remove('active');
+            descBtn.textContent = 'show description'; sizeBtn.textContent = 'show sizechart'; availBtn.textContent = 'Buy / check size availability';
+        }
+
+        descBtn.addEventListener('click', () => { const isActive = descWrap.classList.contains('active'); closeAllTabs(); if (!isActive) { descWrap.classList.add('active'); descBtn.textContent = 'hide description'; }});
+        sizeBtn.addEventListener('click', () => { const isActive = sizeWrap.classList.contains('active'); closeAllTabs(); if (!isActive) { sizeWrap.classList.add('active'); sizeBtn.textContent = 'hide sizechart'; }});
+        availBtn.addEventListener('click', () => { const isActive = availWrap.classList.contains('active'); closeAllTabs(); if (!isActive) { availWrap.classList.add('active'); availBtn.textContent = 'hide size availability'; }});
+    </script>
+
+    <!-- SYSTEM TŁUMACZEŃ WIDGET -->
+    <style>
+        #lang-toggle-wrapper { position: fixed; top: 5vh; right: 5vw; z-index: 9999; display: flex; align-items: center; gap: 8px; font-family: 'Segoe UI', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: lowercase; color: #888; user-select: none; }
+        #lang-toggle-wrapper span { transition: color 0.3s ease, text-shadow 0.3s ease; cursor: pointer; }
+        #lang-toggle-wrapper span.active { color: var(--accent-color); text-shadow: 0 0 8px var(--accent-shadow); }
+        .lang-switch { position: relative; display: inline-block; width: 34px; height: 18px; }
+        .lang-switch input { opacity: 0; width: 0; height: 0; }
+        .lang-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: transparent; transition: .4s; border-radius: 18px; border: 1.5px solid #888; }
+        .lang-slider:before { position: absolute; content: ""; height: 10px; width: 10px; left: 3px; top: 50%; transform: translateY(-50%); background-color: #888; transition: .4s; border-radius: 50%; }
+        input:checked + .lang-slider { border-color: var(--accent-color); }
+        input:checked + .lang-slider:before { transform: translate(15px, -50%); background-color: var(--accent-color); box-shadow: 0 0 5px var(--accent-color); }
+        @media (max-width: 768px) { #lang-toggle-wrapper { top: 3.5vh; font-size: 10px; gap: 6px; } }
+    </style>
+    <script>
+    (function() {
+        const toggleHTML = `<div id="lang-toggle-wrapper"><span id="lang-en" class="active">en</span><label class="lang-switch"><input type="checkbox" id="lang-checkbox"><span class="lang-slider"></span></label><span id="lang-pl">pl</span></div>`;
+        document.body.insertAdjacentHTML('beforeend', toggleHTML);
+        const checkbox = document.getElementById('lang-checkbox'), enLabel = document.getElementById('lang-en'), plLabel = document.getElementById('lang-pl');
+        
+        const dict = [ 
+            { en: "Fabric:", pl: "Mater.:" }, 
+            { en: "100% ecological cotton 200gsm.", pl: "100% bawełna ekologiczna 200gsm." }, 
+            { en: "Fit:", pl: "Krój:" }, 
+            { en: "Ultra boxy fit.", pl: "Ultra boxy fit." },
+            { en: "Finish:", pl: "Wykoń.:" }, 
+            { en: "Specially cracked screen print with partial puffy print.", pl: "Specjalnie spękany sitodruk z elementami puffy print." }, 
+            { en: "Details:", pl: "Detale:" }, 
+            { en: "Distressed material, satin neck label with visible dark red stitching, classic DTF caretag ironed inside. Each t-shirt is numbered.", pl: "Distressing materiału, satynowa metka z widocznym ciemnoczerwonym przeszyciem na karku, wgrzany od wewnątrz klasyczny caretag DTF. Każda koszulka jest numerowana." }, 
+            { en: "Note: The shade of the puffy print may vary slightly between shirts due to the nature of the print. The distressing on each shirt is unique.", pl: "Uwaga: Odcień puffy printu może się delikatnie różnić między koszulkami ze względu na specyfikę nadruku. Zniszczenia (distressing) na każdej koszulce są unikalne." },
+            
+            { en: "hide description", pl: "ukryj opis" }, 
+            { en: "show description", pl: "pokaz opis" }, 
+            { en: "show sizechart", pl: "pokaz tabele rozmiarow" }, 
+            { en: "hide sizechart", pl: "ukryj tabele rozmiarow" }, 
+            { en: "Buy / check size availability", pl: "Kup / sprawdz dostepnosc rozmiarow" }, 
+            { en: "hide size availability", pl: "ukryj dostepnosc rozmiarow" }, 
+            { en: "[ return ]", pl: "[ powrót ]" }, 
+            { en: "[ sold out ]", pl: "[ wyprzedane ]" }, 
+            { en: "[ be patient... ]", pl: "[ bądź cierpliwy... ]" }, 
+            { en: "[ buy ]", pl: "[ kup ]" }, 
+            { en: "about...", pl: "o nas..." }, 
+            { en: "terms & privacy", pl: "regulamin" } 
+        ];
+        
+        function translateNode(node, lang) {
+            if (node.nodeType === 3) {
+                let text = node.nodeValue.trim();
+                if (!text) return;
+                let entry = dict.find(d => d.en === text || d.pl === text);
+                if (entry) { node.nodeValue = node.nodeValue.replace(text, lang === 'pl' ? entry.pl : entry.en); } 
+                else if (text.startsWith("Size ")) { if (lang === 'pl') node.nodeValue = node.nodeValue.replace("Size ", "Rozmiar "); } 
+                else if (text.startsWith("Rozmiar ")) { if (lang === 'en') node.nodeValue = node.nodeValue.replace("Rozmiar ", "Size "); }
+            } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+                for (let i = 0; i < node.childNodes.length; i++) translateNode(node.childNodes[i], lang);
+            }
+        }
+        function applyLanguage(lang) {
+            if (lang === 'pl') { checkbox.checked = true; enLabel.classList.remove('active'); plLabel.classList.add('active'); } else { checkbox.checked = false; plLabel.classList.remove('active'); enLabel.classList.add('active'); }
+            translateNode(document.body, lang);
+            const descBtn = document.querySelector('.toggle-description'), sizechartBtn = document.querySelector('.toggle-sizechart'), availabilityBtn = document.querySelector('.toggle-availability');
+            if (descBtn) descBtn.textContent = document.querySelector('.desc-wrapper').classList.contains('active') ? (lang === 'pl' ? 'ukryj opis' : 'hide description') : (lang === 'pl' ? 'pokaż opis' : 'show description');
+            if (sizechartBtn) sizechartBtn.textContent = document.querySelector('.sizechart-wrapper').classList.contains('active') ? (lang === 'pl' ? 'ukryj tabelę rozmiarów' : 'hide sizechart') : (lang === 'pl' ? 'pokaż tabelę rozmiarów' : 'show sizechart');
+            if (availabilityBtn) availabilityBtn.textContent = document.querySelector('.availability-wrapper').classList.contains('active') ? (lang === 'pl' ? 'ukryj dostępność rozmiarów' : 'hide size availability') : (lang === 'pl' ? 'Kup / sprawdź dostępność rozmiarów' : 'Buy / check size availability');
+        }
+        checkbox.addEventListener('change', (e) => { const lang = e.target.checked ? 'pl' : 'en'; localStorage.setItem('3ult_lang', lang); applyLanguage(lang); });
+        enLabel.addEventListener('click', () => { checkbox.checked = false; checkbox.dispatchEvent(new Event('change')); });
+        plLabel.addEventListener('click', () => { checkbox.checked = true; checkbox.dispatchEvent(new Event('change')); });
+        setTimeout(() => { applyLanguage(localStorage.getItem('3ult_lang') || 'en'); }, 50);
+        const observer = new MutationObserver((mutations) => {
+            const currentLang = checkbox.checked ? 'pl' : 'en';
+            if (currentLang === 'en') return; 
+            mutations.forEach(mutation => { if (mutation.addedNodes.length) mutation.addedNodes.forEach(node => { if (node.nodeType === 1 && node.id !== 'lang-toggle-wrapper') translateNode(node, currentLang); }); });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    })();
+    </script>
+</body>
+</html>
