@@ -166,8 +166,26 @@
 
     <div id="slider-main">
         
+        <!-- ================= PRODUCT 3 (NAJNOWSZY - ODNOŚNIK DO DETAILS3.HTML) ================= -->
+        <div class="product-slide active" data-accent="#333333" data-shadow="rgba(51, 51, 51, 0.4)" data-logo="logo punk 2.png" data-drop="2026-09-11T18:00:00" id="product-3">
+            <div class="main-container">
+                <div class="product-side">
+                    <div class="product-container product-trigger">
+                        <div class="media-mask">
+                            <div class="sold-out-text">SOLD OUT</div>
+                            <video src="fly3.mp4" class="product-mockup" autoplay loop muted playsinline></video>
+                            <div class="transition-overlay">
+                                <div class="trans-dot"></div><div class="trans-dot"></div><div class="trans-dot"></div>
+                            </div>
+                        </div>
+                        <div class="click-hint">[ click to explore & buy ]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ================= PRODUCT 1 (ODNOŚNIK DO DETAILS1.HTML) ================= -->
-        <div class="product-slide active" data-accent="#990000" data-shadow="rgba(153, 0, 0, 0.4)" data-logo="logo1.png" data-drop="2026-07-15T18:00:00" id="product-1">
+        <div class="product-slide" data-accent="#990000" data-shadow="rgba(153, 0, 0, 0.4)" data-logo="logo1.png" data-drop="2026-07-15T18:00:00" id="product-1">
             <div class="main-container">
                 <div class="product-side">
                     <div class="product-container product-trigger">
@@ -217,6 +235,13 @@
     <!-- LOGIKA STRONY -->
     <script>
         const inventories = {
+            'product-3': [
+                { size: "S",   total: 10, current: 10 },
+                { size: "M",   total: 10, current: 10 },
+                { size: "L",   total: 10, current: 10 },
+                { size: "XL",  total: 10, current: 10 },
+                { size: "XXL", total: 10, current: 10 }
+            ],
             'product-1': [
                 { size: "S",   total: 4, current: 0 },
                 { size: "M",   total: 6, current: 0 },
@@ -312,7 +337,9 @@
                 document.body.classList.add('is-transitioning');
                 
                 setTimeout(() => {
-                    if (slide.id === 'product-1') {
+                    if (slide.id === 'product-3') {
+                        window.location.href = 'details3.html';
+                    } else if (slide.id === 'product-1') {
                         window.location.href = 'details1.html';
                     } else if (slide.id === 'product-2') {
                         window.location.href = 'details2.html';
