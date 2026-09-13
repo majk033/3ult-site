@@ -139,8 +139,8 @@
 
         .coming-soon-container {
             color: #990000; font-size: 32px; letter-spacing: 4px; text-transform: lowercase; 
-            display: flex; justify-content: center; gap: 15px; margin-bottom: 1vh;
-            white-space: nowrap; 
+            display: flex; justify-content: center; flex-wrap: wrap; text-align: center; gap: 15px; margin-bottom: 1vh;
+            white-space: normal; /* Pozwala na zawijanie dłuższego tekstu na telefonach */
         }
 
         .part-of-it {
@@ -151,6 +151,7 @@
 
         .countdown {
             display: flex; gap: 20px; color: #000000; min-height: 60px; 
+            transition: opacity 0.4s ease;
         }
 
         .countdown div {
@@ -312,7 +313,7 @@
             }
 
             .main-logo-large { top: 4vh; width: 80vw; }
-            .coming-soon-container { font-size: 6.5vw; letter-spacing: 1px; }
+            .coming-soon-container { font-size: 6.5vw; letter-spacing: 1px; gap: 5px; }
             .part-of-it { font-size: 5vw; }
             .footer { display: none; }
             
@@ -429,16 +430,22 @@
                 if (countdownEl) countdownEl.style.display = "none";
 
                 const originalContent = document.getElementById('content-to-center');
+                if (originalContent) {
+                    originalContent.style.transition = "transform 0.5s ease-in-out";
+                    originalContent.style.transform = "translateY(0)";
+                }
                 
                 const comingSoon = originalContent.querySelector('.coming-soon-container');
                 if (comingSoon) {
-                    comingSoon.innerHTML = "<span>VESSEL 3 IS LIVE!</span>";
-                    comingSoon.style.textTransform = "uppercase";
+                    // Tekst jest wstawiany dokładnie z zachowaniem wielkości znaków (VESSEL 3 z dużej, reszta z małej)
+                    comingSoon.innerHTML = "<span>VESSEL 3 is now live</span>";
+                    // Wyłącza to text-transform: lowercase zdefiniowany w klasie CSS
+                    comingSoon.style.textTransform = "none";
                 }
                 
                 const partOfIt = originalContent.querySelector('.part-of-it');
                 if (partOfIt) {
-                    partOfIt.innerHTML = "be part of it";
+                    partOfIt.innerHTML = "be part of it.";
                 }
                 
                 clearInterval(intervalId);
@@ -621,8 +628,8 @@
         { en: "* website in development", pl: "* strona w budowie" },
         { en: "is coming...", pl: "nadchodzi..." },
         { en: "vessel 3", pl: "vessel 3" },
-        { en: "be part of it", pl: "bądź częścią tego" },
-        { en: "VESSEL 3 IS LIVE!", pl: "VESSEL 3 JEST DOSTĘPNY!" },
+        { en: "be part of it.", pl: "badz czescia tego." },
+        { en: "VESSEL 3 is now live", pl: "VESSEL 3 jest juz dostepny" },
         { en: "days", pl: "dni" },
         { en: "hours", pl: "godz" },
         { en: "mins", pl: "min" },
