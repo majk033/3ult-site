@@ -15,7 +15,7 @@
     <meta name="color-scheme" content="light">
     <meta name="theme-color" content="#000000" id="theme-color-meta">
     
-      <title>WAIT FOR IT...</title>
+    <title>WAIT FOR IT...</title>
     <meta name="description" content="Vessel 3 is available now! Check the vessel and be part of iT - 3ULT.">
     
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
@@ -52,6 +52,7 @@
             justify-content: center;
             width: 100%;
             min-height: 100vh;
+            min-height: 100dvh;
             min-height: -webkit-fill-available; 
             margin: 0;
             padding: 0;
@@ -73,7 +74,8 @@
             position: fixed;
             inset: 0;
             z-index: 1; 
-            pointer-events: none; 
+            pointer-events: none;
+            transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), filter 0.65s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .drip-group { position: absolute; width: 0; height: 0; }
@@ -106,7 +108,7 @@
             height: auto; 
             z-index: 10;
             cursor: pointer;
-            transition: filter 0.3s ease;
+            transition: filter 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
         }
         
         .main-logo-large:hover {
@@ -121,7 +123,9 @@
             justify-content: center;
             width: 100%;
             height: 100vh;
-            z-index: 10; 
+            height: 100dvh;
+            z-index: 10;
+            transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), filter 0.65s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .gothic-text { font-family: 'UnifrakturCook', cursive; font-weight: 700; }
@@ -140,7 +144,7 @@
         .coming-soon-container {
             color: #990000; font-size: 32px; letter-spacing: 4px; text-transform: lowercase; 
             display: flex; justify-content: center; flex-wrap: wrap; text-align: center; gap: 15px; margin-bottom: 1vh;
-            white-space: normal; /* Pozwala na zawijanie dłuższego tekstu na telefonach */
+            white-space: normal;
         }
 
         .part-of-it {
@@ -168,39 +172,57 @@
             letter-spacing: 2px; text-transform: uppercase; color: #666; margin-top: 5px;
         }
 
-        /* --- PRZYCISK: OBWÓDKA W KSZTAŁCIE 3 KROPEK --- */
-        .explore-btn {
+        /* --- KONTENER CTA Z TRZEMA KROPKAMI --- */
+        .cta-container {
             position: absolute;
-            bottom: 18vh;
+            bottom: 15vh;
             left: 50%;
             transform: translateX(-50%);
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            color: #000000; 
-            font-family: 'UnifrakturCook', cursive;
-            font-weight: 700;
-            font-size: 24px;
-            letter-spacing: 4px;
-            text-transform: lowercase;
-            text-decoration: none;
-            
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="-10 -10 320 120" xmlns="http://www.w3.org/2000/svg"><path d="M 48 9 C 75 7, 88 28, 101 29 C 112 30, 122 8, 149 8 C 177 8, 188 28, 201 29 C 212 30, 223 9, 251 9 C 302 9, 304 91, 251 91 C 223 91, 212 70, 201 71 C 188 72, 177 92, 149 92 C 122 92, 112 70, 101 71 C 88 72, 75 92, 48 92 C -3 92, -3 11, 48 9 Z" stroke="%23990000" stroke-width="2.5" fill="none"/></svg>');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            
-            width: 320px;
-            height: 90px;
-            transition: all 0.4s ease-in-out; 
-            z-index: 10; 
-            cursor: pointer;
+            gap: 18px;
+            z-index: 10;
+            white-space: nowrap;
+            max-width: 94vw;
+            transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), filter 0.65s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .explore-btn:hover {
-            color: #990000; 
-            text-shadow: 0 0 12px rgba(153, 0, 0, 0.5); 
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="-10 -10 320 120" xmlns="http://www.w3.org/2000/svg"><path d="M 48 9 C 75 7, 88 28, 101 29 C 112 30, 122 8, 149 8 C 177 8, 188 28, 201 29 C 212 30, 223 9, 251 9 C 302 9, 304 91, 251 91 C 223 91, 212 70, 201 71 C 188 72, 177 92, 149 92 C 122 92, 112 70, 101 71 C 88 72, 75 92, 48 92 C -3 92, -3 11, 48 9 Z" stroke="%23990000" stroke-width="4.5" fill="none"/></svg>');
-            transform: translateX(-50%) scale(1.05); 
+        .cta-link {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: lowercase;
+            text-decoration: none;
+            color: #333333;
+            background: none;
+            border: none;
+            padding: 8px 4px;
+            cursor: pointer;
+            transition: color 0.4s ease, text-shadow 0.4s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), letter-spacing 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .cta-link:hover,
+        .cta-link.touch-active {
+            color: #990000;
+            text-shadow: 0 0 10px rgba(153, 0, 0, 0.45);
+            transform: scale(1.03);
+        }
+
+        .cta-separator {
+            color: #990000;
+            font-size: 9px;
+            line-height: 1;
+            opacity: 0.75;
+            user-select: none;
+            text-shadow: 0 0 6px rgba(153, 0, 0, 0.3);
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+        }
+
+        .cta-container:hover .cta-separator {
+            opacity: 0.95;
         }
 
         .footer {
@@ -210,7 +232,7 @@
             color: #aaa; 
             letter-spacing: 3px; 
             z-index: 10;
-            transition: bottom 0.3s ease;
+            transition: bottom 0.3s ease, opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .subtle-link {
@@ -223,7 +245,7 @@
             letter-spacing: 2px;
             text-transform: lowercase;
             text-decoration: none;
-            transition: color 0.4s ease, text-shadow 0.4s ease;
+            transition: color 0.4s ease, text-shadow 0.4s ease, opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .link-left { left: 5vw; }
@@ -234,7 +256,43 @@
             text-shadow: 0 0 8px rgba(153, 0, 0, 0.4);
         }
 
-        /* --- BAZOWA MASKA ŚWIATŁA (Z-INDEX 500 ABY PRZYKRYĆ WSZYSTKO) --- */
+        /* --- SMOOTH ANIMACJA PRZEJŚCIA PO KLIKNIĘCIU (W STYLU STRONY BEANIE) --- */
+        body.is-leaving .content-wrapper {
+            opacity: 0;
+            transform: scale(1.06);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        body.is-leaving .cta-container {
+            opacity: 0;
+            transform: translateX(-50%) scale(1.08);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        body.is-leaving .cta-link.touch-active {
+            letter-spacing: 4.5px;
+            color: #990000;
+            text-shadow: 0 0 14px rgba(153, 0, 0, 0.7);
+        }
+
+        body.is-leaving .main-logo-large {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.96);
+            filter: blur(6px);
+            pointer-events: none;
+        }
+
+        body.is-leaving .paint-drips-container,
+        body.is-leaving .footer,
+        body.is-leaving .subtle-link {
+            opacity: 0;
+            filter: blur(4px);
+            pointer-events: none;
+        }
+
+        /* --- BAZOWA MASKA ŚWIATŁA --- */
         .spotlight-wrapper {
             position: fixed; 
             top: -20vh; bottom: -20vh; left: -20vw; right: -20vw; 
@@ -312,21 +370,42 @@
                 --beam-R-X: 0vw;   --beam-R-Y: 35vh;  
             }
 
-            .main-logo-large { top: 4vh; width: 80vw; }
-            .coming-soon-container { font-size: 6.5vw; letter-spacing: 1px; gap: 5px; }
-            .part-of-it { font-size: 5vw; }
+            .main-logo-large { top: 4vh; width: 78vw; max-width: 260px; }
+            .coming-soon-container { font-size: clamp(22px, 6.5vw, 28px); letter-spacing: 1px; gap: 5px; }
+            .part-of-it { font-size: clamp(18px, 5vw, 23px); }
+            .countdown { gap: 12px; }
+            .countdown div { width: 55px; }
+            .countdown-number { font-size: 30px; }
             .footer { display: none; }
             
-            .explore-btn {
-                width: 280px;
-                height: 78px;
-                font-size: 20px;
-                bottom: 15vh;
+            .cta-container {
+                bottom: 12vh;
+                gap: clamp(8px, 2.8vw, 14px);
+                width: 94vw;
             }
 
-            .subtle-link { bottom: 15px; font-size: 10px; letter-spacing: 1px; }
+            .cta-link {
+                font-size: clamp(10px, 3vw, 11.5px);
+                letter-spacing: clamp(1px, 0.4vw, 1.5px);
+                padding: 10px 2px;
+            }
+
+            .cta-separator {
+                font-size: 8px;
+            }
+
+            body.is-leaving .cta-link.touch-active {
+                letter-spacing: 2.5px;
+            }
+
+            .subtle-link { bottom: 18px; font-size: 10px; letter-spacing: 1px; }
             .link-left { left: 5vw; }
             .link-right { right: 5vw; }
+        }
+
+        @media (max-width: 360px) {
+            .cta-container { gap: 6px; }
+            .cta-link { font-size: 9.5px; letter-spacing: 0.8px; }
         }
     </style>
 </head>
@@ -350,7 +429,7 @@
     <div class="content-wrapper">
         <div class="dev-phase-note">* website in development</div>
         
-      <div id="content-to-center" style="display: flex; flex-direction: column; align-items: center; width: 100%; transform: translateY(-60px);">
+        <div id="content-to-center" style="display: flex; flex-direction: column; align-items: center; width: 100%; transform: translateY(-60px);">
             <div class="coming-soon-container gothic-text">
                 <span>vessel 3</span>
                 <span>is coming...</span>
@@ -361,7 +440,14 @@
         <div id="countdown" class="countdown"></div>
     </div>
 
-    <a href="updated1.html" class="explore-btn">explore vessels</a>
+    <!-- KONTENER CTA Z TRZEMA CZERWONYMI KROPKAMI (PO LEWEJ, W ŚRODKU I PO PRAWEJ) -->
+    <div class="cta-container">
+        <span class="cta-separator">&bull;</span>
+        <a href="updated1.html" class="cta-link cta-anim-link">explore vessels</a>
+        <span class="cta-separator">&bull;</span>
+        <a href="beanie.html" class="cta-link cta-anim-link">check accessories</a>
+        <span class="cta-separator">&bull;</span>
+    </div>
 
     <a href="about.html" class="subtle-link link-left">about...</a>
     <a href="terms.html" class="subtle-link link-right">terms & privacy</a>
@@ -369,7 +455,6 @@
     <div class="footer">3ULT /// 2026</div>
 
     <script>
-        // Zaktualizowana data odliczania do 13 września 2026, 18:00
         const countDownDate = new Date("September 13, 2026 18:00:00").getTime();
         const dripsContainer = document.getElementById("paint-drips-container");
         let intervalId;
@@ -432,14 +517,12 @@
                 const originalContent = document.getElementById('content-to-center');
                 if (originalContent) {
                     originalContent.style.transition = "transform 0.5s ease-in-out";
-                    originalContent.style.transform = "translateY(0)";
+                    originalContent.style.transform = "translateY(-15px)";
                 }
                 
                 const comingSoon = originalContent.querySelector('.coming-soon-container');
                 if (comingSoon) {
-                    // Tekst jest wstawiany dokładnie z zachowaniem wielkości znaków (VESSEL 3 z dużej, reszta z małej)
                     comingSoon.innerHTML = "<span>VESSEL 3 is now live</span>";
-                    // Wyłącza to text-transform: lowercase zdefiniowany w klasie CSS
                     comingSoon.style.textTransform = "none";
                 }
                 
@@ -452,18 +535,25 @@
             }
         }
 
-        const exploreBtn = document.querySelector('.explore-btn');
-        if (exploreBtn) {
-            exploreBtn.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768 || 'ontouchstart' in window) {
-                    e.preventDefault(); 
-                    
-                    setTimeout(() => {
-                        window.location.href = this.href;
-                    }, 500);
-                }
+        // Smooth morph-out przy kliknięciu w linki CTA (na komputerze i na telefonie)
+        document.querySelectorAll('.cta-anim-link, .subtle-link').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetUrl = this.href;
+                this.classList.add('touch-active');
+                document.body.classList.add('is-leaving');
+
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 580);
             });
-        }
+        });
+
+        // Reset stanu po cofnięciu strony w przeglądarce (np. gest powrotu na telefonie)
+        window.addEventListener('pageshow', () => {
+            document.body.classList.remove('is-leaving');
+            document.querySelectorAll('.touch-active').forEach(el => el.classList.remove('touch-active'));
+        });
 
         window.addEventListener('DOMContentLoaded', () => {
             updateCountdown(); 
@@ -509,7 +599,7 @@
         right: 5vw;
         z-index: 200; 
         opacity: 0; 
-        transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease, filter 0.6s ease;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -520,6 +610,12 @@
         text-transform: lowercase;
         color: #888;
         user-select: none;
+    }
+
+    body.is-leaving #lang-toggle-wrapper {
+        opacity: 0 !important;
+        filter: blur(4px);
+        pointer-events: none;
     }
     
     #lang-toggle-wrapper span {
@@ -635,7 +731,8 @@
         { en: "mins", pl: "min" },
         { en: "secs", pl: "sek" },
         { en: "3ULT /// 2026", pl: "3ULT /// 2026" },
-        { en: "explore vessels", pl: "odkryj vessels" }
+        { en: "explore vessels", pl: "odkryj vessels" },
+        { en: "check accessories", pl: "sprawdz akcesoria" }
     ];
 
     function translateNode(node, lang) {
@@ -647,56 +744,4 @@
             if (entry) {
                 node.nodeValue = node.nodeValue.replace(text, lang === 'pl' ? entry.pl : entry.en);
             }
-        } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
-            for (let i = 0; i < node.childNodes.length; i++) {
-                translateNode(node.childNodes[i], lang);
-            }
-        }
-    }
-
-    function applyLanguage(lang) {
-        if (lang === 'pl') {
-            checkbox.checked = true;
-            enLabel.classList.remove('active');
-            plLabel.classList.add('active');
-        } else {
-            checkbox.checked = false;
-            plLabel.classList.remove('active');
-            enLabel.classList.add('active');
-        }
-        
-        translateNode(document.body, lang);
-    }
-
-    checkbox.addEventListener('change', (e) => {
-        const lang = e.target.checked ? 'pl' : 'en';
-        localStorage.setItem('3ult_lang', lang);
-        applyLanguage(lang);
-    });
-
-    enLabel.addEventListener('click', () => { checkbox.checked = false; checkbox.dispatchEvent(new Event('change')); });
-    plLabel.addEventListener('click', () => { checkbox.checked = true; checkbox.dispatchEvent(new Event('change')); });
-
-    const savedLang = localStorage.getItem('3ult_lang') || 'en';
-    setTimeout(() => { applyLanguage(savedLang); }, 50);
-
-    const observer = new MutationObserver((mutations) => {
-        const currentLang = checkbox.checked ? 'pl' : 'en';
-        if (currentLang === 'en') return; 
-        
-        mutations.forEach(mutation => {
-            if (mutation.addedNodes.length) {
-                mutation.addedNodes.forEach(node => {
-                    if (node.nodeType === 1 && node.id !== 'lang-toggle-wrapper') {
-                       translateNode(node, currentLang);
-                    }
-                });
-            }
-        });
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-
-})();
-</script>
-</body>
-</html>
+        } else if (node.nodeType === 1 && node.nodeName !==
