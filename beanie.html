@@ -10,6 +10,9 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#faf0e6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>3ULT - OVERSEEING BEANIE</title>
     
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
@@ -44,7 +47,6 @@
             padding: 0;
             width: 100vw;
             height: 100vh;
-            height: 100dvh;
             overflow: hidden;
             font-family: 'Segoe UI', sans-serif;
             position: relative;
@@ -393,7 +395,7 @@
             text-align: right;
         }
 
-        /* --- SEKCJA ZAKUPU (GUZIK + PASEK DOSTĘPNOŚCI W STYLU ZE SCREENA) --- */
+        /* --- SEKCJA ZAKUPU (GUZIK + PASEK DOSTĘPNOŚCI) --- */
         .purchase-row {
             display: flex;
             align-items: center;
@@ -439,7 +441,7 @@
             transform: none;
         }
 
-        /* Kontener paska dostępności (obok na desktopie, pod spodem na mobile) */
+        /* Kontener paska dostępności */
         .stock-widget {
             flex: 1;
             min-width: 130px;
@@ -472,7 +474,6 @@
             transition: color 0.4s ease, text-shadow 0.4s ease;
         }
 
-        /* Tło paska postępu (szara cienka linia jak na screenie) */
         .stock-bar-track {
             width: 100%;
             height: 2px;
@@ -481,7 +482,6 @@
             overflow: visible;
         }
 
-        /* Wypełnienie paska postępu */
         .stock-bar-fill {
             height: 100%;
             width: 100%;
@@ -550,7 +550,7 @@
             text-shadow: 0 0 8px var(--accent-shadow);
         }
 
-        /* --- RESPONSIVE MOBILE (PEŁNE POKRYCIE EKRANU SAFARI GÓRA/DÓŁ) --- */
+        /* --- RESPONSIVE MOBILE (PEŁNE WYJŚCIE POD PASKI SAFARI iOS 18/26) --- */
         @keyframes mobileBreathe {
             0%, 100% {
                 opacity: 0.12;
@@ -564,8 +564,10 @@
 
         @media (max-width: 768px) {
             html, body {
+                width: 100%;
                 min-height: 100lvh;
-                min-height: -webkit-fill-available;
+                /* Zdejmujemy twarde przycinanie safe-area w iOS Safari */
+                overflow-x: hidden;
             }
 
             .top-logo {
@@ -577,31 +579,33 @@
                 top: 22px;
             }
 
-            /* Rozciągnięcie kontenera tła poza paski Safari (góra i dół) oraz wyłączenie maski ucinającej krawędzie */
+            /* Kontener wychodzi o 15vh ponad górny zegar i 15vh poniżej dolnego paska 3ult.pl, bez overflow: hidden */
             .bg-beanie-wrapper {
                 position: fixed;
-                top: calc(-1 * env(safe-area-inset-top, 0px));
-                bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
-                left: calc(-1 * env(safe-area-inset-left, 0px));
-                right: calc(-1 * env(safe-area-inset-right, 0px));
-                width: 100vw;
-                height: 100vh;
-                height: calc(100lvh + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
-                min-height: -webkit-fill-available;
-                -webkit-mask-image: none;
-                mask-image: none;
+                top: -15vh;
+                bottom: -15vh;
+                left: -10vw;
+                right: -10vw;
+                width: 120vw;
+                height: 130vh;
+                height: 130lvh;
+                overflow: visible;
+                -webkit-mask-image: none !important;
+                mask-image: none !important;
             }
 
             .bg-beanie-overlay,
             body.is-hovered:not(.view-details) .bg-beanie-overlay,
             body:not(.view-details):has(.beanie-trigger:hover) .bg-beanie-overlay {
-                position: absolute;
+                position: fixed;
                 top: 50%;
                 left: 50%;
-                /* Zapas rozmiaru (112lvh x 112vw), aby po obrocie o 90 stopni tło wchodziło pod dolny pasek adresu i górny pasek statusu */
-                width: 112vh;
-                width: 112lvh;
-                height: 112vw;
+                /* Po obrocie o 90deg width odpowiada za PION (wysokość ekranu telefonu), a height za POZIOM (szerokość) */
+                width: 135vh;
+                width: 135lvh;
+                height: 135vw;
+                max-width: none;
+                max-height: none;
                 object-fit: cover;
                 object-position: center;
                 transform: translate(-50%, -50%) rotate(90deg) scale(1);
@@ -647,7 +651,6 @@
             .info-column {
                 max-width: 100%;
             }
-            /* Na telefonie pasek dostępności ląduje pod guzikiem i rozciąga się na całą szerokość */
             .purchase-row {
                 flex-direction: column;
                 align-items: stretch;
