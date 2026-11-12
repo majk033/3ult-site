@@ -169,7 +169,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15vh 8vw 10vh;
+            padding: 13vh 8vw 8vh;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
@@ -313,7 +313,7 @@
             background: none;
             border: none;
             padding: 0;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             font-family: 'Segoe UI', sans-serif;
             font-size: 11px;
             color: #888;
@@ -343,16 +343,87 @@
             font-weight: 700;
             color: var(--accent-color);
             letter-spacing: 2px;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             text-shadow: 0 0 6px rgba(153, 0, 0, 0.15);
         }
 
         .product-description {
             font-size: 12px;
-            line-height: 1.65;
+            line-height: 1.6;
             color: #222;
             letter-spacing: 0.6px;
-            margin: 0 0 20px 0;
+            margin: 0 0 16px 0;
+        }
+
+        /* --- KAFELKI WYBORU KOLORU --- */
+        .color-selector-section {
+            margin-bottom: 18px;
+        }
+
+        .color-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10.5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .color-header-label {
+            color: #777;
+            font-weight: 600;
+        }
+
+        .color-tiles-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .color-tile {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 7px 13px;
+            background: rgba(250, 240, 230, 0.45);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: lowercase;
+            color: #444;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            user-select: none;
+        }
+
+        .color-tile:hover {
+            border-color: rgba(153, 0, 0, 0.5);
+            color: #000;
+            transform: translateY(-1px);
+        }
+
+        .color-tile.active {
+            border-color: var(--accent-color);
+            color: #000;
+            background: rgba(153, 0, 0, 0.04);
+            box-shadow: 0 0 10px rgba(153, 0, 0, 0.16);
+        }
+
+        .color-swatch-box {
+            width: 14px;
+            height: 14px;
+            border-radius: 1px;
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            flex-shrink: 0;
+        }
+
+        /* Próbka black / bordo (przekątny podział 50/50) */
+        .swatch-black-bordo {
+            background: linear-gradient(135deg, #0d0d0d 50%, #800000 50%);
         }
 
         .spec-header {
@@ -361,17 +432,17 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             color: #000;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 5px;
+            padding-bottom: 4px;
         }
 
         .spec-list {
             list-style: none;
             padding: 0;
-            margin: 0 0 26px 0;
+            margin: 0 0 20px 0;
             font-size: 11.5px;
-            line-height: 1.85;
+            line-height: 1.8;
             color: var(--text-muted);
             letter-spacing: 0.8px;
         }
@@ -381,7 +452,7 @@
             justify-content: space-between;
             gap: 15px;
             border-bottom: 1px dashed rgba(0, 0, 0, 0.07);
-            padding: 3px 0;
+            padding: 2.5px 0;
         }
 
         .spec-label {
@@ -530,6 +601,28 @@
             animation: intenseBarGlow 1.6s infinite ease-in-out;
         }
 
+        /* --- INFORMACJA O CZASIE DOSTAWY --- */
+        .delivery-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            font-size: 10.5px;
+            letter-spacing: 1.6px;
+            text-transform: lowercase;
+            color: #666;
+            user-select: none;
+        }
+
+        .delivery-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            box-shadow: 0 0 6px var(--accent-shadow);
+            flex-shrink: 0;
+        }
+
         /* --- DOLNE LINKI --- */
         .subtle-link {
             position: fixed;
@@ -663,6 +756,11 @@
             .stock-widget {
                 width: 100%;
             }
+            .delivery-note {
+                justify-content: center;
+                width: 100%;
+                margin-top: 14px;
+            }
             .subtle-link { display: none; }
         }
     </style>
@@ -715,6 +813,35 @@
                     Reversible double-sided beanie crafted from two layers of ~300 GSM ribbed fabric (~600 GSM total). Made of cotton blended with Lycra so the beanie retains its original form and springs back into shape. Finished with an intentionally cracked DTF print. Made from scratch in Poland using exclusively Polish materials.
                 </p>
 
+                <!-- SEKCJA WYBORU KOLORU (PRZYGOTOWANA POD KOLEJNE WARIANTY) -->
+                <div class="color-selector-section">
+                    <div class="color-header">
+                        <span class="color-header-label">color</span>
+                    </div>
+                    <div class="color-tiles-grid" id="color-tiles-grid">
+                        <button type="button" class="color-tile active"
+                            data-checkout-url="https://buy.stripe.com/dRm00c3pg3Bq9AM2TTfnO0p"
+                            data-slides="beanie1.png,beanie2.png,beanie3.png"
+                            data-stock-current="50"
+                            data-stock-max="50">
+                            <span class="color-swatch-box swatch-black-bordo"></span>
+                            <span class="color-tile-name">black / bordo</span>
+                        </button>
+
+                        <!-- 
+                        ABY DODAĆ NOWY KOLOR W PRZYSZŁOŚCI, ODKOMENTUJ PONIŻSZY KAFELEK I UZUPEŁNIJ DANE:
+                        <button type="button" class="color-tile"
+                            data-checkout-url="https://buy.stripe.com/TWÓJ_NOWY_LINK"
+                            data-slides="nowy1.png,nowy2.png,nowy3.png"
+                            data-stock-current="50"
+                            data-stock-max="50">
+                            <span class="color-swatch-box" style="background: linear-gradient(135deg, #111 50%, #444 50%);"></span>
+                            <span class="color-tile-name">black / grey</span>
+                        </button>
+                        -->
+                    </div>
+                </div>
+
                 <div class="spec-header">specification</div>
                 <ul class="spec-list">
                     <li>
@@ -741,7 +868,7 @@
 
                 <!-- SEKCJA PRZYCISKU I PASKA DOSTĘPNOŚCI -->
                 <div class="purchase-row">
-                    <a href="#checkout" data-checkout-url="#checkout" class="buy-action-btn is-locked" id="buy-now-btn">[ proceed to checkout ]</a>
+                    <a href="https://buy.stripe.com/dRm00c3pg3Bq9AM2TTfnO0p" data-checkout-url="https://buy.stripe.com/dRm00c3pg3Bq9AM2TTfnO0p" class="buy-action-btn is-locked" id="buy-now-btn">[ proceed to checkout ]</a>
                     
                     <div class="stock-widget stock-subtle" id="stock-widget">
                         <div class="stock-top-row">
@@ -752,6 +879,12 @@
                             <div class="stock-bar-fill" id="stock-bar-fill"></div>
                         </div>
                     </div>
+                </div>
+
+                <!-- INFORMACJA O DOSTAWIE -->
+                <div class="delivery-note">
+                    <span class="delivery-dot"></span>
+                    <span>delivery: 1-3 business days</span>
                 </div>
             </div>
 
@@ -796,7 +929,7 @@
 
         // --- LOGIKA ODLICZANIA I ODBLOKOWANIA PRZYCISKU PŁATNOŚCI ---
         const buyBtn = document.getElementById('buy-now-btn');
-        const targetCheckoutUrl = buyBtn.getAttribute('data-checkout-url');
+        let targetCheckoutUrl = buyBtn.getAttribute('data-checkout-url');
         let countdownInterval = null;
 
         function updateCountdownButton() {
@@ -891,6 +1024,44 @@
             if (endX < startX - 40) updateSlider(currentSlide + 1);
             if (endX > startX + 40) updateSlider(currentSlide - 1);
         });
+
+        // --- LOGIKA PRZEŁĄCZANIA KAFELKÓW KOLORU ---
+        const colorTiles = document.querySelectorAll('.color-tile');
+        colorTiles.forEach(tile => {
+            tile.addEventListener('click', () => {
+                colorTiles.forEach(t => t.classList.remove('active'));
+                tile.classList.add('active');
+
+                // Podmiana linku Stripe dla wybranego koloru
+                const newCheckout = tile.getAttribute('data-checkout-url');
+                if (newCheckout) {
+                    targetCheckoutUrl = newCheckout;
+                    buyBtn.setAttribute('data-checkout-url', newCheckout);
+                    if (!buyBtn.classList.contains('is-locked')) {
+                        buyBtn.setAttribute('href', newCheckout);
+                    }
+                }
+
+                // Opcjonalna podmiana zdjęć w sliderze dla wybranego koloru
+                const newSlidesAttr = tile.getAttribute('data-slides');
+                if (newSlidesAttr) {
+                    const slidePaths = newSlidesAttr.split(',').map(s => s.trim());
+                    slides.forEach((imgEl, idx) => {
+                        if (slidePaths[idx]) {
+                            imgEl.src = slidePaths[idx];
+                        }
+                    });
+                    updateSlider(0);
+                }
+
+                // Opcjonalna podmiana stanu magazynowego dla wybranego koloru
+                const variantCurrent = tile.getAttribute('data-stock-current');
+                const variantMax = tile.getAttribute('data-stock-max');
+                if (variantCurrent !== null && variantMax !== null) {
+                    updateStockDisplay(Number(variantCurrent), Number(variantMax));
+                }
+            });
+        });
     </script>
 
     <!-- SYSTEM TŁUMACZEŃ WIDGET (EN / PL) -->
@@ -919,6 +1090,8 @@
                 en: "Reversible double-sided beanie crafted from two layers of ~300 GSM ribbed fabric (~600 GSM total). Made of cotton blended with Lycra so the beanie retains its original form and springs back into shape. Finished with an intentionally cracked DTF print. Made from scratch in Poland using exclusively Polish materials.", 
                 pl: "Dwustronna czapka beanie wykonana z dwóch warstw materiału ściągaczowego ~300 GSM każdy (łącznie ~600 GSM). Bawełna z domieszką lycry sprawia, że czapka nie zmienia swojej formy i wraca do pierwotnego kształtu. Wykończona celowo spękanym nadrukiem DTF. Produkt od zera wykonany w Polsce jedynie z polskich materiałów." 
             },
+            { en: "color", pl: "kolor" },
+            { en: "black / bordo", pl: "czarny / bordo" },
             { en: "specification", pl: "specyfikacja" },
             { en: "construction", pl: "konstrukcja" },
             { en: "double-sided / 2 ribbed layers", pl: "dwustronna / 2 warstwy ściągaczowe" },
@@ -932,6 +1105,7 @@
             { en: "made in poland", pl: "polska" },
             { en: "stock", pl: "dostępność" },
             { en: "[ proceed to checkout ]", pl: "[ przejdź do płatności ]" },
+            { en: "delivery: 1-3 business days", pl: "dostawa: 1-3 dni roboczych" },
             { en: "about...", pl: "o nas..." },
             { en: "terms & privacy", pl: "regulamin" }
         ];
