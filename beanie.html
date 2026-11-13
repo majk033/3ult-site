@@ -659,7 +659,6 @@
             html, body {
                 width: 100%;
                 min-height: 100lvh;
-                /* Zdejmujemy twarde przycinanie safe-area w iOS Safari */
                 overflow-x: hidden;
             }
 
@@ -672,7 +671,6 @@
                 top: 22px;
             }
 
-            /* Kontener wychodzi o 15vh ponad górny zegar i 15vh poniżej dolnego paska 3ult.pl, bez overflow: hidden */
             .bg-beanie-wrapper {
                 position: fixed;
                 top: -15vh;
@@ -693,7 +691,6 @@
                 position: fixed;
                 top: 50%;
                 left: 50%;
-                /* Po obrocie o 90deg width odpowiada za PION (wysokość ekranu telefonu), a height za POZIOM (szerokość) */
                 width: 135vh;
                 width: 135lvh;
                 height: 135vw;
@@ -813,7 +810,7 @@
                     Reversible double-sided beanie crafted from two layers of ~300 GSM ribbed fabric (~600 GSM total). Made of cotton blended with Lycra so the beanie retains its original form and springs back into shape. Finished with an intentionally cracked DTF print. Made from scratch in Poland using exclusively Polish materials.
                 </p>
 
-                <!-- SEKCJA WYBORU KOLORU (PRZYGOTOWANA POD KOLEJNE WARIANTY) -->
+                <!-- SEKCJA WYBORU KOLORU -->
                 <div class="color-selector-section">
                     <div class="color-header">
                         <span class="color-header-label">color</span>
@@ -821,24 +818,10 @@
                     <div class="color-tiles-grid" id="color-tiles-grid">
                         <button type="button" class="color-tile active"
                             data-checkout-url="https://buy.stripe.com/dRm00c3pg3Bq9AM2TTfnO0p"
-                            data-slides="beanie1.png,beanie2.png,beanie3.png"
-                            data-stock-current="10"
-                            data-stock-max="8">
+                            data-slides="beanie1.png,beanie2.png,beanie3.png">
                             <span class="color-swatch-box swatch-black-bordo"></span>
                             <span class="color-tile-name">black / bordo</span>
                         </button>
-
-                        <!-- 
-                        ABY DODAĆ NOWY KOLOR W PRZYSZŁOŚCI, ODKOMENTUJ PONIŻSZY KAFELEK I UZUPEŁNIJ DANE:
-                        <button type="button" class="color-tile"
-                            data-checkout-url="https://buy.stripe.com/TWÓJ_NOWY_LINK"
-                            data-slides="nowy1.png,nowy2.png,nowy3.png"
-                            data-stock-current="50"
-                            data-stock-max="50">
-                            <span class="color-swatch-box" style="background: linear-gradient(135deg, #111 50%, #444 50%);"></span>
-                            <span class="color-tile-name">black / grey</span>
-                        </button>
-                        -->
                     </div>
                 </div>
 
@@ -898,15 +881,14 @@
     <!-- LOGIKA STRONY -->
     <script>
         // =========================================================================
-        // --- KONFIGURACJA DROPU I STOCKU (ZMIENIAJ TUTAJ NA BIEŻĄCO) ---
+        // --- KONFIGURACJA DROPU I STOCKU (ZMIENIAJ TYLKO CURRENT_STOCK!) ---
         // =========================================================================
-        const MAX_STOCK = 10;      // Maksymalna ilość sztuk (100% nakładu)
-        const CURRENT_STOCK = 7;  // Aktualna dostępna ilość sztuk (zmieniaj na bieżąco)
+        const MAX_STOCK = 10;      // 
+        const CURRENT_STOCK = 7;  //
         
-        const DROP_TARGET_DATE = new Date('2026-11-13T18:00:00+01:00').getTime(); // Przyszły piątek, 18:00
+        const DROP_TARGET_DATE = new Date('2026-11-13T18:00:00+01:00').getTime();
         // =========================================================================
 
-        // --- AUTOMATYCZNE WYLICZANIE PROCENTU I PASKA DOSTĘPNOŚCI ---
         const stockWidget = document.getElementById('stock-widget');
         const stockPercentValue = document.getElementById('stock-percent-value');
         const stockBarFill = document.getElementById('stock-bar-fill');
@@ -937,8 +919,14 @@
             const diff = DROP_TARGET_DATE - now;
             const currentLang = localStorage.getItem('3ult_lang') || 'en';
 
+            if (CURRENT_STOCK <= 0) {
+                buyBtn.classList.add('is-locked');
+                buyBtn.removeAttribute('href');
+                buyBtn.textContent = currentLang === 'pl' ? '[ wyprzedane ]' : '[ sold out ]';
+                return;
+            }
+
             if (diff > 0) {
-                // Przycisk zablokowany - odlicza czas do piątku 18:00
                 buyBtn.classList.add('is-locked');
                 buyBtn.removeAttribute('href');
 
@@ -949,7 +937,6 @@
 
                 buyBtn.textContent = `[ ${days}d ${hours}h ${minutes}m ${seconds}s ]`;
             } else {
-                // Czas minął - odblokowujemy przycisk i przywracamy jego docelowy wygląd
                 buyBtn.classList.remove('is-locked');
                 buyBtn.setAttribute('href', targetCheckoutUrl);
                 buyBtn.textContent = currentLang === 'pl' ? '[ przejdź do płatności ]' : '[ proceed to checkout ]';
@@ -1032,7 +1019,6 @@
                 colorTiles.forEach(t => t.classList.remove('active'));
                 tile.classList.add('active');
 
-                // Podmiana linku Stripe dla wybranego koloru
                 const newCheckout = tile.getAttribute('data-checkout-url');
                 if (newCheckout) {
                     targetCheckoutUrl = newCheckout;
@@ -1042,7 +1028,6 @@
                     }
                 }
 
-                // Opcjonalna podmiana zdjęć w sliderze dla wybranego koloru
                 const newSlidesAttr = tile.getAttribute('data-slides');
                 if (newSlidesAttr) {
                     const slidePaths = newSlidesAttr.split(',').map(s => s.trim());
@@ -1054,11 +1039,12 @@
                     updateSlider(0);
                 }
 
-                // Opcjonalna podmiana stanu magazynowego dla wybranego koloru
                 const variantCurrent = tile.getAttribute('data-stock-current');
                 const variantMax = tile.getAttribute('data-stock-max');
                 if (variantCurrent !== null && variantMax !== null) {
                     updateStockDisplay(Number(variantCurrent), Number(variantMax));
+                } else {
+                    updateStockDisplay(CURRENT_STOCK, MAX_STOCK);
                 }
             });
         });
