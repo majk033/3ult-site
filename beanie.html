@@ -307,19 +307,20 @@
             color: #888;
         }
 
-        /* --- PRAWA KOLUMNA: OPIS I SPECYFIKACJA --- */
+        /* --- PRZYCISK POWROTU POD SLIDEREM --- */
         .back-btn {
-            align-self: flex-start;
+            align-self: center;
             background: none;
             border: none;
-            padding: 0;
-            margin-bottom: 12px;
+            padding: 6px 12px;
+            margin-top: 10px;
             font-family: 'Segoe UI', sans-serif;
             font-size: 11px;
             color: #888;
             letter-spacing: 2px;
             text-transform: lowercase;
             cursor: pointer;
+            user-select: none;
             transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
         }
 
@@ -329,6 +330,7 @@
             transform: translateX(-3px);
         }
 
+        /* --- PRAWA KOLUMNA: OPIS I SPECYFIKACJA --- */
         .product-title {
             font-family: 'UnifrakturCook', cursive;
             font-size: clamp(28px, 3vw, 38px);
@@ -723,7 +725,7 @@
             }
             .details-container {
                 grid-template-columns: 1fr;
-                gap: 28px;
+                gap: 24px;
             }
             .gallery-column,
             .info-column {
@@ -783,7 +785,7 @@
     <div id="details-view">
         <div class="details-container">
             
-            <!-- LEWA STRONA: SLIDER ZE ZDJĘCIAMI PRODUKTU -->
+            <!-- LEWA STRONA: SLIDER ZE ZDJĘCIAMI PRODUKTU + POWRÓT -->
             <div class="gallery-column">
                 <div class="slider-wrapper">
                     <button class="slider-arrow arrow-prev" id="slide-prev">[ &lt; ]</button>
@@ -797,12 +799,11 @@
                     <button class="slider-arrow arrow-next" id="slide-next">[ &gt; ]</button>
                 </div>
                 <div class="slider-counter" id="slider-counter">01 / 03</div>
+                <button class="back-btn" id="back-to-intro">[ &lt; back ]</button>
             </div>
 
             <!-- PRAWA STRONA: OPIS I SPECYFIKACJA -->
             <div class="info-column">
-                <button class="back-btn" id="back-to-intro">[ &lt; back ]</button>
-                
                 <h1 class="product-title">Overseeing Beanie</h1>
                 <div class="product-price">99 PLN</div>
                 
@@ -856,7 +857,7 @@
                     <div class="stock-widget stock-subtle" id="stock-widget">
                         <div class="stock-top-row">
                             <span class="stock-label">stock</span>
-                            <span class="stock-percent" id="stock-percent-value">100%</span>
+                            <span class="stock-percent" id="stock-percent-value">70%</span>
                         </div>
                         <div class="stock-bar-track">
                             <div class="stock-bar-fill" id="stock-bar-fill"></div>
@@ -883,8 +884,8 @@
         // =========================================================================
         // --- KONFIGURACJA DROPU I STOCKU (ZMIENIAJ TYLKO CURRENT_STOCK!) ---
         // =========================================================================
-        const MAX_STOCK = 10;      // 
-        const CURRENT_STOCK = 7;  //
+        const MAX_STOCK = 10;      // Zostaw zawsze 50 (100% nakładu)
+        const CURRENT_STOCK = 7;  // <--- ZMIENIAJ TYLKO TĘ LICZBĘ (np. 45, 30, 12)
         
         const DROP_TARGET_DATE = new Date('2026-11-13T18:00:00+01:00').getTime();
         // =========================================================================
