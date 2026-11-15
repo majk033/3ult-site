@@ -428,6 +428,11 @@
             background: linear-gradient(135deg, #0d0d0d 50%, #800000 50%);
         }
 
+        /* Próbka black / frost (czarny + chłodny błękit) */
+        .swatch-black-frost {
+            background: linear-gradient(135deg, #0d0d0d 50%, #77b5d9 50%);
+        }
+
         .spec-header {
             font-size: 11px;
             font-weight: 700;
@@ -791,9 +796,9 @@
                     <button class="slider-arrow arrow-prev" id="slide-prev">[ &lt; ]</button>
                     
                     <div class="slides-viewport" id="slides-viewport">
-                        <img src="beanie1.png" alt="Overseeing Beanie 1" class="beanie-slide active">
-                        <img src="beanie2.png" onerror="this.src='tlo_os.png'" alt="Overseeing Beanie 2" class="beanie-slide">
-                        <img src="beanie3.png" onerror="this.src='tlo_os.png'" alt="Overseeing Beanie 3" class="beanie-slide">
+                        <img src="beanie1.png" onerror="this.onerror=null; this.src='beanie1.png'" alt="Overseeing Beanie 1" class="beanie-slide active">
+                        <img src="beanie2.png" onerror="this.onerror=null; this.src='tlo_os.png'" alt="Overseeing Beanie 2" class="beanie-slide">
+                        <img src="beanie3.png" onerror="this.onerror=null; this.src='tlo_os.png'" alt="Overseeing Beanie 3" class="beanie-slide">
                     </div>
 
                     <button class="slider-arrow arrow-next" id="slide-next">[ &gt; ]</button>
@@ -818,10 +823,19 @@
                     </div>
                     <div class="color-tiles-grid" id="color-tiles-grid">
                         <button type="button" class="color-tile active"
+                            data-variant="bordo"
                             data-checkout-url="https://buy.stripe.com/dRm00c3pg3Bq9AM2TTfnO0p"
                             data-slides="beanie1.png,beanie2.png,beanie3.png">
                             <span class="color-swatch-box swatch-black-bordo"></span>
                             <span class="color-tile-name">black / bordo</span>
+                        </button>
+
+                        <button type="button" class="color-tile"
+                            data-variant="frost"
+                            data-checkout-url="https://buy.stripe.com/7sYcMYgc26NC9AMgKJfnO0q"
+                            data-slides="beanie4.png,beanie5.png,beanie6.png">
+                            <span class="color-swatch-box swatch-black-frost"></span>
+                            <span class="color-tile-name">black / frost</span>
                         </button>
                     </div>
                 </div>
@@ -857,7 +871,7 @@
                     <div class="stock-widget stock-subtle" id="stock-widget">
                         <div class="stock-top-row">
                             <span class="stock-label">stock</span>
-                            <span class="stock-percent" id="stock-percent-value">70%</span>
+                            <span class="stock-percent" id="stock-percent-value">45%</span>
                         </div>
                         <div class="stock-bar-track">
                             <div class="stock-bar-fill" id="stock-bar-fill"></div>
@@ -882,13 +896,25 @@
     <!-- LOGIKA STRONY -->
     <script>
         // =========================================================================
-        // --- KONFIGURACJA DROPU I STOCKU (ZMIENIAJ TYLKO CURRENT_STOCK!) ---
+        // --- KONFIGURACJA DROPU I STOCKU (OSOBNY STAN DLA KAŻDEGO KOLORU) ---
         // =========================================================================
-        const MAX_STOCK = 11;      // Zostaw zawsze 50 (100% nakładu)
-        const CURRENT_STOCK = 5;  // <--- ZMIENIAJ TYLKO TĘ LICZBĘ (np. 45, 30, 12)
+        // 1. Kolor: BLACK / BORDO
+        const MAX_STOCK_BORDO = 11;     // Maksymalny nakład Black / Bordo (100%)
+        const CURRENT_STOCK_BORDO = 5;  // <--- ZMIENIAJ TUTAJ AKTUALNĄ ILOŚĆ SZTUK BORDO
+
+        // 2. Kolor: BLACK / FROST
+        const MAX_STOCK_FROST = 11;     // Maksymalny nakład Black / Frost (100%)
+        const CURRENT_STOCK_FROST = 11; // <--- ZMIENIAJ TUTAJ AKTUALNĄ ILOŚĆ SZTUK FROST
         
         const DROP_TARGET_DATE = new Date('2026-11-13T18:00:00+01:00').getTime();
         // =========================================================================
+
+        const STOCK_MAP = {
+            bordo: { current: CURRENT_STOCK_BORDO, max: MAX_STOCK_BORDO },
+            frost: { current: CURRENT_STOCK_FROST, max: MAX_STOCK_FROST }
+        };
+
+        let activeVariant = 'bordo';
 
         const stockWidget = document.getElementById('stock-widget');
         const stockPercentValue = document.getElementById('stock-percent-value');
@@ -908,7 +934,7 @@
                 stockWidget.classList.add('stock-subtle');
             }
         }
-        updateStockDisplay(CURRENT_STOCK, MAX_STOCK);
+        updateStockDisplay(STOCK_MAP[activeVariant].current, STOCK_MAP[activeVariant].max);
 
         // --- LOGIKA ODLICZANIA I ODBLOKOWANIA PRZYCISKU PŁATNOŚCI ---
         const buyBtn = document.getElementById('buy-now-btn');
@@ -919,8 +945,9 @@
             const now = Date.now();
             const diff = DROP_TARGET_DATE - now;
             const currentLang = localStorage.getItem('3ult_lang') || 'en';
+            const activeStock = STOCK_MAP[activeVariant] ? STOCK_MAP[activeVariant].current : 0;
 
-            if (CURRENT_STOCK <= 0) {
+            if (activeStock <= 0) {
                 buyBtn.classList.add('is-locked');
                 buyBtn.removeAttribute('href');
                 buyBtn.textContent = currentLang === 'pl' ? '[ wyprzedane ]' : '[ sold out ]';
@@ -1020,15 +1047,24 @@
                 colorTiles.forEach(t => t.classList.remove('active'));
                 tile.classList.add('active');
 
+                // Ustawienie aktywnego wariantu i aktualizacja jego stanu magazynowego
+                const variantKey = tile.getAttribute('data-variant');
+                if (variantKey && STOCK_MAP[variantKey]) {
+                    activeVariant = variantKey;
+                    updateStockDisplay(STOCK_MAP[activeVariant].current, STOCK_MAP[activeVariant].max);
+                }
+
+                // Podmiana linku Stripe dla wybranego koloru
                 const newCheckout = tile.getAttribute('data-checkout-url');
                 if (newCheckout) {
                     targetCheckoutUrl = newCheckout;
                     buyBtn.setAttribute('data-checkout-url', newCheckout);
-                    if (!buyBtn.classList.contains('is-locked')) {
-                        buyBtn.setAttribute('href', newCheckout);
-                    }
                 }
 
+                // Odświeżenie przycisku (uwzględnia nowy link i ewentualny stan Sold Out wybranego koloru)
+                updateCountdownButton();
+
+                // Podmiana zdjęć w sliderze dla wybranego koloru
                 const newSlidesAttr = tile.getAttribute('data-slides');
                 if (newSlidesAttr) {
                     const slidePaths = newSlidesAttr.split(',').map(s => s.trim());
@@ -1038,14 +1074,6 @@
                         }
                     });
                     updateSlider(0);
-                }
-
-                const variantCurrent = tile.getAttribute('data-stock-current');
-                const variantMax = tile.getAttribute('data-stock-max');
-                if (variantCurrent !== null && variantMax !== null) {
-                    updateStockDisplay(Number(variantCurrent), Number(variantMax));
-                } else {
-                    updateStockDisplay(CURRENT_STOCK, MAX_STOCK);
                 }
             });
         });
@@ -1079,6 +1107,7 @@
             },
             { en: "color", pl: "kolor" },
             { en: "black / bordo", pl: "czarny / bordo" },
+            { en: "black / frost", pl: "czarny / frost" },
             { en: "specification", pl: "specyfikacja" },
             { en: "construction", pl: "konstrukcja" },
             { en: "double-sided / 2 ribbed layers", pl: "dwustronna / 2 warstwy ściągaczowe" },
