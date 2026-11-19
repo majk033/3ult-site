@@ -410,6 +410,172 @@
     </style>
 </head>
 <body>
+  <!-- === PASEK PROMOCYJNY 3ULT (FR33SHIP) === -->
+<style>
+    #promo-top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 30px;
+        background-color: #990000;
+        color: #faf0e6;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 5px 14px;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 1.5px;
+        text-transform: lowercase;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        box-shadow: 0 2px 12px rgba(153, 0, 0, 0.35);
+        user-select: none;
+    }
+
+    #promo-code-copy {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #faf0e6;
+        background: rgba(0, 0, 0, 0.22);
+        border: 1px solid rgba(250, 240, 230, 0.35);
+        padding: 2px 8px;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    #promo-code-copy:hover {
+        background-color: #faf0e6;
+        color: #990000;
+        border-color: #faf0e6;
+    }
+
+    #promo-code-copy:active {
+        transform: scale(0.96);
+    }
+
+    #promo-code-copy.is-copied {
+        background-color: #faf0e6;
+        color: #990000;
+        border-color: #faf0e6;
+    }
+
+    /* Automatyczne przesunięcie logo i przełącznika języka na mobile, aby pasek ich nie zasłaniał */
+    @media (max-width: 768px) {
+        #promo-top-bar {
+            font-size: 9.5px;
+            letter-spacing: 1px;
+            padding: 6px 10px;
+            line-height: 1.35;
+        }
+        .top-logo {
+            top: 48px !important;
+        }
+        body.view-details .top-logo {
+            top: 46px !important;
+        }
+        #lang-toggle-wrapper {
+            top: 54px !important;
+        }
+        #details-view {
+            padding-top: 135px !important;
+        }
+    }
+</style>
+
+<div id="promo-top-bar" role="region" aria-label="Promocja">
+    <span id="promo-bar-text">do końca tygodnia darmowa dostawa do paczkomatu z kodem:</span>
+    <button type="button" id="promo-code-copy" title="kliknij, aby skopiować kod">[ FR33SHIP ]</button>
+</div>
+
+<script>
+(function() {
+    const PROMO_CODE = 'FR33SHIP';
+    const textEl = document.getElementById('promo-bar-text');
+    const copyBtn = document.getElementById('promo-code-copy');
+    let resetTimer = null;
+    let isCopiedState = false;
+
+    const copyLabels = {
+        pl: {
+            text: 'do końca tygodnia darmowa dostawa do paczkomatu z kodem:',
+            idle: `[ ${PROMO_CODE} ]`,
+            copied: '[ skopiowano ]'
+        },
+        en: {
+            text: 'free parcel locker delivery until the end of the week with code:',
+            idle: `[ ${PROMO_CODE} ]`,
+            copied: '[ copied ]'
+        }
+    };
+
+    function getCurrentLang() {
+        return localStorage.getItem('3ult_lang') === 'pl' ? 'pl' : 'en';
+    }
+
+    function syncPromoLang() {
+        const lang = getCurrentLang();
+        const dict = copyLabels[lang];
+        if (textEl) textEl.textContent = dict.text;
+        if (copyBtn) copyBtn.textContent = isCopiedState ? dict.copied : dict.idle;
+    }
+
+    function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try { document.execCommand('copy'); } catch (err) {}
+        document.body.removeChild(textarea);
+    }
+
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(PROMO_CODE).catch(() => fallbackCopy(PROMO_CODE));
+            } else {
+                fallbackCopy(PROMO_CODE);
+            }
+
+            isCopiedState = true;
+            copyBtn.classList.add('is-copied');
+            syncPromoLang();
+
+            if (resetTimer) clearTimeout(resetTimer);
+            resetTimer = setTimeout(() => {
+                isCopiedState = false;
+                copyBtn.classList.remove('is-copied');
+                syncPromoLang();
+            }, 2000);
+        });
+    }
+
+    // Synchronizacja z istniejącym przełącznikiem języka (EN / PL) na stronie
+    syncPromoLang();
+    setTimeout(syncPromoLang, 80);
+
+    document.addEventListener('change', (e) => {
+        if (e.target && e.target.id === 'lang-checkbox') {
+            syncPromoLang();
+        }
+    });
+})();
+</script>
+<!-- === KONIEC PASKA PROMOCYJNEGO === -->
 
     <div class="cream-bg"></div>
 
