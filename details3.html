@@ -128,11 +128,11 @@
         .sold-out-text { display: none; }
 
         @media screen and (max-width: 1440px) and (min-width: 769px), screen and (max-height: 900px) and (min-width: 769px) {
-             { zoom: 0.85; }
+            body { zoom: 0.85; }
         }
 
         @media (max-width: 768px) {
-             { justify-content: flex-start; }
+            body { justify-content: flex-start; }
             
             .main-container { flex-direction: column; height: auto; margin-top: 22vh; justify-content: flex-start; gap: 0; width: 100vw; }
             .product-side { flex: none; width: 100%; display: flex; justify-content: center; align-items: center; }
@@ -156,7 +156,7 @@
         }
     </style>
 </head>
-< class="show-details">
+<body class="show-details">
 
     <img src="logo punk 2.png" alt="3ULT LOGO" class="top-logo" id="main-logo">
 
@@ -283,7 +283,7 @@
 
         // Przekierowanie przycisku return do updated1.html
         document.getElementById('btn-return').addEventListener('click', () => {
-            document..classList.add('is-transitioning');
+            document.body.classList.add('is-transitioning');
             setTimeout(() => { window.location.href = 'updated1.html'; }, 500); 
         });
         
@@ -325,7 +325,7 @@
     <script>
     (function() {
         const toggleHTML = `<div id="lang-toggle-wrapper"><span id="lang-en" class="active">en</span><label class="lang-switch"><input type="checkbox" id="lang-checkbox"><span class="lang-slider"></span></label><span id="lang-pl">pl</span></div>`;
-        document..insertAdjacentHTML('beforeend', toggleHTML);
+        document.body.insertAdjacentHTML('beforeend', toggleHTML);
         const checkbox = document.getElementById('lang-checkbox'), enLabel = document.getElementById('lang-en'), plLabel = document.getElementById('lang-pl');
         
         const dict = [ 
@@ -368,7 +368,7 @@
         }
         function applyLanguage(lang) {
             if (lang === 'pl') { checkbox.checked = true; enLabel.classList.remove('active'); plLabel.classList.add('active'); } else { checkbox.checked = false; plLabel.classList.remove('active'); enLabel.classList.add('active'); }
-            translateNode(document., lang);
+            translateNode(document.body, lang);
             const descBtn = document.querySelector('.toggle-description'), sizechartBtn = document.querySelector('.toggle-sizechart'), availabilityBtn = document.querySelector('.toggle-availability');
             if (descBtn) descBtn.textContent = document.querySelector('.desc-wrapper').classList.contains('active') ? (lang === 'pl' ? 'ukryj opis' : 'hide description') : (lang === 'pl' ? 'pokaż opis' : 'show description');
             if (sizechartBtn) sizechartBtn.textContent = document.querySelector('.sizechart-wrapper').classList.contains('active') ? (lang === 'pl' ? 'ukryj tabelę rozmiarów' : 'hide sizechart') : (lang === 'pl' ? 'pokaż tabelę rozmiarów' : 'show sizechart');
@@ -383,174 +383,175 @@
             if (currentLang === 'en') return; 
             mutations.forEach(mutation => { if (mutation.addedNodes.length) mutation.addedNodes.forEach(node => { if (node.nodeType === 1 && node.id !== 'lang-toggle-wrapper') translateNode(node, currentLang); }); });
         });
-        observer.observe(document., { childList: true, subtree: true });
+        observer.observe(document.body, { childList: true, subtree: true });
     })();
     </script>
-</body>
-  <!-- === PASEK PROMOCYJNY 3ULT (FR33SHIP) === -->
-<style>
-    #promo-top-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        min-height: 30px;
-        background-color: #990000;
-        color: #faf0e6;
-        z-index: 10000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 6px;
-        padding: 5px 14px;
-        font-family: 'Segoe UI', sans-serif;
-        font-size: 11px;
-        font-weight: 400;
-        letter-spacing: 1.5px;
-        text-transform: lowercase;
-        text-align: center;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-        box-shadow: 0 2px 12px rgba(153, 0, 0, 0.35);
-        user-select: none;
-    }
 
-    #promo-code-copy {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: #faf0e6;
-        background: rgba(0, 0, 0, 0.22);
-        border: 1px solid rgba(250, 240, 230, 0.35);
-        padding: 2px 8px;
-        border-radius: 2px;
-        cursor: pointer;
-        transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    #promo-code-copy:hover {
-        background-color: #faf0e6;
-        color: #990000;
-        border-color: #faf0e6;
-    }
-
-    #promo-code-copy:active {
-        transform: scale(0.96);
-    }
-
-    #promo-code-copy.is-copied {
-        background-color: #faf0e6;
-        color: #990000;
-        border-color: #faf0e6;
-    }
-
-    /* Automatyczne przesunięcie logo i przełącznika języka na mobile, aby pasek ich nie zasłaniał */
-    @media (max-width: 768px) {
+    <!-- === PASEK PROMOCYJNY 3ULT (FR33SHIP) === -->
+    <style>
         #promo-top-bar {
-            font-size: 9.5px;
-            letter-spacing: 1px;
-            padding: 6px 10px;
-            line-height: 1.35;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 30px;
+            background-color: #990000;
+            color: #faf0e6;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 5px 14px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: lowercase;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+            box-shadow: 0 2px 12px rgba(153, 0, 0, 0.35);
+            user-select: none;
         }
-        .top-logo {
-            top: 48px !important;
+
+        #promo-code-copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #faf0e6;
+            background: rgba(0, 0, 0, 0.22);
+            border: 1px solid rgba(250, 240, 230, 0.35);
+            padding: 2px 8px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
         }
-        body.view-details .top-logo {
-            top: 46px !important;
+
+        #promo-code-copy:hover {
+            background-color: #faf0e6;
+            color: #990000;
+            border-color: #faf0e6;
         }
-        #lang-toggle-wrapper {
-            top: 54px !important;
+
+        #promo-code-copy:active {
+            transform: scale(0.96);
         }
-        #details-view {
-            padding-top: 135px !important;
+
+        #promo-code-copy.is-copied {
+            background-color: #faf0e6;
+            color: #990000;
+            border-color: #faf0e6;
         }
-    }
-</style>
 
-<div id="promo-top-bar" role="region" aria-label="Promocja">
-    <span id="promo-bar-text">do końca tygodnia darmowa dostawa do paczkomatu z kodem:</span>
-    <button type="button" id="promo-code-copy" title="kliknij, aby skopiować kod">[ FR33SHIP ]</button>
-</div>
-
-<script>
-(function() {
-    const PROMO_CODE = 'FR33SHIP';
-    const textEl = document.getElementById('promo-bar-text');
-    const copyBtn = document.getElementById('promo-code-copy');
-    let resetTimer = null;
-    let isCopiedState = false;
-
-    const copyLabels = {
-        pl: {
-            text: 'do końca tygodnia darmowa dostawa do paczkomatu z kodem:',
-            idle: `[ ${PROMO_CODE} ]`,
-            copied: '[ skopiowano ]'
-        },
-        en: {
-            text: 'free parcel locker delivery until the end of the week with code:',
-            idle: `[ ${PROMO_CODE} ]`,
-            copied: '[ copied ]'
-        }
-    };
-
-    function getCurrentLang() {
-        return localStorage.getItem('3ult_lang') === 'pl' ? 'pl' : 'en';
-    }
-
-    function syncPromoLang() {
-        const lang = getCurrentLang();
-        const dict = copyLabels[lang];
-        if (textEl) textEl.textContent = dict.text;
-        if (copyBtn) copyBtn.textContent = isCopiedState ? dict.copied : dict.idle;
-    }
-
-    function fallbackCopy(text) {
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.focus();
-        textarea.select();
-        try { document.execCommand('copy'); } catch (err) {}
-        document.body.removeChild(textarea);
-    }
-
-    if (copyBtn) {
-        copyBtn.addEventListener('click', () => {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(PROMO_CODE).catch(() => fallbackCopy(PROMO_CODE));
-            } else {
-                fallbackCopy(PROMO_CODE);
+        /* Automatyczne przesunięcie logo i przełącznika języka na mobile, aby pasek ich nie zasłaniał */
+        @media (max-width: 768px) {
+            #promo-top-bar {
+                font-size: 9.5px;
+                letter-spacing: 1px;
+                padding: 6px 10px;
+                line-height: 1.35;
             }
-
-            isCopiedState = true;
-            copyBtn.classList.add('is-copied');
-            syncPromoLang();
-
-            if (resetTimer) clearTimeout(resetTimer);
-            resetTimer = setTimeout(() => {
-                isCopiedState = false;
-                copyBtn.classList.remove('is-copied');
-                syncPromoLang();
-            }, 2000);
-        });
-    }
-
-    // Synchronizacja z istniejącym przełącznikiem języka (EN / PL) na stronie
-    syncPromoLang();
-    setTimeout(syncPromoLang, 80);
-
-    document.addEventListener('change', (e) => {
-        if (e.target && e.target.id === 'lang-checkbox') {
-            syncPromoLang();
+            .top-logo {
+                top: 48px !important;
+            }
+            body.view-details .top-logo {
+                top: 46px !important;
+            }
+            #lang-toggle-wrapper {
+                top: 54px !important;
+            }
+            #details-view {
+                padding-top: 135px !important;
+            }
         }
-    });
-})();
-</script>
-<!-- === KONIEC PASKA PROMOCYJNEGO === -->
+    </style>
+
+    <div id="promo-top-bar" role="region" aria-label="Promocja">
+        <span id="promo-bar-text">do końca tygodnia darmowa dostawa do paczkomatu z kodem:</span>
+        <button type="button" id="promo-code-copy" title="kliknij, aby skopiować kod">[ FR33SHIP ]</button>
+    </div>
+
+    <script>
+    (function() {
+        const PROMO_CODE = 'FR33SHIP';
+        const textEl = document.getElementById('promo-bar-text');
+        const copyBtn = document.getElementById('promo-code-copy');
+        let resetTimer = null;
+        let isCopiedState = false;
+
+        const copyLabels = {
+            pl: {
+                text: 'do końca tygodnia darmowa dostawa do paczkomatu z kodem:',
+                idle: `[ ${PROMO_CODE} ]`,
+                copied: '[ skopiowano ]'
+            },
+            en: {
+                text: 'free parcel locker delivery until the end of the week with code:',
+                idle: `[ ${PROMO_CODE} ]`,
+                copied: '[ copied ]'
+            }
+        };
+
+        function getCurrentLang() {
+            return localStorage.getItem('3ult_lang') === 'pl' ? 'pl' : 'en';
+        }
+
+        function syncPromoLang() {
+            const lang = getCurrentLang();
+            const dict = copyLabels[lang];
+            if (textEl) textEl.textContent = dict.text;
+            if (copyBtn) copyBtn.textContent = isCopiedState ? dict.copied : dict.idle;
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            try { document.execCommand('copy'); } catch (err) {}
+            document.body.removeChild(textarea);
+        }
+
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(PROMO_CODE).catch(() => fallbackCopy(PROMO_CODE));
+                } else {
+                    fallbackCopy(PROMO_CODE);
+                }
+
+                isCopiedState = true;
+                copyBtn.classList.add('is-copied');
+                syncPromoLang();
+
+                if (resetTimer) clearTimeout(resetTimer);
+                resetTimer = setTimeout(() => {
+                    isCopiedState = false;
+                    copyBtn.classList.remove('is-copied');
+                    syncPromoLang();
+                }, 2000);
+            });
+        }
+
+        // Synchronizacja z istniejącym przełącznikiem języka (EN / PL) na stronie
+        syncPromoLang();
+        setTimeout(syncPromoLang, 80);
+
+        document.addEventListener('change', (e) => {
+            if (e.target && e.target.id === 'lang-checkbox') {
+                syncPromoLang();
+            }
+        });
+    })();
+    </script>
+    <!-- === KONIEC PASKA PROMOCYJNEGO === -->
+</body>
 </html>
